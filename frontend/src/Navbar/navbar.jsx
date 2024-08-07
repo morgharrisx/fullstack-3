@@ -1,5 +1,7 @@
 import {Button, Container, Navbar, Nav } from 'react-bootstrap';
 import './navbar.css'; 
+import ReusableButton from '../ReusableButton/ReusableButton';
+
 
 function NavScrollExample() {
   return (
@@ -24,7 +26,8 @@ function NavScrollExample() {
             <Nav.Link href="#action1" className='fw-bold'>VibeFusion</Nav.Link>
           </Nav>
             <Nav.Link className='ml-auto mx-3' href="#contact">Contact Us</Nav.Link>
-            <Button variant="success">Log in / Sign up</Button>
+            {/* <Button variant="success">Log in / Sign up</Button> */}
+            <ReusableButton size= 'lg' text='Log in / Sign up' onClick= 'handle.OnClick' color= 'success' />
         </Navbar.Collapse>
       </Container>
     </Navbar>

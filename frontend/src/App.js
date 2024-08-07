@@ -1,6 +1,6 @@
 import './App.css';
 
-import NavScrollExample from './Navbar/navbar
+import NavScrollExample from './Navbar/navbar';
 import ReusableButton from './ReusableButton/ReusableButton';
 
 
