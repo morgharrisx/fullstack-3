@@ -1,6 +1,4 @@
-.our-logo {
-    margin-left: -60px;
-}
+
 
 .custom-bg {
   background-color: #E0E0E0;
@@ -18,4 +16,9 @@
     height: 4px; 
     background: linear-gradient(to right, #00ff00, #ff00ff); 
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.8); 
+}
+
+
+.brand{
+    font-weight: 600;
 }
