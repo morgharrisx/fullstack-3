@@ -1,4 +1,6 @@
 import Card from 'react-bootstrap/Card';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Card.css';
 
 function CardComponent({header, title, text}) {
   return (
