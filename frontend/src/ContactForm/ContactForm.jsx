@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -22,36 +25,45 @@ const ContactForm = () => {
       setErrors({});
       console.log('Email:', email);
       console.log('Message:', message);
+      // Reset form fields
       setEmail('');
       setMessage('');
     }
   };
 
   return (
-    <div className="contact-form-container">
+    <div className="container mt-5">
       <h2>Contact Us</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={errors.email ? 'error' : ''}
+            isInvalid={!!errors.email}
+            placeholder="Enter email"
           />
-          {errors.email && <span className="error-message">{errors.email}</span>}
-        </div>
-        <div className="form-group">
-          <label>Message:</label>
-          <textarea
+          <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formMessage">
+          <Form.Label>Message</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className={errors.message ? 'error' : ''}
+            isInvalid={!!errors.message}
+            placeholder="Enter your message"
           />
-          {errors.message && <span className="error-message">{errors.message}</span>}
-        </div>
-        <button type="submit" className="submit-button">Submit</button>
-      </form>
+          <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
+        </Form.Group>
+
+        <Button variant="primary" type="submit" className="submit-button">
+          Submit
+        </Button>
+      </Form>
     </div>
   );
 };
