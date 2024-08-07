@@ -1,0 +1,32 @@
+.playlist-item {
+    padding: 5px 0;
+    padding-left: 5px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+  }
+  
+  .music-note-image {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .song-name, .album-name, .views, .runtime {
+    font-size: 16px;
+  }
+  
+  .song-name {
+    font-weight: bold;
+  }
+  
+  .album-name {
+    color: #888;
+  }
+  
+  .views, .runtime {
+    text-align: right;
+  }
+
+
+
+
+  
