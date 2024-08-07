@@ -1,8 +1,10 @@
 import './App.css';
+import NavBar from './Navbar/navbar';
 
 function App() {
   return (
     <div className="App">
+      <NavBar/>
       <h1>Fullstack Team 3</h1>
       <p>I'm Laila, I really love the outdoors and being in nature. I try to spend as much time out as possible. Currently training for a marathon on December! </p>
       <p>Hi, I'm Mehtap. I love playing volleyball, especially beach volleyball, which is very popular here in Barcelona. I enjoy staying active and meeting new people through sports </p>
