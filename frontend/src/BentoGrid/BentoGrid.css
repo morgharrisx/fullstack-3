@@ -1,3 +1,4 @@
+/* This design is not responsive */
 /* body{
     background-color: black;
     color: aliceblue;
@@ -63,6 +64,7 @@
  } */
 
 
+ Responsive but wrong sizes
  * {
     margin: 0;
     padding: 0;

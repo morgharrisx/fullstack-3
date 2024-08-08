@@ -1,3 +1,5 @@
+// not responsive
+
 // import React from 'react';
 // import './BentoGrid.css'; 
 
@@ -22,6 +24,7 @@
 // export default BentoGrid;
 
 
+// wrong box sizes
 import React from 'react';
 import './BentoGrid.css';
 
