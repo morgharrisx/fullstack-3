@@ -32,7 +32,7 @@ function NavScrollExample() {
             <Nav.Link className='ml-auto mx-3' href="#contact">Contact Us</Nav.Link>
             <Nav.Link className='ml-auto mx-3' href="#profile">My profile</Nav.Link>
             {/* <Button variant="success">Log in / Sign up</Button> */}
-            <ReusableButton size= 'lg' text='Log in / Sign up' onClick={handleOnClick} color= 'success' /> 
+            <ReusableButton size= 'sm' text='Log in / Sign up' onClick={handleOnClick} color= 'success' /> 
         </Navbar.Collapse>
       </Container>
     </Navbar>
