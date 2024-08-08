@@ -5,12 +5,19 @@
     border-top: 1px solid #ddd;
   }
   
-  .music-note-image {
+  .album-cover-image {
     width: 30px;
     height: 30px;
   }
+
+  .album-cover-placeholder, .placeholder-box {
+    width: 30px;
+    height: 30px;
+    background-color: #cbcaca;
+    border-radius: 50%;
+  }
   
-  .song-name, .album-name, .views, .runtime {
+  .song-name, .album-name, .artist-name, .views, .runtime {
     font-size: 16px;
   }
   
