@@ -18,7 +18,8 @@ function App() {
           artist="Artist Name 1"
           views="1223"
           runtime="3:45"
-          albumCover={null} // to be replaced with actual album cover url />
+          albumCover={null} // to be replaced with actual album cover url 
+          />
     </div>
   );
 }
