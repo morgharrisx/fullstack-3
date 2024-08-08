@@ -1,5 +1,9 @@
 import './App.css';
 import Footer from './Footer/Footer';
+import CardComponent from './Card/Card';
+import NavScrollExample from './Navbar/navbar';
+import ReusableButton from './ReusableButton/ReusableButton';
+import PlaylistItem from './PlaylistItem/PlaylistItem';
 
 function App() {
   return (
@@ -13,10 +17,23 @@ function App() {
       <p>Hi, I'm Morgan! I spend my free time reading and running my small business - Peach Perfect! I also love going to see new plays and musicals!</p>
 
    
-      <Footer>
-
-      </Footer>
       
+      
+      <NavScrollExample/>
+      <CardComponent header='Header' title='Title' text='This is a random text'></CardComponent>
+      <ReusableButton text='Test First Button'></ReusableButton>
+      <div className="playlist">
+        <br></br>
+        <PlaylistItem 
+          songName="Song Title 1"
+          album="Album Name 1"
+          artist="Artist Name 1"
+          views="1223"
+          runtime="3:45"
+          albumCover={null} // to be replaced with actual album cover url
+        />
+      </div>
+      <Footer/>
     </div>
 
     

@@ -1,0 +1,19 @@
+
+.card {
+    border-radius: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-header {
+    background-color: rgba(26, 127, 110, 0.7);
+  }
+  
+  .card-body {
+    background-color: rgba(162, 234, 222, 0.5);
+  }
+  
