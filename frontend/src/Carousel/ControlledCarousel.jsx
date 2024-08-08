@@ -4,6 +4,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import img1 from './images/1.png';
 import img2 from './images/2.png';
 import img3 from './images/3.png';
+import ReusableButton from '../ReusableButton/ReusableButton';
 
 function ControlledCarousel() {
   const [index, setIndex] = useState(0);
@@ -14,27 +15,30 @@ function ControlledCarousel() {
 
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-      <img src={img1} alt="first slide" className="d-block carousel-image" />
+      <Carousel.Item className='  carousel-item'>
+      <img src={img1} alt="" className="d-block carousel-image" />
         <Carousel.Caption className="carousel-caption">
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3>Discover Your Music Stats</h3>
+          <p>Dive into your Spotify listening history with VibeFusion! Get detailed insights into your most-played tracks, favorite genres, and top artists.</p>
+          <a href="/login"><ReusableButton size="sm" variant="success" text='Learn more'></ReusableButton></a>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
       <img src={img2} alt="second slide" className="d-block carousel-image" />
         <Carousel.Caption className="carousel-caption">
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3>Become the Ultimate DJ</h3>
+          <p>Unleash your inner DJ with VibeFusion! Create and customize playlists with ease, and let our smart recommendations help you curate the perfect soundtrack for any occasion.</p>
+          <a href="/login"><ReusableButton size="sm" variant="success" text='Learn more'></ReusableButton></a>
         </Carousel.Caption >
       </Carousel.Item>
       <Carousel.Item>
       <img src={img3} alt="third slide" className="d-block carousel-image" />
         <Carousel.Caption className="carousel-caption">
-          <h3>Third slide label</h3>
+          <h3>Personalized Playlists Just for You</h3>
           <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          With VibeFusion, enjoy personalized playlists tailored to your unique listening habits. Whether you're working out, relaxing, or partying, we've got the perfect playlist for you. 
           </p>
+          <a href="/login"><ReusableButton size="sm" variant="success" text='Learn more'></ReusableButton></a>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
