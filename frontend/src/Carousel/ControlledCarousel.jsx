@@ -17,24 +17,22 @@ function ControlledCarousel() {
       <Carousel.Item>
       <img src={img1} alt="first slide" className="d-block carousel-image" />
         <Carousel.Caption className="carousel-caption">
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3>Unleash your inner DJ!</h3>
+          <p>Craft your personalised playlists for every occasion.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
       <img src={img2} alt="second slide" className="d-block carousel-image" />
         <Carousel.Caption className="carousel-caption">
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3>Your headphones, your rules!</h3>
+          <p>Revisit the songs that shaped your year.</p>
         </Carousel.Caption >
       </Carousel.Item>
       <Carousel.Item>
       <img src={img3} alt="third slide" className="d-block carousel-image" />
         <Carousel.Caption className="carousel-caption">
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
+          <h3>Chart your rhythm!</h3>
+          <p>See which artists, albums and genres have captured your heart.</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
