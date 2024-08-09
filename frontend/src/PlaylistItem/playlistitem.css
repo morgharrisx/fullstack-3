@@ -1,0 +1,39 @@
+.playlist-item {
+    padding: 5px 0;
+    padding-left: 5px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+  }
+  
+  .album-cover-image {
+    width: 30px;
+    height: 30px;
+  }
+
+  .album-cover-placeholder, .placeholder-box {
+    width: 30px;
+    height: 30px;
+    background-color: #cbcaca;
+    border-radius: 50%;
+  }
+  
+  .song-name, .album-name, .artist-name, .views, .runtime {
+    font-size: 16px;
+  }
+  
+  .song-name {
+    font-weight: bold;
+  }
+  
+  .album-name {
+    color: #888;
+  }
+  
+  .views, .runtime {
+    text-align: right;
+  }
+
+
+
+
+  
