@@ -1,57 +1,41 @@
-// not responsive
+import React from "react";
+import { Row, Container, Col } from "react-bootstrap";
+import "./BentoGrid.css";
 
-// import React from 'react';
-// import './BentoGrid.css'; 
-
-// function BentoGrid() {
-//     return (
-//       <div className="wrapper">
-//         <div className="grid1"></div>
-//         <div className="grid2"></div>
-//         <div className="grid3"></div>
-//         <div className="grid4"></div>
-//         <div className="grid5"></div>
-//         <div className="grid6"></div>
-//         <div className="grid7"></div>
-//         <div className="grid8"></div>
-//         <div className="grid9"></div>
-//         <div className="grid10"></div>
-//         <div className="grid11"></div>
-//       </div>
-//     );
-//   }
-
-// export default BentoGrid;
-
-
-// wrong box sizes
-import React from 'react';
-import './BentoGrid.css';
-
-function BentoGrid() {
+const BentoGrid = () => {
   return (
-    <div className="container">
-      <div className="row row-1">
-        <div className="col">
-          <div className="col-box"></div>
-          <div className="col-box"></div>
-        </div>
-        <div className="col col-2">
-          <div className="col-box"></div>
-          <div className="col-box"></div>
-        </div>
-      </div>
-      <div className="row row-2">
-        <div className="box"></div>
-        <div className="box"></div>
-        <div className="box"></div>
-      </div>
-      <div className="row row-3">
-        <div className="box"></div>
-        <div className="box"></div>
-      </div>
-    </div>
+    <Container>
+      <Row>
+        <Col className="mb-3" xs={12} sm={12} md={12} lg={3}>
+          <div className="box">1</div>
+        </Col>
+        <Col xs={12} sm={12} md={12} lg={9}>
+          <Row>
+            <Col><div className="box">2</div></Col>
+          </Row>
+          <Row className="mt-3">
+            <Col className="mb-3"  xs={12} sm={12} md={12} lg={4}>
+              <div  className="box">3</div>
+            </Col>
+            <Col className="mb-3" xs={12} sm={12} md={12} lg={8}>
+              <div  className="box">4</div>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row>
+        <Col className="mb-3" xs={12} sm={12} md={12} lg={5}>
+          <div className="box">5</div>
+        </Col>
+        <Col className="mb-3" xs={12} sm={12} md={12} lg={4}>
+          <div className="box">6</div>
+        </Col>
+        <Col className="mb-3" xs={12} sm={12} md={12} lg={3}>
+          <div className="box">7</div>
+        </Col>
+      </Row>
+    </Container>
   );
-}
+};
 
 export default BentoGrid;
