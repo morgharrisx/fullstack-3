@@ -1,8 +1,10 @@
 import './App.css';
-import CardComponent from './Card/Card';
 import NavScrollExample from './Navbar/navbar';
 import ReusableButton from './ReusableButton/ReusableButton';
+import BentoGrid from './BentoGrid/BentoGrid';
+import CardComponent from './Card/Card';
 import PlaylistItem from './PlaylistItem/PlaylistItem';
+
 
 function App() {
   return (
@@ -10,6 +12,7 @@ function App() {
       <NavScrollExample/>
       <CardComponent header='Header' title='Title' text='This is a random text'></CardComponent>
       <ReusableButton text='Test First Button'></ReusableButton>
+      <BentoGrid/>
       <div className="playlist">
         <br></br>
         <PlaylistItem 
