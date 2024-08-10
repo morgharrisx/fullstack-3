@@ -1,8 +1,8 @@
 // SuggestedSongs.js
 import React from 'react';
 import { Col } from 'react-bootstrap';
-import PlaylistItem from '../PlaylistItem/PlaylistItem';
-import ReusableButton from '../ReusableButton/ReusableButton';
+import PlaylistItem from '../../PlaylistItem/PlaylistItem'
+import ReusableButton from '../../ReusableButton/ReusableButton';
 import './suggestedsongs.css'; 
 
 const SuggestedSongs = ({ songs }) => {
