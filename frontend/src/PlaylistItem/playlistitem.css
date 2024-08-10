@@ -3,6 +3,8 @@
     padding-left: 5px;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
+    transition: transform 0.5s ease, background-color 0.5s ease, color 0.5s ease;
+    border-radius: 8px;
   }
 
   .playlist-item:hover {
@@ -22,6 +24,20 @@
     background-color: #cbcaca;
     border-radius: 50%;
   }
+
+  /* .playlist-cover-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    height: 100px;
+    width: 100px; 
+  }
+
+  .placeholder-playlist {
+    margin-top: 10px; 
+    width: 50%;
+  } */
+  
   
   .song-name, .album-name, .artist-name, .views, .runtime {
     font-size: 16px;
@@ -32,7 +48,7 @@
   }
   
   .album-name {
-    color: #888;
+    /* color: #888; */
   }
   
   .views, .runtime {
