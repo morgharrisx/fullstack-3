@@ -4,6 +4,7 @@ import NavScrollExample from './Navbar/navbar';
 import ReusableButton from './ReusableButton/ReusableButton';
 import ControlledCarousel from './Carousel/ControlledCarousel';
 import PlaylistItem from './PlaylistItem/PlaylistItem';
+import Dashboard from './Dashboard/Dashboard';
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
           artist="Artist Name 1"
           views="1223"
           runtime="3:45"
-          albumCover={null} // to be replaced with actual album cover url 
+          albumCover={null}
           />
+      <Dashboard></Dashboard>
     </div>
   );
 }
