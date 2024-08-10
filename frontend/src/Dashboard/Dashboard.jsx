@@ -1,7 +1,7 @@
 import React from 'react'
 import './Dashboard.css'
 import { Container, Row, Col} from 'react-bootstrap'
-import Stat1 from './stat1/stat1'
+import FavouriteGenres from './FavouriteGenres/FavouriteGenres'; 
 import NumberedList from './NumberedList/NumberedList';
 import ReusableButton from '../ReusableButton/ReusableButton'
 
@@ -14,7 +14,16 @@ const Dashboard = () => {
                 <Row className='first-row-stats'>
                     <Row>
                         <Col>
-                          <Stat1></Stat1>
+                          <FavouriteGenres data={[
+  { name: "Rock", value: 400 },
+  { name: "Pop", value: 300 },
+  { name: "Hiphop", value: 300 },
+
+]} 
+  width={400} 
+  height={400} 
+  innerRadius={50} 
+  outerRadius={120} ></FavouriteGenres>
                         </Col>
                         <Col>
                           <NumberedList items={['artist','artist','artist','artist','artist','artist','artist','artist','artist','artist']} listName={'Artists'}></NumberedList>
