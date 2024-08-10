@@ -3,6 +3,7 @@ import CardComponent from './Card/Card';
 import NavScrollExample from './Navbar/navbar';
 import ReusableButton from './ReusableButton/ReusableButton';
 import PlaylistItem from './PlaylistItem/PlaylistItem';
+import PlaylistGenerator from './PlaylistGenerator/PlaylistGenerator';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           albumCover={null} // to be replaced with actual album cover url
         />
       </div>
+      <PlaylistGenerator></PlaylistGenerator>
     </div>
   );
 }
