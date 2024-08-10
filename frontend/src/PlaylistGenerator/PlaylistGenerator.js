@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import PlaylistItem from '../PlaylistItem/PlaylistItem'; 
+import SuggestedSongs from './SuggestedSongs/SuggestedSongs';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import './playlistgenerator.css';
 
@@ -101,26 +101,7 @@ const PlaylistGenerator = () => {
 
                     <ReusableButton text="Generate" onClick={handleGenerateClick} className="playlist-generator-button" />
                 </Col>
-
-                {showSongs && (
-                    <Col md={5} className="playlist-generator-col mx-2">
-                        <h5 className="playlist-generator-suggested-header">Suggested Songs</h5>
-                        <div className="playlist-generator-suggested-list">
-                            {songs.map(song => (
-                                <PlaylistItem 
-                                    key={song.id}
-                                    songName={song.songName}
-                                    album={song.album}
-                                    artist={song.artist}
-                                    views={song.views}
-                                    runtime={song.runtime}
-                                    albumCover={song.albumCover}
-                                />
-                            ))}
-                        </div>
-                        <ReusableButton text="Create Playlist" className="playlist-generator-button" />
-                    </Col>
-                )}
+                {showSongs && <SuggestedSongs songs={songs} />}
             </Row>
         </Container>
     );
