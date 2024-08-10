@@ -67,7 +67,8 @@
 
 .playlist-item:hover {
     background-color: rgb(255, 0, 128);
-    transform: scale(1.01);
+    border-radius: 25px;
+    transform: scale(1.01)
 }
 
 .playlist-item:hover .song-name,
@@ -79,8 +80,8 @@
 }
 
 .album-cover-image {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: px;
 }
 
 .album-cover-placeholder, .placeholder-box {
