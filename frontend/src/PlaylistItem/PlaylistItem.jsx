@@ -8,7 +8,7 @@ const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover }) =
     <Row className="playlist-item align-items-center">
       <Col xs={1}>
       {albumCover ? (
-          <Image src={albumCover} className="album-cover-image" rounded />
+          <Image src={albumCover} className="album-cover-image" roundedCircle />
         ) : (
           <Placeholder as="div" animation="glow" className="album-cover-placeholder">
             <Placeholder xs={12} className="placeholder-box"/>
