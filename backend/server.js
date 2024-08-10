@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import express from "express";
 import axios from 'axios';
-
+import SpotifyWebApi from ("spotify-web-api-node");
 dotenv.config();
 
 const app = express();
@@ -13,16 +13,17 @@ app.listen(PORT, () =>
   console.log(`Listening on port ${PORT}!`),
 );
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI;
+const spotifyApi = new SpotifyWebApi ({
+  CLIENT_ID: process.env.CLIENT_ID,
+  CLIENT_SECRET: process.env.CLIENT_SECRET,
+  REDIRECT_URI:process.env.REDIRECT_URI
+})
+
 
 // route for login authentication
 app.get('/login', (req, res) => {
-  const scope = 'user-read-private user-read-email';
-  const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${CLIENT_ID}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`;
-
-  res.redirect(authUrl);
+  const scopes =[ 'user-read-private', 'user-read-email'];
+  res.redirect(spotifyApi.createAuthorizeURL(scopes));
 });
 
 //callback route for spotify response
