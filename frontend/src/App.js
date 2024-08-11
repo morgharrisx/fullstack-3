@@ -13,7 +13,7 @@ function App() {
       <NavScrollExample/>
       <ControlledCarousel />
       <CardComponent header='Header' title='Title' text='This is a random text'></CardComponent>
-      <ReusableButton text='Test First Button'></ReusableButton>
+      <ReusableButton color= {'pink'} text='Test First Button'></ReusableButton>
       <BentoGrid />
       <div className="playlist">
         <br />
