@@ -5,6 +5,7 @@ import img1 from './images/1.png';
 import img2 from './images/2.png';
 import img3 from './images/3.png';
 import ReusableButton from '../ReusableButton/ReusableButton';
+import { Link } from 'react-router-dom';
 
 function ControlledCarousel() {
   const [index, setIndex] = useState(0);
@@ -38,7 +39,10 @@ function ControlledCarousel() {
           <p>
           With VibeFusion, enjoy personalized playlists tailored to your unique listening habits. Whether you're working out, relaxing, or partying, we've got the perfect playlist for you. 
           </p>
-          <a href="/login"><ReusableButton size="sm" variant="success" text='Learn more'></ReusableButton></a>
+          <Link to="/recommended"> {/* Link to the recommended page */}
+            <ReusableButton size="sm" variant="success" text='Learn more' />
+          </Link>
+          {/* <a href="/login"><ReusableButton size="sm" variant="success" text='Learn more'></ReusableButton></a> */}
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
