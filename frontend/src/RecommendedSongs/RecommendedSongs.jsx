@@ -29,4 +29,21 @@ const convertToMMSS = (seconds) => {
       fetchSongs();
     }, []);
     if (loading) return <div>Loading. Please wait...</div>;
-    
+    return (
+        <div className="recommended-songs">
+            <h2>Recommended Songs</h2>
+          {songs.map((song) => (
+            <PlaylistItem
+              key={song.id}
+              songName={song.title}
+              album={song.album.title}
+              artist={song.artist.name}
+              views={song.rank} //Do we need this?
+              runtime={convertToMMSS(song.duration)}
+              albumCover={song.album.cover_small}
+            />
+          ))}
+        </div>
+      );
+    };
+    export default RecommendedSongs;
