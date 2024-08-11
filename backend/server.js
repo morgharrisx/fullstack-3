@@ -1,12 +1,10 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
-import axios from "axios";
+import axios from "axios"; // not using currently 
 dotenv.config();
 
-
 import SpotifyWebApi from "spotify-web-api-node";
-
 
 const app = express();
 app.use(cors());
@@ -35,7 +33,6 @@ app.get("/callback", async (req, res) => {
   console.log("Authorization Code:", code);
   console.log("Error Query Parameter:", error); //showing undefined
 
-  
   if (error) {
     console.error("Error:", error);
     res.send(`Error:, ${error}`);
@@ -52,7 +49,11 @@ app.get("/callback", async (req, res) => {
       spotifyApi.setAccessToken(accessToken);
       spotifyApi.setRefreshToken(refreshToken);
 
-      console.log(accessToken, refreshToken);
+      //access token and refresh token showing in the terminal
+      console.log(
+        `Access Token:${accessToken}`,
+        `Refresh Token:${refreshToken}`
+      );
       res.send("We got it!!");
 
       setInterval(async () => {
@@ -67,6 +68,7 @@ app.get("/callback", async (req, res) => {
     });
 });
 
+// The below code is using axios and some frontend connecting (not working atm)
 
 // //callback route for spotify response
 // app.get('/callback', async (req, res) => {
