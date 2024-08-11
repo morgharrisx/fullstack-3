@@ -47,9 +47,9 @@
     font-weight: bold;
   }
   
-  .album-name {
-    /* color: #888; */
-  }
+  /* .album-name {
+    color: #888;
+  } */
   
   .views, .runtime {
     text-align: right;
