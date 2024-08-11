@@ -2,9 +2,9 @@ import React from 'react';
 import { Treemap, ResponsiveContainer } from 'recharts';
 
 const data = [
-  { name: 'Genre A', size: 400 },
-  { name: 'Genre B', size: 300 },
-  { name: 'Genre C', size: 300 },
+  { name: 'Bpm A', size: 400 },
+  { name: 'Bpm B', size: 300 },
+  { name: 'Bpm C', size: 300 },
 ];
 
 const TopBpm = () => {
