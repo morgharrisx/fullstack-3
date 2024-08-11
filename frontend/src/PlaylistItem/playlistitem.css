@@ -1,17 +1,17 @@
-/* .playlist-item {
+.playlist-item {
     padding: 5px 0;
     padding-left: 5px;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
     transition: transform 0.5s ease, background-color 0.5s ease, color 0.5s ease;
-    border-radius: 8px;
+    border-radius: 15px;
   }
 
   .playlist-item:hover {
     background-color: rgb(255, 0, 128);
-    color: #ffffff;
-    transform: scale(1.1);
-  }
+    border-radius: 25px;
+    transform: scale(1.01);
+}
   
   .album-cover-image {
     width: 30px;
@@ -25,7 +25,7 @@
     border-radius: 50%;
   }
 
-  /* .playlist-cover-placeholder {
+  .playlist-cover-placeholder {
     display: flex;
     justify-content: center;
     align-items: flex-start; 
@@ -36,7 +36,7 @@
   .placeholder-playlist {
     margin-top: 10px; 
     width: 50%;
-  } */
+  }
   
   
   .song-name, .album-name, .artist-name, .views, .runtime {
@@ -46,62 +46,21 @@
   .song-name {
     font-weight: bold;
   }
-  
-  /* .album-name {
-    color: #888;
-  } */
-  
-  .views, .runtime {
-    text-align: right;
-  } */
 
-  .playlist-item {
-    padding: 5px 0;
-    padding-left: 5px;
-    width: 1500px;
-    margin: auto;    
-    border-bottom: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.playlist-item:hover {
-    background-color: rgb(255, 0, 128);
-    border-radius: 25px;
-    transform: scale(1.01)
-}
-
-.playlist-item:hover .song-name,
+  .playlist-item:hover .song-name,
 .playlist-item:hover .album-name,
 .playlist-item:hover .artist-name,
 .playlist-item:hover .views,
 .playlist-item:hover .runtime {
     color: #ffffff;
 }
-
-.album-cover-image {
-    width: 25px;
-    height: px;
-}
-
-.album-cover-placeholder, .placeholder-box {
-    width: 30px;
-    height: 30px;
-    background-color: #cbcaca;
-    border-radius: 50%;
-}
-
-.song-name, .album-name, .artist-name, .views, .runtime {
-    font-size: 16px;
-}
-
-.song-name {
-    font-weight: bold;
-}
-
-.views, .runtime {
+  
+  .views, .runtime {
     text-align: right;
-}
+  }
+
+
+
 
 
   
