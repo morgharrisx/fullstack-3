@@ -6,6 +6,7 @@ import BentoGrid from './BentoGrid/BentoGrid';
 import CardComponent from './Card/Card';
 import PlaylistItem from './PlaylistItem/PlaylistItem';
 import Dashboard from './Dashboard/Dashboard';
+import RecommendedSongs from './RecommendedSongs/RecommendedSongs';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         />
       </div>
       <Dashboard />
+      <RecommendedSongs />
     </div>
   );
 }
