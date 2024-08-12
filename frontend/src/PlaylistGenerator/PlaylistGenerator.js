@@ -44,11 +44,14 @@ const PlaylistGenerator = () => {
             console.error("Error fetching tracks:", error);
         }
     };
-    
+    const handleDelete = (id) => {
+        setSongs(songs.filter(song => song.id !== id));
+    };
     return (
         <Container className="playlist-generator-container mt-5">
             <Row>
-                <Col md={showSongs ? 6 : 12} className="playlist-generator-col">
+                <Col md={showSongs ? 6 : 12} className="playlist-generator-col my-3">
+                <p className="playlist-generator-suggested-header display-6">Find your perfect match</p>    
                     <Form.Group controlId="genreSelect" className="playlist-generator-form-group mb-3">
                         <Form.Label>Genre</Form.Label>
                         <Form.Control as="select" value={genre} onChange={(e) => setGenre(e.target.value)} className="form-control">

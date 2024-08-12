@@ -1,15 +1,18 @@
-// SuggestedSongs.js
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import PlaylistItem from '../../PlaylistItem/PlaylistItem'
 import ReusableButton from '../../ReusableButton/ReusableButton';
 import './suggestedsongs.css'; 
 
+
 const SuggestedSongs = ({ songs }) => {
+    function handleGeneratePlaylist () {
+        //TODO: Push it to users spotify
+    }
     return (
         <Col md={5} className="playlist-generator-col mx-2">
-            <h5 className="playlist-generator-suggested-header">Suggested Songs</h5>
-            <div className="playlist-generator-suggested-list">
+            <p className="playlist-generator-suggested-header display-6">Suggested Songs</p>
+            <div className="playlist-generator-suggested-list my-3">
                 {songs.map(song => (
                     <PlaylistItem 
                         key={song.id}
@@ -22,7 +25,7 @@ const SuggestedSongs = ({ songs }) => {
                     />
                 ))}
             </div>
-            <ReusableButton text="Create Playlist" className="playlist-generator-button" />
+            <ReusableButton text="Create Playlist" onClick={handleGeneratePlaylist} className="playlist-generator-button" />
         </Col>
     );
 };

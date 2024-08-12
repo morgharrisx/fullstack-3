@@ -4,6 +4,11 @@
     margin: 20px auto; 
     background-color: #fff; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
 }
 
 /* CHANGE COLOR OF THE SLIDER RANGE FROM BLUE TO PINK */
@@ -24,7 +29,7 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    background-color: #ff008c;
+    background-color: #ff008c !important;
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -33,7 +38,7 @@
 .form-range::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    background-color: #ff008c; 
+    background-color: #ff008c !important; 
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -42,20 +47,20 @@
 .form-range::-ms-thumb {
     width: 20px;
     height: 20px;
-    background-color: #ff008c; 
+    background-color: #ff008c !important; 
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .form-range::-webkit-slider-thumb:hover {
-    background-color: #8c004d; 
+    background-color: #8c004d !important; 
 }
 
 .form-range::-moz-range-thumb:hover {
-    background-color: #8c004d; 
+    background-color: #8c004d !important; 
 }
 
 .form-range::-ms-thumb:hover {
-    background-color: #8c004d;
+    background-color: #8c004d !important;
 }
