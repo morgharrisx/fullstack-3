@@ -1,23 +1,16 @@
 import React from 'react';
 import { Treemap, ResponsiveContainer } from 'recharts';
 
-const data = [
-  { name: 'Bpm A', size: 400 },
-  { name: 'Bpm B', size: 300 },
-  { name: 'Bpm C', size: 300 },
-];
-
-const TopBpm = () => {
+const TopBpm = ({ data, dataKey = "size", ratio = 4 / 3 }) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
+      <p className='lead'>Your Top BPM</p>
       <Treemap
-        width={400}
-        height={200}
         data={data}
-        dataKey="size"
-        ratio={4 / 3}
+        dataKey={dataKey}
+        ratio={ratio}
         stroke="#fff"
-        fill="#8884d8"
+        fill="#FF0080"
       />
     </ResponsiveContainer>
   );

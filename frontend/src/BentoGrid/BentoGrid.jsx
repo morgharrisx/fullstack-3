@@ -7,6 +7,7 @@ import TopBpm from "./TopBpm/TopBpm";
 import CompatibleSongs from "./CompatibleSongs/CompatibleSongs";
 import TopMusicalKeys from "./TopMusicalKeys/TopMusicalKeys";
 import Mood from "./Mood/Mood";
+import CrowdPleaser from "./CrowdPleaser/CrowdPleaser";
 
 const BentoGrid = () => {
   const [compatibleSongsArray, setCompatibleSongsArray] = useState([
@@ -25,6 +26,18 @@ const BentoGrid = () => {
       album: 'Future Nostalgia',
       artist: 'Dua Lipa'
     }
+  ]);
+
+  const [topBPM, setTopBPM] = useState([
+    { name: 'Bpm A', size: 600 },
+    { name: 'Bpm B', size: 300 },
+    { name: 'Bpm C', size: 100 },
+  ]);
+
+  const [topMusicalKeys, setTopMusicalKeys] = useState([
+    { name: 'C Major', minutesListened: 120 },
+    { name: 'G Major', minutesListened: 90 },
+    { name: 'A Minor', minutesListened: 75 },
   ]);
 
 
@@ -90,20 +103,19 @@ const BentoGrid = () => {
           <Row className="mt-3">
             <Col  xs={12} sm={12} md={12} lg={4}>
               <div className="bento-stat-container">
-                <TopBpm
-                  data={[
-                    { name: "Genre 1", bpm: 120 },
-                    { name: "Genre 2", bpm: 128 },
-                    { name: "Genre 3", bpm: 135 },
-                  ]}
-                  width={400}
-                  height={200}
-                />
+              <TopBpm data={topBPM} width={400} height={200} />
               </div>
             </Col>
             <Col className="mt-2" xs={12} sm={12} md={12} lg={8}>
               <div className="bento-stat-container">
-                <TopMusicalKeys />
+              <TopMusicalKeys 
+                  data={topMusicalKeys} 
+                  xAxisKey="name" 
+                  yAxisKey="minutesListened" 
+                  barColor="#8884d8"
+                  width={600}
+                  height={300}
+                />
               </div>
             </Col>
           </Row>
@@ -123,7 +135,7 @@ const BentoGrid = () => {
         </Col>
         <Col className="mt-2" xs={12} sm={12} md={12} lg={3}>
         <div className="bento-stat-container">
-        <p className="lead">Crowd pleaser (most danceable song)</p>
+       <CrowdPleaser songName={'Levitating'} artist={'Dua Lipa'}></CrowdPleaser>
             </div>
         </Col>
       </Row>
