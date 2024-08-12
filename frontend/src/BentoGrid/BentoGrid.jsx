@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import "./BentoGrid.css";
 import NumberedList from "./NumberedList/NumberedList";
@@ -9,6 +9,34 @@ import TopMusicalKeys from "./TopMusicalKeys/TopMusicalKeys";
 import Mood from "./Mood/Mood";
 
 const BentoGrid = () => {
+  const [compatibleSongsArray, setCompatibleSongsArray] = useState([
+    {
+      songName: 'Shape of You',
+      album: '÷ (Divide)',
+      artist: 'Ed Sheeran',
+      views: '2.1B',
+      runtime: '4:24',
+      albumCover: 'https://example.com/shapeofyou.jpg'
+    },
+    {
+      songName: 'Blinding Lights',
+      album: 'After Hours',
+      artist: 'The Weeknd',
+      views: '1.9B',
+      runtime: '3:20',
+      albumCover: 'https://example.com/blindinglights.jpg'
+    },
+    {
+      songName: 'Levitating',
+      album: 'Future Nostalgia',
+      artist: 'Dua Lipa',
+      views: '1.2B',
+      runtime: '3:23',
+      albumCover: 'https://example.com/levitating.jpg'
+    }
+  ]);
+
+
   return (
     <Container>
       <Row>
@@ -78,17 +106,8 @@ const BentoGrid = () => {
         {/* To do: figure out placing the titles of boxes at the top and fixing the most compatible songs box */}
         <Col className="mb-3" xs={12} sm={12} md={12} lg={5}>
           <div className="box">
-            <p className="lead">Most compatible songs</p>
-            <CompatibleSongs
-              songName="Song Title"
-              artist="Artist Name"
-              albumCover="https://example.com/album-cover.jpg"
-            />
-            <CompatibleSongs
-              songName="Song Title"
-              artist="Artist Name"
-              albumCover="https://example.com/album-cover.jpg"
-            />
+            <CompatibleSongs compatibleSongsArray={compatibleSongsArray} />
+           
           </div>
         </Col>
         <Col className="mb-3" xs={12} sm={12} md={12} lg={4}>
