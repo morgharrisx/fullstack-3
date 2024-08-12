@@ -2,6 +2,7 @@ import {Button, Container, Navbar, Nav } from 'react-bootstrap';
 import './navbar.css'; 
 import ReusableButton from '../ReusableButton/ReusableButton';
 import GreenLogo from './logo/green-logo.png';
+import { Link } from 'react-router-dom';
 
 function handleOnClick() {
   console.log('Button clicked');
@@ -12,6 +13,7 @@ function NavScrollExample() {
   return (
     <Navbar expand="lg" className="custom-bg">
       <Container fluid>
+      <Link to="/">
       <Navbar.Brand href="#home" className="our-logo">
                         <img
                             src={GreenLogo}
@@ -21,6 +23,7 @@ function NavScrollExample() {
                             alt="Logo" 
                         />
         </Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -28,10 +31,10 @@ function NavScrollExample() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#action1" className='fw-bold'>VibeFusion</Nav.Link>
+             <Link to="/"><Nav.Link href='/' className='fw-bold'>VibeFusion</Nav.Link></Link>
           </Nav>
-            <Nav.Link className='ml-auto mx-3' href="#contact">Contact Us</Nav.Link>
-            <Nav.Link className='ml-auto mx-3' href="#profile">My profile</Nav.Link>
+          <Link to="/contact"><Nav.Link className='ml-auto mx-3' href="/contact">Contact Us</Nav.Link></Link>
+            <Link to="/profile"><Nav.Link className='ml-auto mx-3' href="/profile">My profile</Nav.Link></Link>
             {/* <Button variant="success">Log in / Sign up</Button> */}
             <ReusableButton size= 'sm' text='Log in / Sign up' onClick={handleOnClick} color= 'success' /> 
         </Navbar.Collapse>
