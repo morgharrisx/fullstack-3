@@ -1,23 +1,24 @@
 import './App.css';
-import Footer from './Footer/Footer';
 import NavScrollExample from './Navbar/navbar';
+import PlaylistGenerator from './PlaylistGenerator/PlaylistGenerator';
+import Footer from './Footer/Footer';
 import ControlledCarousel from './Carousel/ControlledCarousel';
 import BentoGrid from './BentoGrid/BentoGrid';
 import Dashboard from './Dashboard/Dashboard';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 function App() {
-
   return (
     <div className="App">
-      <NavScrollExample/>
+      <NavScrollExample />
+      <PlaylistGenerator />
       <ControlledCarousel />
       <BentoGrid />
       <Dashboard />
-      <Footer/>
+      <Footer />
     </div>
   );
 }
 
 export default App;
+
