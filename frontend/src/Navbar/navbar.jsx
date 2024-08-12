@@ -5,6 +5,7 @@ import GreenLogo from './logo/green-logo.png';
 
 function handleOnClick() {
   console.log('Button clicked');
+  window.location.href = 'http://localhost:5001/login';
 }
 
 function NavScrollExample() {
