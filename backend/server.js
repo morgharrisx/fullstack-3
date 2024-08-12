@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
-import axios from "axios"; // not using currently 
-dotenv.config();
+import axios from "axios"; // not using currently
+dotenv.config({path :"./api/.env"});
 
 import SpotifyWebApi from "spotify-web-api-node";
 
@@ -20,7 +20,7 @@ const spotifyApi = new SpotifyWebApi({
 
 // route for login authentication
 app.get("/login", (req, res) => {
-  const scopes = ["user-read-private", "user-read-email"];
+  const scopes = ["user-read-private", "user-read-email", "user-top-read"];
   res.redirect(spotifyApi.createAuthorizeURL(scopes));
 });
 
@@ -48,7 +48,7 @@ app.get("/callback", async (req, res) => {
 
       spotifyApi.setAccessToken(accessToken);
       spotifyApi.setRefreshToken(refreshToken);
-
+      
       //access token and refresh token showing in the terminal
       console.log(
         `Access Token:${accessToken}`,
@@ -68,33 +68,35 @@ app.get("/callback", async (req, res) => {
     });
 });
 
+app.get("/search", async (req, res)=>{
+    const {q} =  req.query
+    console.log(spotifyApi.accessToken)
+    spotifyApi.searchTracks(q).then((data)=>{
+      console.log(JSON.stringify(data, null, 4))
+      return res.json({data})
+    }).catch((error)=>{
+      console.error("Error:", error);
+      res.send("Err searching")
+    })
+})
+  
+app.get("/top-track", async (req, res) => {
+    spotifyApi
+    .getMyTopTracks({ time_range: "medium_term" })
+    .then((topTracksResponse) => {
+      const trackData = topTracksResponse.body.items.map((topTrackResponse) => ({
+        song_name: topTrackResponse.name,
+        artist_names: topTrackResponse.artists.map((artist) => artist.name),
+      }));
 
-// The below code is using axios and some frontend connecting (not working atm)
+      return res.json({
+        message: "Success",
+        total: trackData.length,
+        data: trackData,
+      });
+    }).catch((error)=>{
+      console.error("Error:", JSON.stringify(error, null, 4));
+      res.send("Error getting top tracks");
+    });
+});
 
-// //callback route for spotify response
-// app.get('/callback', async (req, res) => {
-//   const code = req.query.code || null;
-
-//   try {
-//     const response = await axios({
-//       method: 'post',
-//       url: 'https://accounts.spotify.com/api/token',
-//       data: new URLSearchParams({
-//         grant_type: 'authorization_code',
-//         code: code,
-//         redirect_uri: REDIRECT_URI,
-//       }),
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded',
-//         'Authorization': 'Basic ' + Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64'),
-//       },
-//     });
-
-//     const { access_token, refresh_token } = response.data;
-
-//     // Redirect to frontend with tokens
-//     res.redirect(`http://localhost:5001?access_token=${access_token}&refresh_token=${refresh_token}`);
-//   } catch (error) {
-//     res.send('Error during authentication');
-//   }
-// });
