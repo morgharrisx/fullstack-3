@@ -1,10 +1,13 @@
 .playlist-item {
-    padding: 5px 0;
-    padding-left: 5px;
+    padding: 1rem 0;
+    padding-left: 1rem;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
     transition: transform 0.5s ease, background-color 0.5s ease, color 0.5s ease;
     border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .playlist-item:hover {
@@ -14,37 +17,45 @@
 }
   
   .album-cover-image {
-    width: 30px;
-    height: 30px;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem;
   }
 
   .album-cover-placeholder, .placeholder-box {
-    width: 30px;
-    height: 30px;
+    width: 2rem;
+    height: 2rem;
     background-color: #cbcaca;
     border-radius: 50%;
+    margin-right: 1rem;
   }
 
-  .playlist-cover-placeholder {
+  /* .playlist-cover-placeholder {
     display: flex;
     justify-content: center;
     align-items: flex-start; 
-    height: 100px;
-    width: 100px; 
-  }
+    height: 6.25rem;
+    width: 6.25rem; 
+  } */
 
-  .placeholder-playlist {
-    margin-top: 10px; 
+  /* .placeholder-playlist {
+    margin-top: 0.625rem; 
     width: 50%;
   }
-  
+   */
   
   .song-name, .album-name, .artist-name, .views, .runtime {
-    font-size: 16px;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 1rem;
+    max-width: 10%;
   }
   
   .song-name {
     font-weight: bold;
+    max-width: 5%;
   }
 
   .playlist-item:hover .song-name,
@@ -57,8 +68,44 @@
   
   .views, .runtime {
     text-align: right;
+    max-width: 10%;
   }
 
+  @media only screen and (max-width: 768px) {
+    .playlist-item {
+      padding: 0.5rem;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+
+    .album-cover-image,
+    .album-cover-placeholder,
+    .placeholder-box {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 0.5rem;
+    }
+
+    .playlist-cover-placeholder {
+      height: 4rem;
+      width: 4rem;
+    }
+
+    .song-name, .album-name, .artist-name, .views, .runtime {
+      font-size: 0.8rem;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 5%;
+      padding-right: 0.5rem;
+    }
+
+    .views, .runtime {
+      text-align: right;
+      margin-left: auto;
+    }
+  }
 
 
 

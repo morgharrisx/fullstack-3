@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PlaylistItem from '../PlaylistItem/PlaylistItem';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col, Image, Placeholder } from 'react-bootstrap';
+import './RecommendedSongs.css'
 
 const CORS_PROXY = 'https://thingproxy.freeboard.io/fetch/';
 
@@ -11,7 +12,7 @@ const convertToMMSS = (seconds) => {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
-  const RecommendedSongs = () => {
+  const RecommendedSongs = ({playlistCover}) => { 
     const [songs, setSongs] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -29,9 +30,30 @@ const convertToMMSS = (seconds) => {
       fetchSongs();
     }, []);
     if (loading) return <div>Loading. Please wait...</div>;
+    const albumCovers = songs.slice(0,4).map((songs) => songs.album.cover_medium);
     return (
-        <div className="recommended-songs">
-            <h2>Recommended Songs</h2>
+      <Container fluid>
+        <Row className='title-row'>
+          <Col xs={6} className="cover-col">
+            {albumCovers.length === 4 ? (
+              <div className='playlist-cover-grid'>
+                  {albumCovers.map((cover,index) => (
+                    <Image key={index} src={cover} className='grid-cover-image'/>
+                  ))}
+              </div>
+            ) : (
+              <Placeholder as="div" animation="glow" className="playlist-cover-placeholder">
+                <Placeholder xs={12} className="placeholder-box"/>
+              </Placeholder>
+            )}
+        </Col>
+        <Col xs={5} className="title-col">
+          <h2>Recommended Playlist</h2>
+        </Col>
+      </Row>
+      <br></br>
+      <Row>
+        <Col className="recommended-songs-container">
           {songs.map((song) => (
             <PlaylistItem
               key={song.id}
@@ -43,7 +65,9 @@ const convertToMMSS = (seconds) => {
               albumCover={song.album.cover_small}
             />
           ))}
-        </div>
-      );
-    };
-    export default RecommendedSongs;
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+export default RecommendedSongs;

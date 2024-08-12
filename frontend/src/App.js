@@ -1,38 +1,3 @@
-// import './App.css';
-// import React from 'react';
-// import NavScrollExample from './Navbar/navbar';
-// import ReusableButton from './ReusableButton/ReusableButton';
-// import ControlledCarousel from './Carousel/ControlledCarousel';
-// import BentoGrid from './BentoGrid/BentoGrid';
-// import CardComponent from './Card/Card';
-// // import PlaylistItem from './PlaylistItem/PlaylistItem';
-// import Dashboard from './Dashboard/Dashboard';
-// import RecommendedSongs from './RecommendedSongs/RecommendedSongs';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <NavScrollExample/>
-//       <ControlledCarousel />
-//       <CardComponent header='Header' title='Title' text='This is a random text'></CardComponent>
-//       <ReusableButton color= {'pink'} text='Test First Button'></ReusableButton>
-//       <BentoGrid />
-//       <Dashboard />
-//       <RecommendedSongs />
-//     <Router> 
-//       <Routes>
-//         <Route path="/" element={<App />} />
-//         <Route path="/recommended" element={<RecommendedPlaylist />} />
-//       </Routes>
-//     </Router>
-//      </div>
-//   );
-// }
-
-// export default App;
-
 import './App.css';
 import React from 'react';
 import NavScrollExample from './Navbar/navbar';

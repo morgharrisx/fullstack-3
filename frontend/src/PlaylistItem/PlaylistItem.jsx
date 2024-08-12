@@ -23,10 +23,10 @@ const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover }) =
             <Col xs={3}>
               <span className="album-name">{album}</span>
             </Col>
-            <Col xs={3}>
+            <Col xs={2}>
               <span className="artist-name">{artist}</span>
             </Col>
-            <Col xs={1}>
+            <Col xs={2}>
               <span className="views">{views}</span>
             </Col>
             <Col xs={1}>

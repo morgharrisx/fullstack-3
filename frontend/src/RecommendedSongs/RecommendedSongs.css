@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+  }
+  
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .cover-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-row {
+    background-image: linear-gradient(180deg, rgb(255, 0, 128), rgb(255, 255, 255));
+    width: 100%;  
+    margin: 0; 
+    padding: 1rem 2rem; 
+    display: flex;
+    align-items: center; 
+    gap: 1rem; /* Space between image and title */
+}
+
+.title-col h2 {
+    font-size: 5rem;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    margin: 0; /* Remove default margin */
+    text-align: left; /* Align the text to the left */
+}
+
+.recommended-songs-container {
+  max-width: 1200px; 
+  padding: 50px 100px; 
+  border-radius: 20px;
+  margin: 20px auto;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-align: justify;
+}
+  
+.playlist-cover-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0px;
+  width: 20rem;
+  height: 20rem;
+
+}
+
+.grid-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  align-items: right;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.15);
+}
+
+.recommended-songs h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    color: rgb(255, 255, 255);
+  }
+  
+.playlist-cover-image {
+    width: 40rem; /* Adjust size as needed */
+    height: 40rem; /* Ensure the image is square */
+    object-fit: cover; /* Cover the entire box without stretching */
+    border-radius: 0rem; 
+}
+  
+.playlist-cover-placeholder {
+    width: 20rem; /* Adjust size as needed */
+    height: 20rem; /* Ensure the image is square */
+    background-color: #e3e3e3;
+    border-radius: 0;
+    /* object-fit: cover; Cover the entire box without stretching */
+    /* border-radius: 0.5rem; Rounded corners */
+}
