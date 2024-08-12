@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
 import axios from "axios"; // not using currently
-dotenv.config();
+dotenv.config({path :"./api/.env"});
 
 import SpotifyWebApi from "spotify-web-api-node";
 
@@ -25,7 +25,8 @@ app.get("/login", (req, res) => {
     "user-read-email",
     "playlist-modify-public",
     "playlist-modify-private",
-  ];
+    "user-top-read"
+  ]
   res.redirect(spotifyApi.createAuthorizeURL(scopes));
 });
 
@@ -53,7 +54,7 @@ app.get("/callback", async (req, res) => {
 
       spotifyApi.setAccessToken(accessToken);
       spotifyApi.setRefreshToken(refreshToken);
-
+      
       //access token and refresh token showing in the terminal
       console.log(
         `Access Token:${accessToken}`,
@@ -72,3 +73,35 @@ app.get("/callback", async (req, res) => {
       res.send("Error getting token");
     });
 });
+
+app.get("/search", async (req, res)=>{
+    const {q} =  req.query
+    console.log(spotifyApi.accessToken)
+    spotifyApi.searchTracks(q).then((data)=>{
+      return res.json({data})
+    }).catch((error)=>{
+      console.error("Error:", error);
+      res.send("Err searching")
+    })
+})
+  
+app.get("/top-track", async (req, res) => {
+    spotifyApi
+    .getMyTopTracks({ time_range: "medium_term" })
+    .then((topTracksResponse) => {
+      const trackData = topTracksResponse.body.items.map((topTrackResponse) => ({
+        song_name: topTrackResponse.name,
+        artist_names: topTrackResponse.artists.map((artist) => artist.name),
+      }));
+
+      return res.json({
+        message: "Success",
+        total: trackData.length,
+        data: trackData,
+      });
+    }).catch((error)=>{
+      console.error("Error:", JSON.stringify(error, null, 4));
+      res.send("Error getting top tracks");
+    });
+});
+
