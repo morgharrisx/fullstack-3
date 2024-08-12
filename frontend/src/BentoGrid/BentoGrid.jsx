@@ -31,7 +31,8 @@ const BentoGrid = () => {
   return (
     <Container>
       <Row>
-        <Col className="mb-3 bento-stat-container" xs={12} sm={12} md={12} lg={3}>
+        <Col className="mb-3" xs={12} sm={12} md={12} lg={3}>
+        <div className="bento-stat-container">
             <TopList
               items={[
                 "artist",
@@ -62,12 +63,12 @@ const BentoGrid = () => {
               ]}
               listName={"Songs"}
             />
-          
+          </div>
         </Col>
         <Col xs={12} sm={12} md={12} lg={9}>
           <Row>
             <Col>
-              <div className="box">
+              <div className="bento-stat-container">
                 <FavouriteGenres
                   data={[
                     { name: "Rock", value: 400 },
@@ -87,7 +88,7 @@ const BentoGrid = () => {
           </Row>
           <Row className="mt-3">
             <Col className="mb-3" xs={12} sm={12} md={12} lg={4}>
-              <div className="box">
+              <div className="bento-stat-container">
                 <TopBpm
                   data={[
                     { name: "Genre 1", bpm: 120 },
@@ -100,7 +101,7 @@ const BentoGrid = () => {
               </div>
             </Col>
             <Col className="mb-3" xs={12} sm={12} md={12} lg={8}>
-              <div className="box">
+              <div className="bento-stat-container">
                 <TopMusicalKeys />
               </div>
             </Col>
@@ -108,20 +109,23 @@ const BentoGrid = () => {
         </Col>
       </Row>
       <Row>
-        {/* To do: figure out placing the titles of boxes at the top and fixing the most compatible songs box */}
         <Col className="mb-3" xs={12} sm={12} md={12} lg={5}>
-          <div className="box">
+          
             <CompatibleSongs compatibleSongsArray={compatibleSongsArray} />
            
-          </div>
         </Col>
-        <Col className="mb-3 bento-stat-container" xs={12} sm={12} md={12} lg={4}>
-            <Mood />
+        <Col className="mb-3" xs={12} sm={12} md={12} lg={4}>
+            <div className="bento-stat-container">
+            <Mood/>
+            </div>
+            
         </Col>
         <Col className="mb-3" xs={12} sm={12} md={12} lg={3}>
-          <div className="box">
-            <p className="lead">Crowd pleaser (most danceable song)</p>
-          </div>
+        <div className="bento-stat-container">
+        <p className="lead">Crowd pleaser (most danceable song)</p>
+            </div>
+            
+
         </Col>
       </Row>
     </Container>
