@@ -39,7 +39,7 @@ MoodChart.defaultProps = {
   ],
   cx: 200, 
   cy: 200,
-  iR: 60,  
-  oR: 120, 
+  iR: 70,  
+  oR: 170, 
   chartLabel: 'Mood Distribution',
 };

@@ -25,7 +25,7 @@ const CrowdPleaser = ({songName,albumCover,artist}) => {
         <Row className="mb-3">
            <Col>{artist}</Col>
         </Row >
-        <ReusableButton color={'pink'} text={'See more'}></ReusableButton>
+        <ReusableButton color={'pink'} text={'Go to DJ Hub'}></ReusableButton>
     </Container>
   )
 }
