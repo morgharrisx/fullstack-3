@@ -115,10 +115,8 @@ const BentoGrid = () => {
            
           </div>
         </Col>
-        <Col className="mb-3" xs={12} sm={12} md={12} lg={4}>
-          <div className="box">
+        <Col className="mb-3 bento-stat-container" xs={12} sm={12} md={12} lg={4}>
             <Mood />
-          </div>
         </Col>
         <Col className="mb-3" xs={12} sm={12} md={12} lg={3}>
           <div className="box">
