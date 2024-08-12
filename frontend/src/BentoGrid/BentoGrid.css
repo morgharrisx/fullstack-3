@@ -4,10 +4,11 @@
     background-color: #fff; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
     height: 100%;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: justify;
+    text-align: center;
 }
 

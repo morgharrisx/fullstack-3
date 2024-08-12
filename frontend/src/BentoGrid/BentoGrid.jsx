@@ -30,8 +30,8 @@ const BentoGrid = () => {
 
   return (
     <Container>
-      <Row>
-        <Col className="mb-3" xs={12} sm={12} md={12} lg={3}>
+      <Row className="mt-5 mb-3"> 
+        <Col className="mt-2" xs={12} sm={12} md={12} lg={3}>
         <div className="bento-stat-container">
             <TopList
               items={[
@@ -48,6 +48,7 @@ const BentoGrid = () => {
               ]}
               listName={"Artists"}
             />
+            <br />
             <TopList
               items={[
                 "songs",
@@ -65,7 +66,7 @@ const BentoGrid = () => {
             />
           </div>
         </Col>
-        <Col xs={12} sm={12} md={12} lg={9}>
+        <Col  className="mt-2" xs={12} sm={12} md={12} lg={9}>
           <Row>
             <Col>
               <div className="bento-stat-container">
@@ -87,7 +88,7 @@ const BentoGrid = () => {
             </Col>
           </Row>
           <Row className="mt-3">
-            <Col className="mb-3" xs={12} sm={12} md={12} lg={4}>
+            <Col  xs={12} sm={12} md={12} lg={4}>
               <div className="bento-stat-container">
                 <TopBpm
                   data={[
@@ -100,7 +101,7 @@ const BentoGrid = () => {
                 />
               </div>
             </Col>
-            <Col className="mb-3" xs={12} sm={12} md={12} lg={8}>
+            <Col className="mt-2" xs={12} sm={12} md={12} lg={8}>
               <div className="bento-stat-container">
                 <TopMusicalKeys />
               </div>
@@ -108,24 +109,22 @@ const BentoGrid = () => {
           </Row>
         </Col>
       </Row>
-      <Row>
-        <Col className="mb-3" xs={12} sm={12} md={12} lg={5}>
+      <Row className="mb-5">
+        <Col xs={12} sm={12} md={12} lg={5}>
           
             <CompatibleSongs compatibleSongsArray={compatibleSongsArray} />
            
         </Col>
-        <Col className="mb-3" xs={12} sm={12} md={12} lg={4}>
+        <Col className="mt-2" xs={12} sm={12} md={12} lg={4}>
             <div className="bento-stat-container">
             <Mood/>
             </div>
             
         </Col>
-        <Col className="mb-3" xs={12} sm={12} md={12} lg={3}>
+        <Col className="mt-2" xs={12} sm={12} md={12} lg={3}>
         <div className="bento-stat-container">
         <p className="lead">Crowd pleaser (most danceable song)</p>
             </div>
-            
-
         </Col>
       </Row>
     </Container>
