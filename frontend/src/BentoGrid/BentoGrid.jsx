@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import "./BentoGrid.css";
-import NumberedList from "./NumberedList/NumberedList";
+import TopList from "./TopList/TopList";
 import FavouriteGenres from "./FavouriteGenres/FavouriteGenres";
 import TopBpm from "./TopBpm/TopBpm";
 import CompatibleSongs from "./CompatibleSongs/CompatibleSongs";
@@ -13,26 +13,17 @@ const BentoGrid = () => {
     {
       songName: 'Shape of You',
       album: '÷ (Divide)',
-      artist: 'Ed Sheeran',
-      views: '2.1B',
-      runtime: '4:24',
-      albumCover: 'https://example.com/shapeofyou.jpg'
+      artist: 'Ed Sheeran'
     },
     {
       songName: 'Blinding Lights',
       album: 'After Hours',
-      artist: 'The Weeknd',
-      views: '1.9B',
-      runtime: '3:20',
-      albumCover: 'https://example.com/blindinglights.jpg'
+      artist: 'The Weeknd'
     },
     {
       songName: 'Levitating',
       album: 'Future Nostalgia',
-      artist: 'Dua Lipa',
-      views: '1.2B',
-      runtime: '3:23',
-      albumCover: 'https://example.com/levitating.jpg'
+      artist: 'Dua Lipa'
     }
   ]);
 
@@ -40,9 +31,8 @@ const BentoGrid = () => {
   return (
     <Container>
       <Row>
-        <Col className="mb-3" xs={12} sm={12} md={12} lg={3}>
-          <div className="box">
-            <NumberedList
+        <Col className="mb-3 bento-stat-container" xs={12} sm={12} md={12} lg={3}>
+            <TopList
               items={[
                 "artist",
                 "artist",
@@ -57,7 +47,22 @@ const BentoGrid = () => {
               ]}
               listName={"Artists"}
             />
-          </div>
+            <TopList
+              items={[
+                "songs",
+                "songs",
+                "songs",
+                "songs",
+                "songs",
+                "songs",
+                "songs",
+                "songs",
+                "songs",
+                "songs",
+              ]}
+              listName={"Songs"}
+            />
+          
         </Col>
         <Col xs={12} sm={12} md={12} lg={9}>
           <Row>
