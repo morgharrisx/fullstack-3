@@ -1,30 +1,21 @@
-import "./App.css";
-import CardComponent from "./Card/Card";
-import NavScrollExample from "./Navbar/navbar";
-import ReusableButton from "./ReusableButton/ReusableButton";
-import PlaylistItem from "./PlaylistItem/PlaylistItem";
+import './App.css';
+import Footer from './Footer/Footer';
+import NavScrollExample from './Navbar/navbar';
+import ControlledCarousel from './Carousel/ControlledCarousel';
+import BentoGrid from './BentoGrid/BentoGrid';
+import Dashboard from './Dashboard/Dashboard';
+
+import React, { useEffect, useState } from 'react';
 
 function App() {
+
   return (
     <div className="App">
-      <NavScrollExample />
-      <CardComponent
-        header="Header"
-        title="Title"
-        text="This is a random text"
-      ></CardComponent>
-      <ReusableButton text="Test First Button"></ReusableButton>
-      <div className="playlist">
-        <br></br>
-        <PlaylistItem
-          songName="Song Title 1"
-          album="Album Name 1"
-          artist="Artist Name 1"
-          views="1223"
-          runtime="3:45"
-          albumCover={null} // to be replaced with actual album cover url
-        />
-      </div>
+      <NavScrollExample/>
+      <ControlledCarousel />
+      <BentoGrid />
+      <Dashboard />
+      <Footer/>
     </div>
   );
 }

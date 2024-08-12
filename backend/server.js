@@ -20,7 +20,13 @@ const spotifyApi = new SpotifyWebApi({
 
 // route for login authentication
 app.get("/login", (req, res) => {
-  const scopes = ["user-read-private", "user-read-email", "user-top-read"];
+  const scopes = [
+    "user-read-private",
+    "user-read-email",
+    "playlist-modify-public",
+    "playlist-modify-private",
+    "user-top-read"
+  ]
   res.redirect(spotifyApi.createAuthorizeURL(scopes));
 });
 
@@ -34,8 +40,8 @@ app.get("/callback", async (req, res) => {
   console.log("Error Query Parameter:", error); //showing undefined
 
   if (error) {
-    console.error("Error:", error);
-    res.send(`Error:, ${error}`);
+    console.error("Error during authentication", error);
+    res.send(`Error during authentication:, ${error}`);
     return;
   }
 
@@ -54,7 +60,7 @@ app.get("/callback", async (req, res) => {
         `Access Token:${accessToken}`,
         `Refresh Token:${refreshToken}`
       );
-      res.send("We got it!!");
+      res.send("Success! The callback is working!");
 
       setInterval(async () => {
         const data = await spotifyApi.refreshAccessToken();
@@ -72,7 +78,6 @@ app.get("/search", async (req, res)=>{
     const {q} =  req.query
     console.log(spotifyApi.accessToken)
     spotifyApi.searchTracks(q).then((data)=>{
-      console.log(JSON.stringify(data, null, 4))
       return res.json({data})
     }).catch((error)=>{
       console.error("Error:", error);
