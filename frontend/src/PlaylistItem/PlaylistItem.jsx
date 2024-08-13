@@ -3,6 +3,7 @@ import { Row, Col, Image, Placeholder, Container } from 'react-bootstrap';
 import './playlistitem.css';
 
 const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isHeader }) => {
+  const formattedViews = views?.toLocaleString();
   return (
     <Container>
       <Row>
@@ -28,10 +29,10 @@ const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isH
             <Col xs={2}>
               <span className="artist-name">{artist}</span>
             </Col>
-            <Col xs={2}>
-              <span className="views">{views}</span>
+            <Col xs={2} className='centered-col'>
+              <span className="views">{formattedViews}</span>
             </Col>
-            <Col xs={1}>
+            <Col xs={1} className='centered-col'>
               <span className="runtime">{runtime}</span>
             </Col>
           </Row>

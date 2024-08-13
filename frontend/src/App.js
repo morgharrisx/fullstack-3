@@ -9,7 +9,7 @@ import Dashboard from './Dashboard/Dashboard';
 import RecommendedPlaylist from './RecommendedPlaylist'; // Import the RecommendedPlaylist component
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-function App() { // Create a Home component to render your main page layout
+function App() { 
   return (
     <div className="App">
       <NavScrollExample/>
@@ -18,7 +18,6 @@ function App() { // Create a Home component to render your main page layout
       <ReusableButton color={'pink'} text='Test First Button'></ReusableButton>
       <BentoGrid />
       <Dashboard />
-      {/* <RecommendedSongs /> */}
     </div>
   );
 }

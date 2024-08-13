@@ -32,58 +32,52 @@ const convertToMMSS = (seconds) => {
     if (loading) return <div>Loading. Please wait...</div>;
     const albumCovers = songs.slice(0,4).map((songs) => songs.album.cover_medium);
     return (
-      <Container fluid>
-        <Row className='title-row'>
-          <Col xs={6} className="cover-col">
-            {albumCovers.length === 4 ? (
-              <div className='playlist-cover-grid'>
-                  {albumCovers.map((cover,index) => (
-                    <Image key={index} src={cover} className='grid-cover-image'/>
-                  ))}
-              </div>
-            ) : (
-              <Placeholder as="div" animation="glow" className="playlist-cover-placeholder">
-                <Placeholder xs={12} className="placeholder-box"/>
-              </Placeholder>
-            )}
-        </Col>
-        <Col xs={5} className="title-col">
-          <h2>Recommended Playlist</h2>
-        </Col>
-      </Row>
-      <br></br>
-      <Row>
-        <Col className="recommended-songs-container">
-          <PlaylistItem className="header"
-            songName="Song"
-            album="Album"
-            artist="Artist"  
-            views="Views"
-            runtime="Length"
-            isHeader={true}
-          />
-          {songs.map((song) => (
-            <PlaylistItem
-              key={song.id}
-              songName={song.title}
-              album={song.album.title}
-              artist={song.artist.name}
-              views={song.rank} //Do we need this?
-              runtime={convertToMMSS(song.duration)}
-              albumCover={song.album.cover_small}
+      <div className='playlist-page'>
+        <Container fluid>
+          <Row className='title-row'>
+            <Col xs={6} className='cover-col'>
+              {albumCovers.length === 4 ? (
+                <div className='playlist-cover-grid'>
+                    {albumCovers.map((cover,index) => (
+                      <Image key={index} src={cover} className='grid-cover-image'/>
+                    ))}
+                </div>
+              ) : (
+                <Placeholder as='div' animation='glow' className='playlist-cover-placeholder'>
+                  <Placeholder xs={12} className='placeholder-box'/>
+                </Placeholder>
+              )}
+          </Col>
+          <Col xs={5} className='title-col'>
+            <h2>Recommended For You</h2>
+          </Col>
+        </Row>
+        <br></br>
+        <Row>
+          <Col className='recommended-songs-container'>
+            <PlaylistItem className='header'
+              songName="Song"
+              album="Album"
+              artist="Artist"  
+              views="Views"
+              runtime="Length"
+              isHeader={true}
             />
-          ))}
-        </Col>
-      </Row>
-    </Container>
+            {songs.map((song) => (
+              <PlaylistItem
+                key={song.id}
+                songName={song.title}
+                album={song.album.title}
+                artist={song.artist.name}
+                views={song.rank} //Do we need this?
+                runtime={convertToMMSS(song.duration)}
+                albumCover={song.album.cover_small}
+              />
+            ))}
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 export default RecommendedSongs;
-
-{/* <Row className="recommended-songs-container">
-        <Col>Song</Col>
-        <Col>Album</Col>
-        <Col>Artist</Col>
-        <Col>Views</Col>
-        <Col>Length</Col>
-      </Row> */}
