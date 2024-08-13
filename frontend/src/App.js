@@ -5,8 +5,8 @@ import NavScrollExample from './Navbar/navbar';
 import PlaylistGenerator from './PlaylistGenerator/PlaylistGenerator';
 import Footer from './Footer/Footer';
 import ControlledCarousel from './Carousel/ControlledCarousel';
-import BentoGrid from './BentoGrid/BentoGrid';
-import CardComponent from './Card/Card';
+// import BentoGrid from './BentoGrid/BentoGrid';
+// import CardComponent from './Card/Card';
 import Dashboard from './Dashboard/Dashboard';
 import RecommendedPlaylist from './RecommendedPlaylist'; // Import the RecommendedPlaylist component
 import DetailedStats from './DetailedStats/DetailedStats';

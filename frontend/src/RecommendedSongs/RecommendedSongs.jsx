@@ -75,7 +75,8 @@ const convertToMMSS = (seconds) => {
                 albumCover={song.album.cover_small}
               />
             ))}
-            <ReusableButton text={“Generate Playlist”} color={“green”}></ReusableButton>
+            <br></br>
+            <ReusableButton className='my-3' text='Generate Playlist' color='green'></ReusableButton>
           </Col>
         </Row>
       </Container>
