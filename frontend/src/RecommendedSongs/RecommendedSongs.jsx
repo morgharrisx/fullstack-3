@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PlaylistItem from '../PlaylistItem/PlaylistItem';
+import ReusableButton from '../ReusableButton/ReusableButton';
 import { Container, Row, Col, Image, Placeholder } from 'react-bootstrap';
 import './RecommendedSongs.css'
 
@@ -74,6 +75,7 @@ const convertToMMSS = (seconds) => {
                 albumCover={song.album.cover_small}
               />
             ))}
+            <ReusableButton></ReusableButton>
           </Col>
         </Row>
       </Container>
