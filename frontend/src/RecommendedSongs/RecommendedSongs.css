@@ -33,7 +33,7 @@ body, html {
 }
 
 .recommended-songs-container {
-  max-width: 1200px; 
+  max-width: 1600px; 
   padding: 50px 100px; 
   border-radius: 20px;
   margin: 20px auto;
@@ -49,7 +49,6 @@ body, html {
   gap: 0px;
   width: 20rem;
   height: 20rem;
-
 }
 
 .grid-cover-image {
