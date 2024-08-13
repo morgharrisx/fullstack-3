@@ -7,6 +7,7 @@ import ReusableButton from "../ReusableButton/ReusableButton";
 
 const Dashboard = () => {
   const [topTracks, setTopTracks] = useState([]); 
+  const [topArtists, setTopArtists] = useState([]);
 
   useEffect(() => {
     const fetchTopTracks = async () => {
@@ -15,6 +16,7 @@ const Dashboard = () => {
         const data = await response.json();
         console.log(data); 
         setTopTracks(data.data.slice(0, 10)); 
+        setTopArtists(data.data.slice(0, 10)); 
       } catch (error) {
         console.error("Error fetching top tracks:", error);
       }
@@ -55,7 +57,7 @@ const Dashboard = () => {
               </Col>
               <Col>
                 <NumberedList
-                 
+                  items={topArtists.map(track => track.artist_names)}  listName={"Artists"}
                 ></NumberedList>
               </Col>
             </Row>
