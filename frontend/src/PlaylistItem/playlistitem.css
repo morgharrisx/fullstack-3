@@ -71,6 +71,17 @@
     max-width: 10%;
   }
 
+  .playlist-header {
+    font-weight: bold;
+    background-color: #f0f0f0;
+    padding: 10px 0;
+  }
+  
+  .header-text {
+    font-weight: bold;
+  }
+  
+
   @media only screen and (max-width: 768px) {
     .playlist-item {
       padding: 0.5rem;

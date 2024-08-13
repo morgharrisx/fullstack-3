@@ -54,6 +54,14 @@ const convertToMMSS = (seconds) => {
       <br></br>
       <Row>
         <Col className="recommended-songs-container">
+          <PlaylistItem className="header"
+            songName="Song"
+            album="Album"
+            artist="Artist"  
+            views="Views"
+            runtime="Length"
+            isHeader={true}
+          />
           {songs.map((song) => (
             <PlaylistItem
               key={song.id}
@@ -71,3 +79,11 @@ const convertToMMSS = (seconds) => {
   );
 };
 export default RecommendedSongs;
+
+{/* <Row className="recommended-songs-container">
+        <Col>Song</Col>
+        <Col>Album</Col>
+        <Col>Artist</Col>
+        <Col>Views</Col>
+        <Col>Length</Col>
+      </Row> */}

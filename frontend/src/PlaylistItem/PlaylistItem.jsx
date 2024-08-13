@@ -2,14 +2,16 @@ import React from 'react';
 import { Row, Col, Image, Placeholder, Container } from 'react-bootstrap';
 import './playlistitem.css';
 
-const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover }) => {
+const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isHeader }) => {
   return (
     <Container>
       <Row>
         <Col xs={12}>
-          <Row className="playlist-item align-items-center">
+          <Row className={`playlist-item align-items-center ${isHeader ? 'playlist-header' : ''}`}>
             <Col xs={1}>
-              {albumCover ? (
+              { isHeader ? (
+                <span></span> 
+              ) : albumCover ? (
                 <Image src={albumCover} className="album-cover-image" roundedCircle />
               ) : (
                 <Placeholder as="div" animation="glow" className="album-cover-placeholder">
@@ -34,15 +36,6 @@ const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover }) =
             </Col>
           </Row>
         </Col>
-        {/* <Col xs={4}>
-          {playlistCover ? (
-                <Image src={playlistCover} className="playlist-cover-image" />
-                ) : (
-                <Placeholder as="div" className="playlist-cover-placeholder">
-                <Placeholder xs={12} className="placeholder-playlist"/>
-                </Placeholder>     
-                )}   
-        </Col> */}
       </Row>
     </Container>
   );
