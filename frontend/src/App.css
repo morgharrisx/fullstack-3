@@ -1,4 +1,6 @@
-/* .recommended-playlist {
+/* This block seems to be commented out and may not be necessary */
+/*
+.recommended-playlist {
     * {
         box-sizing: border-box;
     }
@@ -7,5 +9,18 @@
         padding: 0;
         width: 100%;
     }  
-} */
-  
+}
+*/
+
+.link-styles {
+    text-decoration: none;
+    color: rgb(11, 77, 25);
+    font-weight: 600;
+}
+
+.link-styles:hover {
+    font-size: 18px; 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.196); 
+    color:  rgb(3, 140, 33); 
+}
+

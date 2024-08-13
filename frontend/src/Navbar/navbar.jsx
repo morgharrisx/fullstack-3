@@ -1,25 +1,22 @@
-import {Container, Navbar, Nav } from 'react-bootstrap';
-import './navbar.css'; 
+import { Container, Navbar, Nav } from 'react-bootstrap';
+import './navbar.css';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import GreenLogo from './logo/green-logo.png';
-
-function handleOnClick() {
-  console.log('Button clicked');
-}
+import { Link } from 'react-router-dom';
 
 function NavScrollExample() {
   return (
     <Navbar expand="lg" className="custom-bg">
       <Container fluid>
-      <Navbar.Brand href="#home" className="our-logo">
-                        <img
-                            src={GreenLogo}
-                            width="40"
-                            height="40"
-                            className="d-inline-block align-top"
-                            alt="Logo" 
-                        />
-        </Navbar.Brand>
+        <Link to="/" className="navbar-brand">
+          <img
+            src={GreenLogo}
+            width="40"
+            height="40"
+            className="d-inline-block align-top"
+            alt="Logo"
+          />
+        </Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -27,15 +24,24 @@ function NavScrollExample() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#action1" className='fw-bold'>VibeFusion</Nav.Link>
+            <Link className="link-styles" to="/">
+              <Nav.Link as="span" className="fw-bold">VibeFusion</Nav.Link>
+            </Link>
           </Nav>
-            <Nav.Link className='ml-auto mx-3' href="#contact">Contact Us</Nav.Link>
-            <Nav.Link className='ml-auto mx-3' href="#profile">My profile</Nav.Link>
-            {/* <Button variant="success">Log in / Sign up</Button> */}
-            <ReusableButton size= 'sm' text='Log in / Sign up' onClick={handleOnClick} color= 'success' /> 
+          <Link className="link-styles" to="/contact">
+            <Nav.Link as="span" className="ml-auto mx-3">Contact Us</Nav.Link>
+          </Link>
+          <Link className="link-styles" to="/profile">
+            <Nav.Link as="span" className="ml-auto mx-3">My profile</Nav.Link>
+          </Link>
+          <Link to="http://localhost:5001/login">
+            <ReusableButton size="sm" text="Log in / Sign up" color="pink" />
+          </Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
+
 export default NavScrollExample;
+

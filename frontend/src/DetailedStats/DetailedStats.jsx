@@ -1,8 +1,8 @@
 import React from "react";
 import { Row, Container, Col } from "react-bootstrap";
-import "./BentoGrid.css";
+import "./DetailedStats.css";
 
-const BentoGrid = () => {
+const DetailedStats = () => {
   return (
     <Container>
       <Row>
@@ -38,4 +38,4 @@ const BentoGrid = () => {
   );
 };
 
-export default BentoGrid;
+export default DetailedStats;
