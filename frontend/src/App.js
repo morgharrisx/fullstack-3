@@ -24,7 +24,7 @@ function App() {
           <Route path="/detailed-stats" element={<> <NavScrollExample/><DetailedStats/><Footer/> </>} />
           <Route path="/dj-hub" element={<> <NavScrollExample/><PlaylistGenerator/><Footer/> </>} />
           <Route path="/contact" element={<> <NavScrollExample/><ContactForm/><Footer/> </>} />
-          <Route path="/recommended" element={<> <NavScrollExample/><RecommendedPlaylist/><Footer/> </>} />
+          <Route path="/smart-recommendations" element={<> <NavScrollExample/><RecommendedPlaylist/><Footer/> </>} />
         </Routes>
       </Router>
     </div>

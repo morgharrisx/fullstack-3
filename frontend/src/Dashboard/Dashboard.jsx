@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import FavouriteGenres from "./FavouriteGenres/FavouriteGenres";
 import NumberedList from "./NumberedList/NumberedList";
 import ReusableButton from "../ReusableButton/ReusableButton";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [topTracks, setTopTracks] = useState([]); 
@@ -81,9 +82,8 @@ const Dashboard = () => {
               Discover the perfect playlist tailored just for you. Get insights
               and smart recommendations that match your unique taste in music.
             </p>
-            <a href="/statistics">
-              <ReusableButton text={"Smart recommendations"}></ReusableButton>
-            </a>
+            <Link to="/smart-recommendations"><ReusableButton text={"Smart recommendations"}></ReusableButton></Link>
+              
           </div>
         </Col>
 
