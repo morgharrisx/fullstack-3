@@ -42,6 +42,9 @@ body, html {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   text-align: justify;
 }
+.header {
+  max-width: 1200px;
+}
   
 .playlist-cover-grid {
   display: grid;

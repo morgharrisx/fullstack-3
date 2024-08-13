@@ -10,7 +10,22 @@
     justify-content: space-between;
   }
 
-  .playlist-item:hover {
+  .playlist-header {
+    font-weight: lighter;
+    font-style: italic;
+    background-color: #ddd;
+    padding: 10px 0;
+    border:none;
+    border-radius: 25px;
+    text-align: center;
+  }
+
+  .playlist-header .song-name { 
+    font-weight: lighter;
+  }
+
+
+  .playlist-item:not(.playlist-header):hover {
     background-color: rgb(255, 0, 128);
     border-radius: 25px;
     transform: scale(1.01);
@@ -30,20 +45,6 @@
     margin-right: 1rem;
   }
 
-  /* .playlist-cover-placeholder {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; 
-    height: 6.25rem;
-    width: 6.25rem; 
-  } */
-
-  /* .placeholder-playlist {
-    margin-top: 0.625rem; 
-    width: 50%;
-  }
-   */
-  
   .song-name, .album-name, .artist-name, .views, .runtime {
     font-size: 1rem;
     white-space: nowrap;
@@ -58,27 +59,16 @@
     max-width: 5%;
   }
 
-  .playlist-item:hover .song-name,
-.playlist-item:hover .album-name,
-.playlist-item:hover .artist-name,
-.playlist-item:hover .views,
-.playlist-item:hover .runtime {
+  .playlist-item:not(.playlist-header):hover .song-name,
+  .playlist-item:not(.playlist-header):hover .album-name,
+  .playlist-item:not(.playlist-header):hover .artist-name,
+  .playlist-item:not(.playlist-header):hover .views,
+  .playlist-item:not(.playlist-header):hover .runtime {
     color: #ffffff;
 }
   
   .views, .runtime {
-    text-align: right;
     max-width: 10%;
-  }
-
-  .playlist-header {
-    font-weight: bold;
-    background-color: #f0f0f0;
-    padding: 10px 0;
-  }
-  
-  .header-text {
-    font-weight: bold;
   }
   
 
