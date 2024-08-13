@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<> <NavScrollExample/><ControlledCarousel/><Footer/> </>} />
           <Route path="/profile" element={<> <NavScrollExample/><Profile/><Footer/> </>} />
-          <Route path="/stats" element={<> <NavScrollExample/><Dashboard/><Footer/> </>} />
+          <Route path="/dashboard" element={<> <NavScrollExample/><Dashboard/><Footer/> </>} />
           <Route path="/detailed-stats" element={<> <NavScrollExample/><DetailedStats/><Footer/> </>} />
           <Route path="/dj-hub" element={<> <NavScrollExample/><PlaylistGenerator/><Footer/> </>} />
           <Route path="/contact" element={<> <NavScrollExample/><ContactForm/><Footer/> </>} />
