@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { Container, Row, Col } from "react-bootstrap";
 import FavouriteGenres from "./FavouriteGenres/FavouriteGenres";
@@ -6,6 +6,28 @@ import NumberedList from "./NumberedList/NumberedList";
 import ReusableButton from "../ReusableButton/ReusableButton";
 
 const Dashboard = () => {
+  const [topTracks, setTopTracks] = useState([]); 
+
+  useEffect(() => {
+    const fetchTopTracks = async () => {
+      try {
+        const response = await fetch("http://localhost:5001/top-track");
+        const data = await response.json();
+        console.log(data); 
+        setTopTracks(data.data.slice(0, 10)); 
+      } catch (error) {
+        console.error("Error fetching top tracks:", error);
+      }
+    };
+
+    fetchTopTracks(); 
+  }, []);
+
+  useEffect(() => {
+    console.log("Top Tracks state updated:", topTracks); 
+  }, [topTracks]);
+
+
   return (
     <Container className="dashboard-container">
       <Row className="mt-3">
@@ -26,37 +48,14 @@ const Dashboard = () => {
                 ></FavouriteGenres>
               </Col>
               <Col>
-                <NumberedList
-                  items={[
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                  ]}
-                  listName={"Artists"}
-                ></NumberedList>
+              <NumberedList
+                  items={topTracks.map((track) => track.song_name)} 
+                  listName={"Tracks"}
+                />
               </Col>
               <Col>
                 <NumberedList
-                  items={[
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                  ]}
-                  listName={"Tracks"}
+                 
                 ></NumberedList>
               </Col>
             </Row>
