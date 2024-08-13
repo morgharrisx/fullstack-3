@@ -64,11 +64,7 @@ const Dashboard = () => {
             </Row>
             <Row>
               <Col className="d-flex justify-content-end m-3">
-                {" "}
-                <ReusableButton
-                  className="see-more-button "
-                  text={"See more"}
-                ></ReusableButton>
+               <Link to='/detailed-stats'><ReusableButton className="see-more-button" text={"See more"} color={"green"}></ReusableButton></Link>
               </Col>
             </Row>
           </Row>
@@ -82,7 +78,7 @@ const Dashboard = () => {
               Discover the perfect playlist tailored just for you. Get insights
               and smart recommendations that match your unique taste in music.
             </p>
-            <Link to="/smart-recommendations"><ReusableButton text={"Smart recommendations"}></ReusableButton></Link>
+            <Link to="/smart-recommendations"><ReusableButton text={"Smart recommendations"} color={"green"}></ReusableButton></Link>
               
           </div>
         </Col>
@@ -95,9 +91,7 @@ const Dashboard = () => {
               vibe. Become the ultimate DJ with personalized track suggestions
               tailored to your preferences.
             </p>
-            <a href="/DJ-hub">
-              <ReusableButton text={"Go to DJ Hub"}></ReusableButton>
-            </a>
+           <Link to="/dj-hub"><ReusableButton text={"Go to DJ Hub"} color={"green"}></ReusableButton></Link>
           </div>
         </Col>
       </Row>
