@@ -1,4 +1,4 @@
-import {Button, Container, Navbar, Nav } from 'react-bootstrap';
+import {Container, Navbar, Nav } from 'react-bootstrap';
 import './navbar.css'; 
 import ReusableButton from '../ReusableButton/ReusableButton';
 import GreenLogo from './logo/green-logo.png';

@@ -28,7 +28,7 @@ function Recommended() {
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/recommended" element={<RecommendedPlaylist />} />
+        <Route path="/recommended" element={<RecommendedPlaylist />} className="recommended-playlist"/>
       </Routes>
     </Router>
   );
