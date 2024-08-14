@@ -65,7 +65,7 @@ const ContactForm = () => {
 
   return (
     <div className="container mt-5">
-      <h2>Contact Us</h2>
+      <h2 className="contact-title">Contact Us</h2>
       <Form onSubmit={handleSubmit}>
         
         <Form.Group className="mb-3">
