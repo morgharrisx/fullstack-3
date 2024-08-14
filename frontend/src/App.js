@@ -1,7 +1,7 @@
 import './App.css';
 import NavScrollExample from './Navbar/navbar';
 import ControlledCarousel from './Carousel/ControlledCarousel';
-import BentoGrid from './BentoGrid/BentoGrid';
+import DetailedStats from './DetailedStats/DetailedStats';
 
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <NavScrollExample/>
       <ControlledCarousel />
-      <BentoGrid />
+      <DetailedStats />
     </div>
   );
 }

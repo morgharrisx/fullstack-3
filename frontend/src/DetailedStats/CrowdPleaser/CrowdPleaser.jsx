@@ -4,6 +4,7 @@ import './CrowdPleaser.css'
 import ReusableButton from '../../ReusableButton/ReusableButton'
 
 
+
 const CrowdPleaser = ({songName,albumCover,artist}) => {
   return (
     <Container className='justify-content-center align-items-center' >
@@ -25,7 +26,7 @@ const CrowdPleaser = ({songName,albumCover,artist}) => {
         <Row className="mb-3">
            <Col>{artist}</Col>
         </Row >
-        <ReusableButton color={'pink'} text={'Go to DJ Hub'}></ReusableButton>
+       <ReusableButton color={'pink'} text={'Go to DJ Hub'}></ReusableButton> 
     </Container>
   )
 }

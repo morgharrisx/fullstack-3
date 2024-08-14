@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Row, Container, Col } from "react-bootstrap";
-import "./BentoGrid.css";
+import "./DetailedStats.css";
 import TopList from "./TopList/TopList";
 import FavouriteGenres from "./FavouriteGenres/FavouriteGenres";
 import TopBpm from "./TopBpm/TopBpm";
@@ -9,7 +9,7 @@ import TopMusicalKeys from "./TopMusicalKeys/TopMusicalKeys";
 import Mood from "./Mood/Mood";
 import CrowdPleaser from "./CrowdPleaser/CrowdPleaser";
 
-const BentoGrid = () => {
+const DetailedStats = () => {
   const [compatibleSongsArray, setCompatibleSongsArray] = useState([
     {
       songName: 'Shape of You',
@@ -143,4 +143,4 @@ const BentoGrid = () => {
   );
 };
 
-export default BentoGrid;
+export default DetailedStats;
