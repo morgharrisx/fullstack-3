@@ -60,7 +60,7 @@ app.get("/callback", async (req, res) => {
         `Access Token:${accessToken}`,
         `Refresh Token:${refreshToken}`
       );
-      res.redirect("localhost:3000"); //URL to reirecting
+      res.redirect(`http://localhost:3000/dashboard?access_token=${accessToken}`);
 
       setInterval(async () => {
         const data = await spotifyApi.refreshAccessToken();
