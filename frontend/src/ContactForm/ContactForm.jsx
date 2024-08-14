@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import emailjs from 'emailjs-com';
 import './ContactForm.css';
+import ReusableButton from '../ReusableButton/ReusableButton';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
