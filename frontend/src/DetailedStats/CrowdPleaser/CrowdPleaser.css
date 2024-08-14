@@ -1,0 +1,8 @@
+.crowd-pleaser-container{
+    background-image: url('./pp.png');
+    background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   min-height: 500px;
+   height: 100%;
+}

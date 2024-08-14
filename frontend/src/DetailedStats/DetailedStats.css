@@ -1,10 +1,13 @@
-.box {
-    background-color: red;
-    min-height: 200px;
-    height: 100%;
+.bento-stat-container {
+    padding: 40px;
     border-radius: 20px;
+    background-color: #fff; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+    height: 100%;
+    min-height: 500px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    text-align: center;
 }
