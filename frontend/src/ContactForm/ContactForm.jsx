@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import emailjs from 'emailjs-com';
 import './ContactForm.css';
+import ReusableButton from '../ReusableButton/ReusableButton';
+import { Container } from 'react-bootstrap';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -63,62 +65,69 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2>Contact Us</h2>
-      <Form onSubmit={handleSubmit}>
-        
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="name">Name</Form.Label>
-          <Form.Control 
-            type="text" 
-            className={`form-control ${formErrors.name ? 'is-invalid' : ''}`} 
-            id="name" 
-            value={name} 
-            onChange={(e) => {
-              setName(e.target.value);
-              setFormErrors({ ...formErrors, name: '' }); // Clear error on change
-            }} 
-          />
-          {formErrors.name && <div className="invalid-feedback">{formErrors.name}</div>}
-        </Form.Group>
-        
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="email">Email</Form.Label>
-          <Form.Control 
-            type="email" 
-            className={`form-control ${formErrors.email ? 'is-invalid' : ''}`} 
-            id="email" 
-            value={email} 
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setFormErrors({ ...formErrors, email: '' }); // Clear error on change
-            }} 
-          />
-          {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
-        </Form.Group>
+    <>
+      <h2 className="contact-form-title">Contact Us</h2>
+      <Container className="contact-form-container">
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="name">
+              <strong>Name:</strong>
+            </Form.Label>
+            <Form.Control 
+              type="text" 
+              className={`form-control ${formErrors.name ? 'is-invalid' : ''}`} 
+              id="name" 
+              value={name} 
+              onChange={(e) => {
+                setName(e.target.value);
+                setFormErrors({ ...formErrors, name: '' }); 
+              }} 
+            />
+            {formErrors.name && <div className="invalid-feedback">{formErrors.name}</div>}
+          </Form.Group>
+          
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="email">
+              <strong>Email:</strong>
+            </Form.Label>
+            <Form.Control 
+              type="email" 
+              className={`form-control ${formErrors.email ? 'is-invalid' : ''}`} 
+              id="email" 
+              value={email} 
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setFormErrors({ ...formErrors, email: '' });
+              }} 
+            />
+            {formErrors.email && <div className="invalid-feedback">{formErrors.email}</div>}
+          </Form.Group>
 
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="message">Message</Form.Label>
-          <Form.Control 
-            as="textarea" 
-            className={`form-control ${formErrors.message ? 'is-invalid' : ''}`} 
-            id="message" 
-            rows="5" 
-            value={message} 
-            onChange={(e) => {
-              setMessage(e.target.value);
-              setFormErrors({ ...formErrors, message: '' }); // Clear error on change
-            }} 
-          />
-          {formErrors.message && <div className="invalid-feedback">{formErrors.message}</div>}
-        </Form.Group>
-        
-        {generalError && <div className="alert alert-danger">{generalError}</div>}
-        {success && <div className="alert alert-success">{success}</div>}
-        
-        <Button variant="primary" type="submit" className="submit-button">Submit</Button>
-      </Form>
-    </div>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="message">
+              <strong>Message:</strong>
+            </Form.Label>
+            <Form.Control 
+              as="textarea" 
+              className={`form-control ${formErrors.message ? 'is-invalid' : ''}`} 
+              id="message" 
+              rows="5" 
+              value={message} 
+              onChange={(e) => {
+                setMessage(e.target.value);
+                setFormErrors({ ...formErrors, message: '' });
+              }} 
+            />
+            {formErrors.message && <div className="invalid-feedback">{formErrors.message}</div>}
+          </Form.Group>
+          
+          {generalError && <div className="alert alert-danger">{generalError}</div>}
+          {success && <div className="alert alert-success">{success}</div>}
+          
+          <ReusableButton color="pink" text="Submit" size="lg" onClick={handleSubmit}/> 
+        </Form>
+      </Container>
+    </>
   );
 };
 
