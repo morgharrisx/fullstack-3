@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { Container, Row, Col } from "react-bootstrap";
 import FavouriteGenres from "./FavouriteGenres/FavouriteGenres";
 import NumberedList from "./NumberedList/NumberedList";
 import ReusableButton from "../ReusableButton/ReusableButton";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
+  const [topTracks, setTopTracks] = useState([]); 
+  const [topArtists, setTopArtists] = useState([]);
+
+  useEffect(() => {
+    const fetchTopTracks = async () => {
+      try {
+        const response = await fetch("http://localhost:5001/top-track");
+        const data = await response.json();
+        console.log(data); 
+        setTopTracks(data.data.slice(0, 10)); 
+        setTopArtists(data.data.slice(0, 10)); 
+      } catch (error) {
+        console.error("Error fetching top tracks:", error);
+      }
+    };
+
+    fetchTopTracks(); 
+  }, []);
+
+  useEffect(() => {
+    console.log("Top Tracks state updated:", topTracks); 
+  }, [topTracks]);
+
+
   return (
     <Container className="dashboard-container">
       <Row className="mt-3">
@@ -26,47 +51,20 @@ const Dashboard = () => {
                 ></FavouriteGenres>
               </Col>
               <Col>
-                <NumberedList
-                  items={[
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                    "artist",
-                  ]}
-                  listName={"Artists"}
-                ></NumberedList>
+              <NumberedList
+                  items={topTracks.map((track) => track.song_name)} 
+                  listName={"Tracks"}
+                />
               </Col>
               <Col>
                 <NumberedList
-                  items={[
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                    "song",
-                  ]}
-                  listName={"Tracks"}
+                  items={topArtists.map(track => track.artist_names)}  listName={"Artists"}
                 ></NumberedList>
               </Col>
             </Row>
             <Row>
               <Col className="d-flex justify-content-end m-3">
-                {" "}
-                <ReusableButton
-                  className="see-more-button "
-                  text={"See more"}
-                ></ReusableButton>
+               <Link to='/detailed-stats'><ReusableButton className="see-more-button" text={"See more"} color={"green"}></ReusableButton></Link>
               </Col>
             </Row>
           </Row>
@@ -80,9 +78,8 @@ const Dashboard = () => {
               Discover the perfect playlist tailored just for you. Get insights
               and smart recommendations that match your unique taste in music.
             </p>
-            <a href="/statistics">
-              <ReusableButton text={"Smart recommendations"}></ReusableButton>
-            </a>
+            <Link to="/smart-recommendations"><ReusableButton text={"Smart recommendations"} color={"green"}></ReusableButton></Link>
+              
           </div>
         </Col>
 
@@ -94,9 +91,7 @@ const Dashboard = () => {
               vibe. Become the ultimate DJ with personalized track suggestions
               tailored to your preferences.
             </p>
-            <a href="/DJ-hub">
-              <ReusableButton text={"Go to DJ Hub"}></ReusableButton>
-            </a>
+           <Link to="/dj-hub"><ReusableButton text={"Go to DJ Hub"} color={"green"}></ReusableButton></Link>
           </div>
         </Col>
       </Row>
