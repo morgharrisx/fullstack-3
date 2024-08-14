@@ -117,7 +117,7 @@ const ContactForm = () => {
         {generalError && <div className="alert alert-danger">{generalError}</div>}
         {success && <div className="alert alert-success">{success}</div>}
         
-        <Button variant="primary" type="submit" className="submit-button">Submit</Button>
+        <ReusableButton color="pink" text="Submit" size="lg" onClick={handleSubmit}/> 
       </Form>
     </div>
   );
