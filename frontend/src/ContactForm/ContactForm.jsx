@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import emailjs from 'emailjs-com';
 import './ContactForm.css';
 import ReusableButton from '../ReusableButton/ReusableButton';
+import { Container } from 'react-bootstrap';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
@@ -64,8 +65,8 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="contact-title">Contact Us</h2>
+    <Container className="contact-form-container">
+      <h2 className="contact-form-title">Contact Us</h2>
       <Form onSubmit={handleSubmit}>
         
         <Form.Group className="mb-3">
@@ -119,7 +120,7 @@ const ContactForm = () => {
         
         <ReusableButton color="pink" text="Submit" size="lg" onClick={handleSubmit}/> 
       </Form>
-    </div>
+    </Container>
   );
 };
 
