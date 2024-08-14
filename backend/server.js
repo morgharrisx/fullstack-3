@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
-import axios from "axios"; // not using currently
+//import axios from "axios"; // not using currently
 dotenv.config({path :"./api/.env"});
 
 import SpotifyWebApi from "spotify-web-api-node";
@@ -25,7 +25,10 @@ app.get("/login", (req, res) => {
     "user-read-email",
     "playlist-modify-public",
     "playlist-modify-private",
-    "user-top-read"
+    "user-top-read",
+    "user-read-email",
+    "user-read-private"
+
   ]
   res.redirect(spotifyApi.createAuthorizeURL(scopes));
 });
