@@ -20,7 +20,9 @@ const ContactForm = () => {
     }
     if (!email) {
       errors.email = 'Email is required';
-    } 
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = 'Email is not in the correct format'; 
+  }
     if (!message) {
       errors.message = 'Message is required';
     }
