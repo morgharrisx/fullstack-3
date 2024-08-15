@@ -20,19 +20,19 @@ const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isH
                 </Placeholder>
               )}
             </Col>
-            <Col xs={3}>
+            <Col xs={4} sm={3} className="text-truncate">
               <span className="song-name">{songName}</span>
             </Col>
-            <Col xs={3}>
+            <Col xs={4} sm={3} className="text-truncate">
               <span className="album-name">{album}</span>
             </Col>
-            <Col xs={2}>
+            <Col xs={4} sm={2} className="text-truncate centered-col">
               <span className="artist-name">{artist}</span>
             </Col>
-            <Col xs={2} className='centered-col'>
+            <Col xs={4} sm={2} className="text-truncate centered-col">
               <span className="views">{formattedViews}</span>
             </Col>
-            <Col xs={1} className='centered-col'>
+            <Col xs={4} sm={1} className="centered-col">
               <span className="runtime">{runtime}</span>
             </Col>
           </Row>
