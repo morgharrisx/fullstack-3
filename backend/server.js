@@ -121,7 +121,7 @@ app.get("/top-tracks", async (req, res) => {
 // DJ HB 
 
 
-app.get ("/dj" , async (req, res) => {
+app.post ("/dj" , async (req, res) => {
   const {
     genre,
     mood,
@@ -161,8 +161,19 @@ app.get ("/dj" , async (req, res) => {
     max_energy:maxEnergy
   }
   try {
-    const songs = await spotifyApi.getRecommendations(options);
-    res.send(songs.body);
+    const DJHubResponse = await spotifyApi.getRecommendations(options);
+    const DJHubSuggestedSongs = DJHubResponse.body.tracks;
+    const DJHubSuggested20Songs = DJHubSuggestedSongs.slice(0, 20).map(track => ({
+      id: track.id,
+      name: track.name,
+      artists: track.artists.name,
+      songPreview:track.preview_url
+    }));
+    return res.json({
+      message: "yay",
+      data: DJHubSuggested20Songs,
+    });
+
   } catch (error) {
     console.error("Error fetching recommendations:", error);
     res.status(500).send('An error occurred while fetching recommendations.');
@@ -170,4 +181,7 @@ app.get ("/dj" , async (req, res) => {
 });
 
   
-
+//artist name tracks.artists.name
+//song name tracks.name
+//song preview tracks.preview_url
+//track.id to fetch other things
