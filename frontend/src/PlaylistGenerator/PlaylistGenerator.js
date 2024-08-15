@@ -19,7 +19,16 @@ const PlaylistGenerator = () => {
     const handleGenerateClick = async () => {
         try {
             const url = `http://localhost:5001/dj`;
-            const response = await axios.post(url);
+            const requestData = {
+                genre: genre.toLowerCase(),
+                mood,
+                tempo,
+                popularity,
+                instrumentalness,
+                danceability,
+                energy,
+            };
+            const response = await axios.post(url, requestData);
     
             if (response.data && response.data.data) {
                 const formattedSongs = response.data.data.map(track => ({
