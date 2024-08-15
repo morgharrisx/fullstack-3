@@ -122,6 +122,7 @@ app.get("/top-tracks", async (req, res) => {
 
 
 app.get ("/dj" , async (req, res) => {
+  const {
   const options = {
     seed_genres: "pop"
   }
