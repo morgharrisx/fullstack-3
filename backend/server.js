@@ -160,8 +160,13 @@ app.get ("/dj" , async (req, res) => {
     min_energy:minEnergy,
     max_energy:maxEnergy
   }
-  const songs = await spotifyApi.getRecommendations(options);
-  res.send(songs.body);
+  try {
+    const songs = await spotifyApi.getRecommendations(options);
+    res.send(songs.body);
+  } catch (error) {
+    console.error("Error fetching recommendations:", error);
+    res.status(500).send('An error occurred while fetching recommendations.');
+  }
 });
 
   
