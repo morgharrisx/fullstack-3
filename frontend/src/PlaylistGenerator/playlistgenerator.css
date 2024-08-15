@@ -1,17 +1,21 @@
 .playlist-generator-container{
     padding: 50px;
     border-radius: 20px;
-    margin: 20px auto; 
+   
     background-color: #fff; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
-    align-items: center;
+
     display: flex;
     justify-content: center;
-    align-items: center;
-    text-align: justify;
+   
+  
 }
 
-/* CHANGE COLOR OF THE SLIDER RANGE FROM BLUE TO PINK */
+.playlist-generator-form-group {
+    width: 100%;
+}
+
+
 .form-range {
     -webkit-appearance: none;
     appearance: none;
@@ -63,4 +67,17 @@
 
 .form-range::-ms-thumb:hover {
     background-color: #8c004d !important;
+}
+
+
+
+.selected {
+    border: 2px solid #007bff; /* Highlight with a blue border */
+    background-color: #e9f5ff; /* Light blue background */
+    cursor: pointer;
+}
+
+.playlist-generator-form-group {
+    cursor: pointer;
+    transition: background-color 0.3s ease, border 0.3s ease;
 }
