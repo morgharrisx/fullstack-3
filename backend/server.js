@@ -118,6 +118,16 @@ app.get("/top-tracks", async (req, res) => {
 });
 
 
-  
+// DJ HB 
+
+
+app.get ("/dj" , async (req, res) => {
+  const options = {
+    seed_genres: "pop"
+  }
+  const songs = await spotifyApi.getRecommendations(options);
+  res.send(songs.body);
+});
+
   
 
