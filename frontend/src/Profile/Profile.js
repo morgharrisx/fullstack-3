@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Container, Card, Image, Spinner } from 'react-bootstrap';
 import defaultAvatar from './1.png';
 import './profile.css'; 
@@ -13,7 +14,30 @@ const UserProfile = () => {
     country: 'ES', 
     product: 'very very vip premium', 
     images: [], 
+    height: 5,
+    width: 5
   });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch("http://localhost:5001/me");
+        const data = await response.json();
+        console.log(data); 
+        setUserProfile(data); 
+        
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfile(); 
+  }, []);
+
+  useEffect(() => {
+    console.log("Current user profile data", userProfile); 
+  }, [userProfile]);
+
   const [loading, setLoading] = useState(false);
 
   if (loading) {
@@ -25,7 +49,6 @@ const UserProfile = () => {
       </div>
     );
   }
-
   const profileImageUrl =
     userProfile.images && userProfile.images.length > 0 ? userProfile.images[0].url : defaultAvatar;
 
