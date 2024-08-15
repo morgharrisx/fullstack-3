@@ -130,20 +130,20 @@ app.post ("/dj" , async (req, res) => {
     instrumentalness,
     danceability,
     energy
-  } = req.body;
-  
-  const minValence = mood ? parseFloat(mood) * 0.9 : 0;
-  const maxValence = mood ? parseFloat(mood) * 1.1 : 1;
+  } = req.body; 
+  //‼️TODO: CHECK ALL GENRES FROM API TO DOUBLE CHECK IF ITS EXACTLY WRITTEN SAME WAY  ‼️
+  const minValence = mood ? parseFloat(mood) * 0.9 / 100 : 0;
+  const maxValence = mood ? parseFloat(mood) * 1.1 / 100 : 1;
   const minTempo = tempo ? parseFloat(tempo) * 0.9 : 0;
   const maxTempo = tempo ? parseFloat(tempo) * 1.1 : 200;
   const minPopularity = popularity ? parseFloat(popularity)-10 : 0;
   const maxPopularity = popularity ? parseFloat(popularity)+10 : 1;
-  const minInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 0.9 : 0;
-  const maxInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 1.1 : 1;
-  const minDanceability  = danceability ? parseFloat(danceability) * 0.9 : 0;
-  const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : 1;
-  const minEnergy = energy ? parseFloat(energy) * 0.9 : 0;
-  const maxEnergy = energy ? parseFloat(energy) * 1.1 : 1;
+  const minInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 0.9 / 100 : 0;
+  const maxInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 1.1 / 100 : 1;
+  const minDanceability  = danceability ? parseFloat(danceability) * 0.9  / 100 : 0;
+  const maxDanceability = danceability ? parseFloat(danceability) * 1.1 / 100 : 1;
+  const minEnergy = energy ? parseFloat(energy) * 0.9 / 100 : 0;
+  const maxEnergy = energy ? parseFloat(energy) * 1.1 / 100 : 1;
 
   const options = {
     seed_genres: genre || "pop",
@@ -169,7 +169,7 @@ app.post ("/dj" , async (req, res) => {
       artists: track.artists.map(artist => artist.name).join(', '),
       popularity: track.popularity,
       album_cover:track.album.images.url,
-      songPreview: track.preview_url//even though it exists keep coming null????
+      songPreview: track.preview_url//even though it exists keep coming null???? 😫🤯
     }));
     return res.json({
       message: "yay",
