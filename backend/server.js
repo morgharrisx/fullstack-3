@@ -63,7 +63,7 @@ app.get("/callback", async (req, res) => {
         `Access Token:${accessToken}`,
         `Refresh Token:${refreshToken}`
       );
-      res.redirect(`http://localhost:3000/dashboard?access_token=${accessToken}`);
+      res.redirect(`http://localhost:3000/dashboard`);
 
       setInterval(async () => {
         const data = await spotifyApi.refreshAccessToken();
@@ -88,39 +88,38 @@ app.get("/search", async (req, res)=>{
     })
 })
 //top-tracks
-app.get("/top-tracks", async (req, res) => {
-  const { term } = req.query;
-  const validTerms = ["short_term", "medium_term", "long_term"];
-  const timeRange = validTerms.includes(term) ? term : "medium_term";
-
-  try {
-    const topTracksResponse = await spotifyApi.getMyTopTracks({ time_range: timeRange });
-    const topTracks = topTracksResponse.body.items;
-    const top10Tracks = topTracks.slice(0, 10).map(track => ({
-      name: track.name,
-      album: track.album.name,
-      artists: track.artists.map(artist => artist.name),
-      popularity: track.popularity,
-      externalUrl: track.external_urls.spotify,
-      images: track.album.images
+app.get("/top-track", async (req, res) => {
+  spotifyApi
+  .getMyTopTracks({ time_range: "medium_term" })
+  .then((topTracksResponse) => {
+    const trackData = topTracksResponse.body.items.map((topTrackResponse) => ({
+      song_name: topTrackResponse.name,
+      artist_names: topTrackResponse.artists.map((artist) => artist.name),
     }));
 
-    // Response
     return res.json({
       message: "Success",
-      total_tracks: top10Tracks.length,
-      data: top10Tracks,
+      total: trackData.length,
+      data: trackData,
     });
-  } catch (error) {
-    console.error("Error getting top tracks:", JSON.stringify(error, null, 4));
-    return res.status(500).json({
-      message: "Error getting top tracks",
-      error: error.response ? error.response.data : error.message,
-    });
-  }
+  }).catch((error)=>{
+    console.error("Error:", JSON.stringify(error, null, 4));
+    res.send("Error getting top tracks");
+  });
 });
 
-
+//user profile endpoint
+app.get("/me", async (req, res) => {
+     spotifyApi.getMe().then((data)=> {
+      console.log('Some information about the authenticated user', data.body);
+    
+      return res.json(data.body)
+     }) .catch((err) => {
+      console.error('Error getting user profile:', err);
+      return res.status(500).json({ error: 'Failed to fetch user profile' });
+    });
+    })
+ 
   
   
 
