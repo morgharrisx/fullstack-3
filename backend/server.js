@@ -168,7 +168,7 @@ app.post ("/dj" , async (req, res) => {
       songName: track.name,
       artists: track.artists.map(artist => artist.name).join(', '),
       popularity: track.popularity,
-      album_cover:track.album.images.url,
+      album_cover: track.album.images.length > 0 ? track.album.images[0].url : null,
       songPreview: track.preview_url//even though it exists keep coming null???? 😫🤯
     }));
     return res.json({
