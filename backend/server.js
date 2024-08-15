@@ -130,14 +130,14 @@ app.post ("/dj" , async (req, res) => {
     instrumentalness,
     danceability,
     energy
-  } = req.query;
+  } = req.body;
   
   const minValence = mood ? parseFloat(mood) * 0.9 : 0.4;
   const maxValence = mood ? parseFloat(mood) * 1.1 : 0.6;
   const minTempo = tempo ? parseFloat(tempo) * 0.9 : 90;
   const maxTempo = tempo ? parseFloat(tempo) * 1.1 : 110;
-  const minPopularity = popularity ? parseFloat(popularity)-10 : 0.4;
-  const maxPopularity = popularity ? parseFloat(popularity)+10 : 0.6;
+  const minPopularity = popularity ? parseFloat(popularity)-10 : 40;
+  const maxPopularity = popularity ? parseFloat(popularity)+10 : 60;
   const minInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 0.9 : 0.4;
   const maxInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 1.1 : 0.6;
   const minDanceability  = danceability ? parseFloat(danceability) * 0.9 : 0.4;
