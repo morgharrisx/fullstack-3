@@ -18,25 +18,22 @@ const PlaylistGenerator = () => {
 
     const handleGenerateClick = async () => {
         try {
-            const corsProxy = 'https://thingproxy.freeboard.io/fetch/';
-            const url = `${corsProxy}https://api.deezer.com/chart`;
-            const response = await axios.get(url);
+            const url = `http://localhost:5001/dj`;
+            const response = await axios.post(url);
     
-            if (response.data && response.data.tracks && response.data.tracks.data) {
-                const trackData = response.data.tracks.data;
-    
-                const formattedSongs = trackData.map(track => ({
+            if (response.data && response.data.data) {
+                const formattedSongs = response.data.data.map(track => ({
                     id: track.id,
-                    songName: track.title,
-                    album: track.album.title,
-                    artist: track.artist.name,
-                    views: track.views,
-                    runtime: `${Math.floor(track.duration / 60)}:${('0' + (track.duration % 60)).slice(-2)}`,
-                    albumCover: track.album.cover_medium,
+                    songName: track.songName,
+                    artists: track.artists,
+                    popularity: track.popularity,
+                    albumCover: track.album_cover,
+                    songPreview: track.songPreview,
                 }));
     
                 setSongs(formattedSongs);
                 setShowSongs(true);
+                console.log(formattedSongs);
             } else {
                 console.log("No tracks found.");
             }

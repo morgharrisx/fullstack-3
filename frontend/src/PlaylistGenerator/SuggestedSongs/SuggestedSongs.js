@@ -18,7 +18,7 @@ const SuggestedSongs = ({ songs }) => {
                         key={song.id}
                         songName={song.songName}
                         album={song.album}
-                        artist={song.artist}
+                        artist={song.artists}
                         views={song.views}
                         runtime={song.runtime}
                         albumCover={song.albumCover}

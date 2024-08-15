@@ -165,7 +165,7 @@ app.post ("/dj" , async (req, res) => {
     const DJHubSuggestedSongs = DJHubResponse.body.tracks;
     const DJHubSuggested20Songs = DJHubSuggestedSongs.slice(0, 20).map(track => ({
       id: track.id,
-      name: track.name,
+      songName: track.name,
       artists: track.artists.map(artist => artist.name).join(', '),
       popularity: track.popularity,
       album_cover:track.album.images.url,
