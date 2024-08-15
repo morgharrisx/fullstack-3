@@ -119,7 +119,7 @@ app.get("/top-tracks", async (req, res) => {
 
 
 // DJ HB 
-
+app.use(express.json());
 
 app.post ("/dj" , async (req, res) => {
   const {
@@ -132,18 +132,18 @@ app.post ("/dj" , async (req, res) => {
     energy
   } = req.body;
   
-  const minValence = mood ? parseFloat(mood) * 0.9 : 0.4;
-  const maxValence = mood ? parseFloat(mood) * 1.1 : 0.6;
-  const minTempo = tempo ? parseFloat(tempo) * 0.9 : 90;
-  const maxTempo = tempo ? parseFloat(tempo) * 1.1 : 110;
-  const minPopularity = popularity ? parseFloat(popularity)-10 : 40;
-  const maxPopularity = popularity ? parseFloat(popularity)+10 : 60;
-  const minInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 0.9 : 0.4;
-  const maxInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 1.1 : 0.6;
-  const minDanceability  = danceability ? parseFloat(danceability) * 0.9 : 0.4;
-  const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : 0.6;
-  const minEnergy = energy ? parseFloat(energy) * 0.9 : 0.4;
-  const maxEnergy = energy ? parseFloat(energy) * 1.1 : 0.6;
+  const minValence = mood ? parseFloat(mood) * 0.9 : 0;
+  const maxValence = mood ? parseFloat(mood) * 1.1 : 1;
+  const minTempo = tempo ? parseFloat(tempo) * 0.9 : 0;
+  const maxTempo = tempo ? parseFloat(tempo) * 1.1 : 200;
+  const minPopularity = popularity ? parseFloat(popularity)-10 : 0;
+  const maxPopularity = popularity ? parseFloat(popularity)+10 : 1;
+  const minInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 0.9 : 0;
+  const maxInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 1.1 : 1;
+  const minDanceability  = danceability ? parseFloat(danceability) * 0.9 : 0;
+  const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : 1;
+  const minEnergy = energy ? parseFloat(energy) * 0.9 : 0;
+  const maxEnergy = energy ? parseFloat(energy) * 1.1 : 1;
 
   const options = {
     seed_genres: genre || "pop",
@@ -167,7 +167,9 @@ app.post ("/dj" , async (req, res) => {
       id: track.id,
       name: track.name,
       artists: track.artists.map(artist => artist.name).join(', '),
-      songPreview:track.preview_url
+      popularity: track.popularity,
+      album_cover:track.album.images.url,
+      songPreview: track.preview_url//even though it exists keep coming null????
     }));
     return res.json({
       message: "yay",
