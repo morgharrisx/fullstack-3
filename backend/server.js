@@ -123,8 +123,42 @@ app.get("/top-tracks", async (req, res) => {
 
 app.get ("/dj" , async (req, res) => {
   const {
+    genre,
+    mood,
+    tempo,
+    popularity,
+    instrumentalness,
+    danceability,
+    energy
+  } = req.query;
+  
+  const minValence = mood ? parseFloat(mood) * 0.9 : 0.4;
+  const maxValence = mood ? parseFloat(mood) * 1.1 : 0.6;
+  const minTempo = tempo ? parseFloat(tempo) * 0.9 : 90;
+  const maxTempo = tempo ? parseFloat(tempo) * 1.1 : 110;
+  const minPopularity = popularity ? parseFloat(popularity)-10 : 0.4;
+  const maxPopularity = popularity ? parseFloat(popularity)+10 : 0.6;
+  const minInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 0.9 : 0.4;
+  const maxInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 1.1 : 0.6;
+  const minDanceability  = danceability ? parseFloat(danceability) * 0.9 : 0.4;
+  const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : 0.6;
+  const minEnergy = energy ? parseFloat(energy) * 0.9 : 0.4;
+  const maxEnergy = energy ? parseFloat(energy) * 1.1 : 0.6;
+
   const options = {
-    seed_genres: "pop"
+    seed_genres: genre || "pop",
+    min_valence: minValence,
+    max_valence: maxValence,
+    min_tempo: minTempo,
+    max_tempo: maxTempo,
+    min_popularity: minPopularity,
+    max_popularity: maxPopularity,
+    min_instrumentalness:minInstrumentalness,
+    max_instrumentalness: maxInstrumentalness,
+    min_danceability:minDanceability,
+    max_danceability:maxDanceability,
+    min_energy:minEnergy,
+    max_energy:maxEnergy
   }
   const songs = await spotifyApi.getRecommendations(options);
   res.send(songs.body);
