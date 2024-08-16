@@ -149,7 +149,7 @@ const PlaylistGenerator = () => {
                         <Form.Range min={0} max={1} step={0.01} value={energy} onChange={(e) => setEnergy(e.target.value)} className="form-range" />
                     </Form.Group>
 
-                    <ReusableButton text="Generate" onClick={handleGenerateClick} className="playlist-generator-button" />
+                    <ReusableButton text="Search" onClick={handleGenerateClick} color={"green"}className="search-songs-button" />
                 </Col>
                 {showSongs && <SuggestedSongs songs={songs} />}
             </Row>
