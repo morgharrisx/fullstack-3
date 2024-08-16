@@ -79,7 +79,7 @@ const PlaylistGenerator = () => {
             <Row>
                 <Col md={showSongs ? 6 : 12} className="playlist-generator-col my-3">
                 <p className="playlist-generator-suggested-header display-6">Find your perfect match</p>    
-                    <Form.Group controlId= "genreSelect" className={`playlist-generator-form-group mb-3 ${selectedCriteria.genre ? 'selected' : ''}`} >
+                    <Form.Group controlId= "genreSelect" className={"playlist-generator-form-group mb-3 selected"} >
                         <Form.Label>Genre</Form.Label>
                         <Form.Control as="select" value={genre} onChange={(e) => setGenre(e.target.value)} className="form-control">
                             <option value="">Choose a genre</option>
@@ -98,7 +98,7 @@ const PlaylistGenerator = () => {
                         </Form.Control>
                     </Form.Group>
                     
-                    <Form.Group controlId="moodRange" className="playlist-generator-form-group mb-3">
+                    <Form.Group controlId="moodRange" className={`playlist-generator-form-group mb-3 ${selectedCriteria.mood ? 'selected' : ''}`}>
                         <Form.Check 
                             type="checkbox" 
                             label="Mood (Valence)" 
@@ -108,7 +108,7 @@ const PlaylistGenerator = () => {
                         <Form.Range min={0} max={1} step={0.01} value={mood} onChange={(e) => setMood(e.target.value)} className="form-range" />
                     </Form.Group>
                     
-                    <Form.Group controlId="tempoRange" className="playlist-generator-form-group mb-3">
+                    <Form.Group controlId="tempoRange" className={`playlist-generator-form-group mb-3 ${selectedCriteria.tempo ? 'selected' : ''}`}>
                     <Form.Check 
                             type="checkbox" 
                             label="Tempo (BPM)" 
@@ -119,7 +119,7 @@ const PlaylistGenerator = () => {
                         <Form.Text>{tempo} BPM</Form.Text>
                     </Form.Group>
 
-                    <Form.Group controlId="popularityRange" className="playlist-generator-form-group mb-3">
+                    <Form.Group controlId="popularityRange" className={`playlist-generator-form-group mb-3 ${selectedCriteria.popularity ? 'selected' : ''}`}>
                        <Form.Check 
                             type="checkbox" 
                             label="Popularity" 
@@ -129,7 +129,7 @@ const PlaylistGenerator = () => {
                         <Form.Range min={0} max={100} value={popularity} onChange={(e) => setPopularity(e.target.value)} className="form-range" />
                     </Form.Group>
 
-                    <Form.Group controlId="instrumentalnessRange" className="playlist-generator-form-group mb-3">
+                    <Form.Group controlId="instrumentalnessRange" className={`playlist-generator-form-group mb-3 ${selectedCriteria.instrumentalness ? 'selected' : ''}`}>
                         <Form.Check 
                             type="checkbox" 
                             label="Instrumentalness" 
@@ -139,7 +139,7 @@ const PlaylistGenerator = () => {
                         <Form.Range min={0} max={1} step={0.01} value={instrumentalness} onChange={(e) => setInstrumentalness(e.target.value)} className="form-range" />
                     </Form.Group>
 
-                    <Form.Group controlId="energyRange" className="playlist-generator-form-group mb-3">
+                    <Form.Group controlId="energyRange" className={`playlist-generator-form-group mb-3 ${selectedCriteria.danceability ? 'selected' : ''}`}>
                         <Form.Check 
                             type="checkbox" 
                             label="Danceability" 
