@@ -8,14 +8,14 @@ import { Link } from 'react-router-dom'
 
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState({
-    display_name: 'Placeholder',
-    email: 'placeholder.com',
-    followers: { total: 123 },
-    country: 'ES', 
-    product: 'very very vip premium', 
+    display_name: '',
+    email: '',
+    followers: { total: 0 },
+    country: '', 
+    product: '', 
     images: [], 
-    height: 5,
-    width: 5
+    height: 0,
+    width: 0
   });
 
   useEffect(() => {
