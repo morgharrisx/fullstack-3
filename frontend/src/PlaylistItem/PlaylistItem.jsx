@@ -5,7 +5,7 @@ import './playlistitem.css';
 const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isHeader }) => {
   const formattedViews = views?.toLocaleString();
   return (
-    <Container>
+    <Container fluid>
       <Row>
         <Col xs={12}>
           <Row className={`playlist-item align-items-center ${isHeader ? 'playlist-header' : ''}`}>
@@ -43,3 +43,5 @@ const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isH
 };
 
 export default PlaylistItem;
+
+
