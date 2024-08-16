@@ -132,18 +132,18 @@ app.post ("/dj" , async (req, res) => {
     energy
   } = req.body; 
   //‼️TODO: CHECK ALL GENRES FROM API TO DOUBLE CHECK IF ITS EXACTLY WRITTEN SAME WAY  ‼️
-  const minValence = mood ? parseFloat(mood) * 0.9  : 0;
-  const maxValence = mood ? parseFloat(mood) * 1.1  : 1;
-  const minTempo = tempo ? parseFloat(tempo) * 0.9 : 0;
-  const maxTempo = tempo ? parseFloat(tempo) * 1.1 : 200;
-  const minPopularity = popularity ? parseFloat(popularity)-10 : 0;
-  const maxPopularity = popularity ? parseFloat(popularity)+10 : 1;
-  const minInstrumentalness = instrumentalness ? Math.max(parseFloat(instrumentalness)) * 0.9 : 0;
-  const maxInstrumentalness = instrumentalness ? Math.min(parseFloat(instrumentalness)) * 1.1 : 1;
-  const minDanceability  = danceability ? parseFloat(danceability) * 0.9  : 0;
-  const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : 1;
-  const minEnergy = energy ? parseFloat(energy) * 0.9  : 0;
-  const maxEnergy = energy ? parseFloat(energy) * 1.1  : 1;
+  const minValence = mood ? parseFloat(mood) * 0.9  : undefined;
+  const maxValence = mood ? parseFloat(mood) * 1.1  : undefined;
+  const minTempo = tempo ? parseFloat(tempo) * 0.9 : undefined;
+  const maxTempo = tempo ? parseFloat(tempo) * 1.1 : undefined;
+  const minPopularity = popularity ? parseFloat(popularity)-10 : undefined;
+  const maxPopularity = popularity ? parseFloat(popularity)+10 : undefined;
+  const minInstrumentalness = instrumentalness ? Math.max(parseFloat(instrumentalness)) * 0.9 : undefined;
+  const maxInstrumentalness = instrumentalness ? Math.min(parseFloat(instrumentalness)) * 1.1 : undefined;
+  const minDanceability  = danceability ? parseFloat(danceability) * 0.9  : undefined;
+  const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : undefined;
+  const minEnergy = energy ? parseFloat(energy) * 0.9  : undefined;
+  const maxEnergy = energy ? parseFloat(energy) * 1.1  : undefined;
 
   const options = {
     seed_genres: genre || "pop",
