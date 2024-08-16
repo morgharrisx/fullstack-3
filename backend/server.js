@@ -138,8 +138,8 @@ app.post ("/dj" , async (req, res) => {
   const maxTempo = tempo ? parseFloat(tempo) * 1.1 : 200;
   const minPopularity = popularity ? parseFloat(popularity)-10 : 0;
   const maxPopularity = popularity ? parseFloat(popularity)+10 : 1;
-  const minInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 0.9 : 0;
-  const maxInstrumentalness = instrumentalness ? parseFloat(instrumentalness) * 1.1 : 1;
+  const minInstrumentalness = instrumentalness ? Math.max(parseFloat(instrumentalness)) * 0.9 : 0;
+  const maxInstrumentalness = instrumentalness ? Math.min(parseFloat(instrumentalness)) * 1.1 : 1;
   const minDanceability  = danceability ? parseFloat(danceability) * 0.9  : 0;
   const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : 1;
   const minEnergy = energy ? parseFloat(energy) * 0.9  : 0;
@@ -162,6 +162,7 @@ app.post ("/dj" , async (req, res) => {
   }
   try {
     const DJHubResponse = await spotifyApi.getRecommendations(options);
+    console.log(options);
     const DJHubSuggestedSongs = DJHubResponse.body.tracks;
     const DJHubSuggested20Songs = DJHubSuggestedSongs.slice(0, 20).map(track => ({
       id: track.id,
@@ -171,14 +172,20 @@ app.post ("/dj" , async (req, res) => {
       album_cover: track.album.images.length > 0 ? track.album.images[0].url : null,
       songPreview: track.preview_url//even though it exists keep coming null???? 😫🤯
     }));
+    console.log(DJHubSuggested20Songs)
     return res.json({
       message: "yay",
       data: DJHubSuggested20Songs,
     });
 
   } catch (error) {
+    if (error.statusCode === 429) {
+      const retryAfter = error.headers['retry-after'] || 60;
+      console.error(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+      return res.status(429).send(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+    }
     console.error("Error fetching recommendations:", error);
-    res.status(500).send('An error occurred while fetching recommendations.');
+    res.status(error.statusCode).send('An error occurred while fetching recommendations.');
   }
 });
 
