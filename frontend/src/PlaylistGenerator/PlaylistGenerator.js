@@ -8,7 +8,7 @@ import './playlistgenerator.css';
 const PlaylistGenerator = () => {
     const [showSongs, setShowSongs] = useState(false);
     const [songs, setSongs] = useState([]);
-    const [genre, setGenre] = useState('');
+    const [genre, setGenre] = useState('pop');
     const [mood, setMood] = useState(0.5);
     const [tempo, setTempo] = useState(100);
     const [popularity, setPopularity] = useState(50);
@@ -16,19 +16,39 @@ const PlaylistGenerator = () => {
     const [danceability, setDanceability] = useState(0.5);
     const [energy, setEnergy] = useState(0.5);
 
+    const [selectedCriteria, setSelectedCriteria] = useState({
+        genre: false,
+        mood: false,
+        tempo: false,
+        popularity: false,
+        instrumentalness: false,
+        danceability: false,
+        energy: false,
+    });
+
+    const toggleSelection = (criteria) => {
+        setSelectedCriteria(prev => ({
+            ...prev,
+            [criteria]: !prev[criteria]
+        }));
+    };
+    
+
     const handleGenerateClick = async () => {
         try {
             const url = `http://localhost:5001/dj`;
             const requestData = {
-                genre: genre.toLowerCase(),
-                mood,
-                tempo,
-                popularity,
-                instrumentalness,
-                danceability,
-                energy,
+                genre: genre.toLowerCase()
             };
+            if (selectedCriteria.mood) requestData.mood = mood;
+            if (selectedCriteria.tempo) requestData.tempo = tempo;
+            if (selectedCriteria.popularity) requestData.popularity = popularity;
+            if (selectedCriteria.instrumentalness) requestData.instrumentalness = instrumentalness;
+            if (selectedCriteria.danceability) requestData.danceability = danceability;
+            if (selectedCriteria.energy) requestData.energy = energy;
+            console.log(requestData);
             const response = await axios.post(url, requestData);
+            
     
             if (response.data && response.data.data) {
                 const formattedSongs = response.data.data.map(track => ({
@@ -43,6 +63,7 @@ const PlaylistGenerator = () => {
                 setSongs(formattedSongs);
                 setShowSongs(true);
                 console.log(formattedSongs);
+                console.log(requestData);
             } else {
                 console.log("No tracks found.");
             }
@@ -58,7 +79,7 @@ const PlaylistGenerator = () => {
             <Row>
                 <Col md={showSongs ? 6 : 12} className="playlist-generator-col my-3">
                 <p className="playlist-generator-suggested-header display-6">Find your perfect match</p>    
-                    <Form.Group controlId="genreSelect" className="playlist-generator-form-group mb-3">
+                    <Form.Group controlId= "genreSelect" className={`playlist-generator-form-group mb-3 ${selectedCriteria.genre ? 'selected' : ''}`} >
                         <Form.Label>Genre</Form.Label>
                         <Form.Control as="select" value={genre} onChange={(e) => setGenre(e.target.value)} className="form-control">
                             <option value="">Choose a genre</option>
@@ -78,33 +99,53 @@ const PlaylistGenerator = () => {
                     </Form.Group>
                     
                     <Form.Group controlId="moodRange" className="playlist-generator-form-group mb-3">
-                        <Form.Label>Mood (Valence)</Form.Label>
+                        <Form.Check 
+                            type="checkbox" 
+                            label="Mood (Valence)" 
+                            checked={selectedCriteria.mood} 
+                            onChange={() => toggleSelection('mood')}
+                        />
                         <Form.Range min={0} max={1} step={0.01} value={mood} onChange={(e) => setMood(e.target.value)} className="form-range" />
                     </Form.Group>
-
+                    
                     <Form.Group controlId="tempoRange" className="playlist-generator-form-group mb-3">
-                        <Form.Label>Tempo (BPM)</Form.Label>
+                    <Form.Check 
+                            type="checkbox" 
+                            label="Tempo (BPM)" 
+                            checked={selectedCriteria.tempo} 
+                            onChange={() => toggleSelection('tempo')}
+                        />
                         <Form.Range min={0} max={200} step={1} value={tempo} onChange={(e) => setTempo(e.target.value)} className="form-range" />
                         <Form.Text>{tempo} BPM</Form.Text>
                     </Form.Group>
 
                     <Form.Group controlId="popularityRange" className="playlist-generator-form-group mb-3">
-                        <Form.Label>Popularity</Form.Label>
+                       <Form.Check 
+                            type="checkbox" 
+                            label="Popularity" 
+                            checked={selectedCriteria.popularity} 
+                            onChange={() => toggleSelection('popularity')}
+                        />
                         <Form.Range min={0} max={100} value={popularity} onChange={(e) => setPopularity(e.target.value)} className="form-range" />
                     </Form.Group>
 
                     <Form.Group controlId="instrumentalnessRange" className="playlist-generator-form-group mb-3">
-                        <Form.Label>Instrumentalness</Form.Label>
+                        <Form.Check 
+                            type="checkbox" 
+                            label="Instrumentalness" 
+                            checked={selectedCriteria.instrumentalness} 
+                            onChange={() => toggleSelection('instrumentalness')}
+                        />
                         <Form.Range min={0} max={1} step={0.01} value={instrumentalness} onChange={(e) => setInstrumentalness(e.target.value)} className="form-range" />
                     </Form.Group>
 
-                    <Form.Group controlId="danceabilityRange" className="playlist-generator-form-group mb-3">
-                        <Form.Label>Danceability</Form.Label>
-                        <Form.Range min={0} max={1} step={0.01} value={danceability} onChange={(e) => setDanceability(e.target.value)} className="form-range" />
-                    </Form.Group>
-
                     <Form.Group controlId="energyRange" className="playlist-generator-form-group mb-3">
-                        <Form.Label>Energy</Form.Label>
+                        <Form.Check 
+                            type="checkbox" 
+                            label="Danceability" 
+                            checked={selectedCriteria.danceability} 
+                            onChange={() => toggleSelection('danceability')}
+                        />
                         <Form.Range min={0} max={1} step={0.01} value={energy} onChange={(e) => setEnergy(e.target.value)} className="form-range" />
                     </Form.Group>
 
