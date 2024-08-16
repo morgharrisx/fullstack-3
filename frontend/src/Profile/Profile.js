@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom'
 
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState({
-    display_name: 'Poo',
-    email: 'poo@poo.com',
+    display_name: 'Placeholder',
+    email: 'placeholder.com',
     followers: { total: 123 },
     country: 'ES', 
     product: 'very very vip premium', 
@@ -72,7 +72,7 @@ const UserProfile = () => {
             <strong>Subscription:</strong> {userProfile.product}
           </Card.Text>
         </Card.Body>
-        <Link to="/stats">
+        <Link to="/detailed-stats ">
           <ReusableButton text="My Stats" color="pink" />
         </Link>
       </Card>
