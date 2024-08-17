@@ -113,7 +113,11 @@ app.get("/top-track", async (req, res) => {
     });
 });
 
-
+// randomising function that can be re-used if needed
+function getRandomElements(arr, num) {
+  const shuffled = arr.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, num);
+}
 
 app.get("/recommendations", async (req, res) => {
   try {
@@ -130,11 +134,13 @@ app.get("/recommendations", async (req, res) => {
     console.log("Seed Tracks IDs:", seedTracks);
     console.log("Seed Artists IDs:", seedArtists);
 
-    // slicing number of seeds because spotify only allows 5 seeds across values. could work on randomising it
+    const randomSeedTracks = getRandomElements(seedTracks, 3);
+    const randomSeedArtists = getRandomElements(seedArtists, 2);
+
     const recommendationsResponse = await spotifyApi.getRecommendations({
-      seed_tracks: seedTracks.slice(0, 3), 
-      seed_artists: seedArtists.slice(0, 2), 
-      limit: 10, // we can change the number here, not sure how many we need?
+      seed_tracks: randomSeedTracks, 
+      seed_artists: randomSeedArtists, 
+      limit: 20, 
     });
 
     console.log("Recommendations Response:", JSON.stringify(recommendationsResponse, null, 2));
