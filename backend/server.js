@@ -155,9 +155,11 @@ app.get("/recommendations", async (req, res) => {
     });
 
     res.json(recommendations.map(track => ({
+      id: track.id,
       name: track.name,
       artists: track.artists.map(artist => artist.name),
       album: track.album.name,
+      albumCover: track.album.images[0].url
     })));
 
   } catch (error) {

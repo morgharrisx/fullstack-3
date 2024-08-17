@@ -4,8 +4,6 @@ import ReusableButton from '../ReusableButton/ReusableButton';
 import { Container, Row, Col, Image, Placeholder } from 'react-bootstrap';
 import './RecommendedSongs.css'
 
-const CORS_PROXY = 'https://thingproxy.freeboard.io/fetch/';
-
 //Converts runtime to mm:ss format
 const convertToMMSS = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -19,9 +17,9 @@ const convertToMMSS = (seconds) => {
     useEffect(() => {
       const fetchSongs = async () => {
         try {
-          const response = await fetch(`${CORS_PROXY}https://api.deezer.com/chart`);
+          const response = await fetch("http://localhost:5001/recommendations");
           const data = await response.json();
-          setSongs(data.tracks.data);
+          setSongs(data);
           setLoading(false);
         } catch (error) {
           console.error('Error fetching songs:', error);
@@ -31,7 +29,7 @@ const convertToMMSS = (seconds) => {
       fetchSongs();
     }, []);
     if (loading) return <div>Loading. Please wait...</div>;
-    const albumCovers = songs.slice(0,4).map((songs) => songs.album.cover_medium);
+    const albumCovers = songs.slice(0,4).map((songs) => songs.albumCover);
     return (
       <div className='playlist-page'>
         <Container fluid>
@@ -60,19 +58,15 @@ const convertToMMSS = (seconds) => {
               songName="Song"
               album="Album"
               artist="Artist"  
-              views="Views"
-              runtime="Length"
               isHeader={true}
             />
             {songs.map((song) => (
               <PlaylistItem
                 key={song.id}
-                songName={song.title}
-                album={song.album.title}
-                artist={song.artist.name}
-                views={song.rank} //Do we need this?
-                runtime={convertToMMSS(song.duration)}
-                albumCover={song.album.cover_small}
+                songName={song.name}
+                album={song.album}
+                artist={song.artists}
+                albumCover={song.albumCover}
               />
             ))}
             <br></br>
