@@ -118,6 +118,62 @@ app.get("/top-tracks", async (req, res) => {
 });
 
 
+app.get("/compatible-tracks", async (req, res) => {
+  try {
+    // get the most listened track
+    const topTracksResponse = await spotifyApi.getMyTopTracks({ limit: 1, time_range: 'short_term' });
+    const topTrack = topTracksResponse.body.items[0];
+    const trackId = topTrack.id;  
   
-  
+    // get audio features
+    const audioFeaturesResponse = await spotifyApi.getAudioFeaturesForTrack(trackId);
+    const { key, mode, tempo } = audioFeaturesResponse.body;
 
+    // find compatible track with the following audio features
+    const minTempo = tempo - 5;
+    const maxTempo = tempo + 5;
+    const compatibleTracksResponse = await spotifyApi.searchTracks(`key:${key} mode:${mode} tempo:${minTempo}-${maxTempo}`, { limit: 1 });
+
+    const compatibleTrack = compatibleTracksResponse.body.tracks.items[0];
+
+    let compatibleTrackFeatures = null;
+    if (compatibleTrack) {
+      const compatibleTrackFeaturesResponse = await spotifyApi.getAudioFeaturesForTrack(compatibleTrack.id);
+      compatibleTrackFeatures = compatibleTrackFeaturesResponse.body;
+    }
+
+    const result = {
+      most_listened: {
+        name: topTrack.name,
+        artists: topTrack.artists.map(artist => artist.name),
+        album: topTrack.album.name,
+        key: key,
+        mode: mode,
+        tempo: tempo,
+        externalUrl: topTrack.external_urls.spotify,
+        images: topTrack.album.images,
+      },
+      compatible: compatibleTrack ? {
+        name: compatibleTrack.name,
+        artists: compatibleTrack.artists.map(artist => artist.name),
+        album: compatibleTrack.album.name,
+        key: key,
+        mode: mode,
+        tempo: compatibleTrackFeatures ? compatibleTrackFeatures.tempo : 'N/A',
+        externalUrl: compatibleTrack.external_urls.spotify,
+        images: compatibleTrack.album.images,
+      } : null,
+    };
+
+    return res.json({
+      message: "Success",
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error getting compatible tracks:", JSON.stringify(error, null, 4));
+    return res.status(500).json({
+      message: "Error getting compatible tracks",
+      error: error.response ? error.response.data : error.message,
+    });
+  }
+});
