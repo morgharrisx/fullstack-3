@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
-import axios from "axios"; // not using currently
+//import axios from "axios"; // not using currently
 dotenv.config({path :"./api/.env"});
 
 import SpotifyWebApi from "spotify-web-api-node";
@@ -25,7 +25,10 @@ app.get("/login", (req, res) => {
     "user-read-email",
     "playlist-modify-public",
     "playlist-modify-private",
-    "user-top-read"
+    "user-top-read",
+    "user-read-email",
+    "user-read-private"
+
   ]
   res.redirect(spotifyApi.createAuthorizeURL(scopes));
 });
@@ -118,6 +121,18 @@ app.get("/top-tracks", async (req, res) => {
 });
 
 
+//user profile endpoint
+app.get("/me", async (req, res) => {
+     spotifyApi.getMe().then((data)=> {
+      console.log('Some information about the authenticated user', data.body);
+    
+      return res.json(data.body)
+     }) .catch((err) => {
+      console.error('Error getting user profile:', err);
+      return res.status(500).json({ error: 'Failed to fetch user profile' });
+    });
+    })
+ 
   
   
 
