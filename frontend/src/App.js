@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavScrollExample from './Navbar/navbar';
 import ControlledCarousel from './Carousel/ControlledCarousel';
@@ -13,6 +13,17 @@ import ContactForm from './ContactForm/ContactForm';
 import Authentication from './login/login';
 
 function App() { 
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
     <div className="App">
       <Router>
