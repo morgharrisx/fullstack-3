@@ -127,7 +127,7 @@ app.get("/top-artists", async (req, res) => {
   try {
     const topArtistsResponse = await spotifyApi.getMyTopArtists({ time_range: timeRange });
     const topArtists = topArtistsResponse.body.items;
-    const top7Artists = topArtists.slice(0, 10).map(artist => ({
+    const top10Artists = topArtists.slice(0, 10).map(artist => ({
       name: artist.name,
       popularity: artist.popularity,
       genres: artist.genres,
@@ -138,8 +138,8 @@ app.get("/top-artists", async (req, res) => {
     // Send the response
     return res.json({
       message: "Success",
-      total_artists: top7Artists.length,
-      data: top7Artists,
+      total_artists: top10Artists.length,
+      data: top10Artists,
     });
   } catch (error) {
     console.error("Error getting top artists:", JSON.stringify(error, null, 4));
