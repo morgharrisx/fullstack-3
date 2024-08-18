@@ -16,21 +16,35 @@ const Dashboard = () => {
         const response = await fetch("http://localhost:5001/top-tracks");
         const data = await response.json();
         console.log(data); 
-        setTopTracks(data.data.slice(0, 10)); 
-        setTopArtists(data.data.slice(0, 10)); 
-        
+        setTopTracks(data.data.slice(0, 10));  
       } catch (error) {
         console.error("Error fetching top tracks:", error);
       }
     };
 
+    const fetchTopArtists = async () => {
+      try {
+        const response = await fetch("http://localhost:5001/top-artists");
+        const data = await response.json();
+        console.log("Top Artists:", data); 
+        setTopArtists(data.data.slice(0, 10)); 
+      } catch (error) {
+        console.error("Error fetching top artists:", error);
+      }
+    };
+
     fetchTopTracks(); 
+    fetchTopArtists(); 
   }, []);
+
 
   useEffect(() => {
     console.log("Top Tracks state updated:", topTracks); 
   }, [topTracks]);
 
+  useEffect(() => {
+    console.log("Top Artists state updated:", topArtists); 
+  }, [topArtists]);
 
   return (
     <Container className="dashboard-container">
@@ -59,7 +73,7 @@ const Dashboard = () => {
               </Col>
               <Col>
                 <NumberedList
-                  items={topArtists.map(track => track.artists)}  listName={"Artists"}
+                  items={topArtists.map(artist => artist.name)}  listName={"Artists"}
                 ></NumberedList>
               </Col>
             </Row>
