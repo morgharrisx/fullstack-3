@@ -172,7 +172,7 @@ app.post ("/dj" , async (req, res) => {
       album_cover: track.album.images.length > 0 ? track.album.images[0].url : null,
       songPreview: track.preview_url//even though it exists keep coming null???? 😫🤯
     }));
-    console.log(DJHubSuggested20Songs)
+    console.log(DJHubSuggested20Songs);
     return res.json({
       message: "yay",
       data: DJHubSuggested20Songs,
