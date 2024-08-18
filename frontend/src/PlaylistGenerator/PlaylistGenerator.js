@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Container, Row, Col, Form, Image } from "react-bootstrap";
+import { Container, Row, Col, Form, Image, Spinner } from "react-bootstrap";
 import SuggestedSongs from "./SuggestedSongs/SuggestedSongs";
 import ReusableButton from "../ReusableButton/ReusableButton";
 import "./playlistgenerator.css";
@@ -16,6 +16,7 @@ const PlaylistGenerator = () => {
   const [instrumentalness, setInstrumentalness] = useState(0.5);
   const [danceability, setDanceability] = useState(0.5);
   const [energy, setEnergy] = useState(0.5);
+  const [loading, setLoading] = useState(false);
 
   const [selectedCriteria, setSelectedCriteria] = useState({
     genre: false,
@@ -27,6 +28,8 @@ const PlaylistGenerator = () => {
     energy: false,
   });
 
+  const suggestedSongsRef = useRef(null);
+
   const toggleSelection = (criteria) => {
     setSelectedCriteria((prev) => ({
       ...prev,
@@ -35,6 +38,7 @@ const PlaylistGenerator = () => {
   };
 
   const handleGenerateClick = async () => {
+    setLoading(true); 
     try {
       const url = `http://localhost:5001/dj`;
       const requestData = {
@@ -70,11 +74,21 @@ const PlaylistGenerator = () => {
       }
     } catch (error) {
       console.error("Error fetching tracks:", error);
+    } finally {
+      setLoading(false);
     }
   };
   const handleDelete = (id) => {
     setSongs(songs.filter((song) => song.id !== id));
   };
+
+  useEffect(() => {
+    if (showSongs && suggestedSongsRef.current) {
+        suggestedSongsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [showSongs]);
+
+
   return (
     <Container className="playlist-generator-container mt-5 ">
       <Row className="playlist-generator-row">
@@ -244,7 +258,22 @@ const PlaylistGenerator = () => {
           />
         </Col>
       </Row>
-      {showSongs && <SuggestedSongs songs={songs} />}
+      {loading && (
+      <Row>
+        <Col>
+          <div className="text-center">
+          <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+          </div>
+        </Col>
+      </Row>
+    )}
+     {showSongs && !loading && (
+        <div ref={suggestedSongsRef}>
+          <SuggestedSongs songs={songs} />
+        </div>
+      )}
     </Container>
   );
 };
