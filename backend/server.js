@@ -125,6 +125,85 @@ app.get("/top-tracks", async (req, res) => {
 });
 
 
+// DJ HB 
+app.use(express.json());
+
+app.post ("/dj" , async (req, res) => {
+  const {
+    genre,
+    mood,
+    tempo,
+    popularity,
+    instrumentalness,
+    danceability,
+    energy
+  } = req.body; 
+  //‼️TODO: CHECK ALL GENRES FROM API TO DOUBLE CHECK IF ITS EXACTLY WRITTEN SAME WAY  ‼️
+  const minValence = mood ? parseFloat(mood) * 0.9  : undefined;
+  const maxValence = mood ? parseFloat(mood) * 1.1  : undefined;
+  const minTempo = tempo ? parseFloat(tempo) * 0.9 : undefined;
+  const maxTempo = tempo ? parseFloat(tempo) * 1.1 : undefined;
+  const minPopularity = popularity ? parseFloat(popularity)-10 : undefined;
+  const maxPopularity = popularity ? parseFloat(popularity)+10 : undefined;
+  const minInstrumentalness = instrumentalness ? Math.max(parseFloat(instrumentalness)) * 0.9 : undefined;
+  const maxInstrumentalness = instrumentalness ? Math.min(parseFloat(instrumentalness)) * 1.1 : undefined;
+  const minDanceability  = danceability ? parseFloat(danceability) * 0.9  : undefined;
+  const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : undefined;
+  const minEnergy = energy ? parseFloat(energy) * 0.9  : undefined;
+  const maxEnergy = energy ? parseFloat(energy) * 1.1  : undefined;
+
+  const options = {
+    seed_genres: genre || "pop",
+    min_valence: minValence,
+    max_valence: maxValence,
+    min_tempo: minTempo,
+    max_tempo: maxTempo,
+    min_popularity: minPopularity,
+    max_popularity: maxPopularity,
+    min_instrumentalness:minInstrumentalness,
+    max_instrumentalness: maxInstrumentalness,
+    min_danceability:minDanceability,
+    max_danceability:maxDanceability,
+    min_energy:minEnergy,
+    max_energy:maxEnergy
+  }
+  try {
+    const DJHubResponse = await spotifyApi.getRecommendations(options);
+    console.log(options);
+    const DJHubSuggestedSongs = DJHubResponse.body.tracks;
+    const DJHubSuggested20Songs = DJHubSuggestedSongs.slice(0, 20).map(track => ({
+      id: track.id,
+      songName: track.name,
+      artists: track.artists.map(artist => artist.name).join(', '),
+      popularity: track.popularity,
+      album_cover: track.album.images.length > 0 ? track.album.images[0].url : null,
+      songPreview: track.preview_url//even though it exists keep coming null???? 😫🤯
+    }));
+    console.log(DJHubSuggested20Songs);
+    return res.json({
+      message: "yay",
+      data: DJHubSuggested20Songs,
+    });
+
+  } catch (error) {
+    if (error.statusCode === 429) {
+      const retryAfter = error.headers['retry-after'] || 60;
+      console.error(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+      return res.status(429).send(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+    }
+    console.error("Error fetching recommendations:", error);
+    res.status(error.statusCode).send('An error occurred while fetching recommendations.');
+  }
+});
+
+  
+//artist name tracks.artists.name
+//song name tracks.name
+//song preview tracks.preview_url
+//track.id to fetch other things
+
+
+
 // randomising function that can be re-used if needed
 function getRandomElements(arr, num) {
   const shuffled = arr.sort(() => 0.5 - Math.random());
@@ -193,5 +272,4 @@ app.get("/me", async (req, res) => {
     });
     })
  
-  
- 
+
