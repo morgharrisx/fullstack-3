@@ -314,9 +314,11 @@ app.post('/create-playlist', async (req, res) => {
     console.log('create playlist response:', playlistResponse);
     const playlistId = playlistResponse.body.id; 
     console.log('Playlist id:', playlistId);
-    const trackUris = [
-      'spotify:track:6D8y7Bck8h11byRY88Pt2z'
-    ];
+    const { trackUris } = req.body;
+    if (trackUris.length === 0) {
+      return res.status(400).json({ error: 'Please provide an array of track URIs.' });
+    }
+
     const addTracksResponse = await spotifyApi.addTracksToPlaylist(playlistId, trackUris);
     console.log('Tracks added to playlist:', addTracksResponse.body.snapshot_id);
 
