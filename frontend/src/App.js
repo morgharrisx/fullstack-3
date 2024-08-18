@@ -10,6 +10,7 @@ import Dashboard from './Dashboard/Dashboard';
 import RecommendedPlaylist from './RecommendedPlaylist'; 
 import Profile from './Profile/Profile';
 import ContactForm from './ContactForm/ContactForm';
+import Authentication from './login/login';
 
 function App() { 
   return (
