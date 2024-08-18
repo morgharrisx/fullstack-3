@@ -20,13 +20,13 @@ const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isH
                 </Placeholder>
               )}
             </Col>
-            <Col xs={3}>
+            <Col xs={3} className='overlap-col'>
               <span className="song-name">{songName}</span>
             </Col>
-            <Col xs={3}>
+            <Col xs={3} className='overlap-col'>
               <span className="album-name">{album}</span>
             </Col>
-            <Col xs={2}>
+            <Col xs={2} className='overlap-col'>
               <span className="artist-name">{artist}</span>
             </Col>
             <Col xs={2} className='centered-col'>
