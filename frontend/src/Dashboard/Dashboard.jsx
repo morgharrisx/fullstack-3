@@ -13,11 +13,12 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTopTracks = async () => {
       try {
-        const response = await fetch("http://localhost:5001/top-track");
+        const response = await fetch("http://localhost:5001/top-tracks");
         const data = await response.json();
         console.log(data); 
         setTopTracks(data.data.slice(0, 10)); 
         setTopArtists(data.data.slice(0, 10)); 
+        
       } catch (error) {
         console.error("Error fetching top tracks:", error);
       }
@@ -52,13 +53,13 @@ const Dashboard = () => {
               </Col>
               <Col>
               <NumberedList
-                  items={topTracks.map((track) => track.song_name)} 
+                  items={topTracks.map((track) => track.name)} 
                   listName={"Tracks"}
                 />
               </Col>
               <Col>
                 <NumberedList
-                  items={topArtists.map(track => track.artist_names)}  listName={"Artists"}
+                  items={topArtists.map(track => track.artists)}  listName={"Artists"}
                 ></NumberedList>
               </Col>
             </Row>

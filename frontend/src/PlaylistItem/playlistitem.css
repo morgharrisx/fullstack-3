@@ -4,10 +4,10 @@
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
     transition: transform 0.5s ease, background-color 0.5s ease, color 0.5s ease;
-    border-radius: 15px;
-    display: flex;
+    border-radius: 25px;
+    /* display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
   }
 
   .playlist-header {
@@ -23,7 +23,6 @@
   .playlist-header .song-name { 
     font-weight: lighter;
   }
-
 
   .playlist-item:not(.playlist-header):hover {
     background-color: rgb(255, 0, 128);
@@ -45,30 +44,49 @@
     margin-right: 1rem;
   }
 
-  .song-name, .album-name, .artist-name, .views, .runtime {
-    font-size: 1rem;
+  .overlap-col {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-right: 1rem;
-    max-width: 10%;
+  }
+
+  .overlap-col {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+}
+
+  .song-name, .album-name, .artist-name, .views, .runtime {
+    font-size: 1rem;
+    /* padding-right: 1rem; 
+    max-width: 20%; */
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
   }
   
   .song-name {
     font-weight: bold;
     max-width: 5%;
+    flex-grow: 2;
+    /* white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; */
   }
 
-  .playlist-item:not(.playlist-header):hover .song-name,
-  .playlist-item:not(.playlist-header):hover .album-name,
-  .playlist-item:not(.playlist-header):hover .artist-name,
+  /* .album-name, .artist-name {
+    flex-grow: 1;
+  } */
+
+  .playlist-item:not(.playlist-header):hover .overlap-col,
   .playlist-item:not(.playlist-header):hover .views,
   .playlist-item:not(.playlist-header):hover .runtime {
     color: #ffffff;
 }
   
   .views, .runtime {
-    max-width: 10%;
+    flex-grow: 0.5;
   }
 
   .centered-col {
@@ -98,9 +116,9 @@
     .song-name, .album-name, .artist-name, .views, .runtime {
       font-size: 0.8rem;
       flex: 1;
-      white-space: nowrap;
+      /* white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellipsis;
+      text-overflow: ellipsis; */
       max-width: 5%;
       padding-right: 0.5rem;
     }

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Container, Card, Image, Spinner } from 'react-bootstrap';
 import defaultAvatar from './1.png';
 import './profile.css'; 
@@ -7,13 +8,36 @@ import { Link } from 'react-router-dom'
 
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState({
-    display_name: 'Poo',
-    email: 'poo@poo.com',
-    followers: { total: 123 },
-    country: 'ES', 
-    product: 'very very vip premium', 
+    display_name: '',
+    email: '',
+    followers: { total: 0 },
+    country: '', 
+    product: '', 
     images: [], 
+    height: 0,
+    width: 0
   });
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch("http://localhost:5001/me");
+        const data = await response.json();
+        console.log(data); 
+        setUserProfile(data); 
+        
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+    };
+
+    fetchProfile(); 
+  }, []);
+
+  useEffect(() => {
+    console.log("Current user profile data", userProfile); 
+  }, [userProfile]);
+
   const [loading, setLoading] = useState(false);
 
   if (loading) {
@@ -25,7 +49,6 @@ const UserProfile = () => {
       </div>
     );
   }
-
   const profileImageUrl =
     userProfile.images && userProfile.images.length > 0 ? userProfile.images[0].url : defaultAvatar;
 
@@ -49,7 +72,7 @@ const UserProfile = () => {
             <strong>Subscription:</strong> {userProfile.product}
           </Card.Text>
         </Card.Body>
-        <Link to="/stats">
+        <Link to="/detailed-stats ">
           <ReusableButton text="My Stats" color="pink" />
         </Link>
       </Card>
