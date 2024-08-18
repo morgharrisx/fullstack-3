@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-const Authentication = () => {
+const Authentication = ({ onLogin, onLogout }) => {
   const [accessToken, setAccessToken] = useState(null);
 
   // Function to start the authentication process
@@ -22,21 +22,32 @@ const Authentication = () => {
     const token = getAccessTokenFromUrl();
     if (token) {
       setAccessToken(token);
+      onLogin();
       // Optionally, store the token in local storage/session storage
       //localStorage.setItem('spotify_access_token', token);
     }
-  }, []);
+  }, [onLogin]);
+
+  // Logout function
+  const handleLogout = () => {
+    setAccessToken(null); // Clear the access token
+    // Optionally remove the token from local storage
+    // localStorage.removeItem('spotify_access_token', token);
+    onLogout(); // Call onLogout prop to inform parent component of logout
+  };
 
   return (
     <div>
       {!accessToken ? (
         <button onClick={authenticateUser}>Login with Spotify</button>
       ) : (
-        <p>Logged in! You can now make API requests.</p>
+        <div>
+          <p>Logged in! You can now make API requests.</p>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
       )}
     </div>
   );
 };
 
 export default Authentication;
-

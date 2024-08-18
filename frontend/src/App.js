@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import NavScrollExample from './Navbar/navbar';
 import ControlledCarousel from './Carousel/ControlledCarousel';
 import DetailedStats from './DetailedStats/DetailedStats';
@@ -13,7 +13,6 @@ import ContactForm from './ContactForm/ContactForm';
 import Authentication from './login/login';
 
 function App() { 
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = () => {
@@ -24,17 +23,41 @@ function App() {
     setIsLoggedIn(false);
   };
 
+  const ProtectedRoute = ({ element }) => {
+    return isLoggedIn ? element : <Navigate to="/login" />;
+  };
+
   return (
     <div className="App">
       <Router>
+        <NavScrollExample isLoggedIn={isLoggedIn} onLogout={handleLogout} />
         <Routes>
-          <Route path="/" element={<> <NavScrollExample/><ControlledCarousel/><Footer/> </>} />
-          <Route path="/profile" element={<> <NavScrollExample/><Profile/><Footer/> </>} />
-          <Route path="/dashboard" element={<> <NavScrollExample/><Dashboard/><Footer/> </>} />
-          <Route path="/detailed-stats" element={<> <NavScrollExample/><DetailedStats/><Footer/> </>} />
-          <Route path="/dj-hub" element={<> <NavScrollExample/><PlaylistGenerator/><Footer/> </>} />
-          <Route path="/contact" element={<> <NavScrollExample/><ContactForm/><Footer/> </>} />
-          <Route path="/smart-recommendations" element={<> <NavScrollExample/><RecommendedPlaylist/><Footer/> </>} />
+          {/* Public Routes */}
+          <Route path="/" element={
+            <>
+              <ControlledCarousel isLoggedIn={isLoggedIn} />
+              <Footer />
+            </>
+          } />
+
+          <Route path="/contact" element={
+            <>
+              <ContactForm />
+              <Footer />
+            </>
+          } />
+
+          {/* Authentication Route */}
+          <Route path="/login" element={
+            <Authentication onLogin={handleLogin} />
+          } />
+          
+          {/* Protected Routes */}
+          <Route path="/profile" element={<ProtectedRoute element={<><Profile /><Footer /></>} />} />
+          <Route path="/dashboard" element={<ProtectedRoute element={<><Dashboard /><Footer /></>} />} />
+          <Route path="/detailed-stats" element={<ProtectedRoute element={<><DetailedStats /><Footer /></>} />} />
+          <Route path="/dj-hub" element={<ProtectedRoute element={<><PlaylistGenerator /><Footer /></>} />} />
+          <Route path="/smart-recommendations" element={<ProtectedRoute element={<><RecommendedPlaylist /><Footer /></>} />} />
         </Routes>
       </Router>
     </div>
@@ -42,4 +65,3 @@ function App() {
 }
 
 export default App;
-

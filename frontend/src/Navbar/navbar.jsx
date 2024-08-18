@@ -4,7 +4,7 @@ import ReusableButton from '../ReusableButton/ReusableButton';
 import GreenLogo from './logo/green-logo.png';
 import { Link } from 'react-router-dom';
 
-function NavScrollExample() {
+function NavScrollExample({ isLoggedIn, onLogout }) {
   return (
     <Navbar expand="lg" className="custom-bg">
       <Container fluid>
@@ -31,12 +31,20 @@ function NavScrollExample() {
           <Link className="link-styles" to="/contact">
             <Nav.Link as="span" className="ml-auto mx-3">Contact Us</Nav.Link>
           </Link>
-          <Link className="link-styles" to="/profile">
-            <Nav.Link as="span" className="ml-auto mx-3">My profile</Nav.Link>
-          </Link>
-          <Link to="http://localhost:5001/login">
-            <ReusableButton size="sm" text="Log in / Sign up" color="pink" />
-          </Link>
+          {isLoggedIn ? (
+            <>
+              <Link className="link-styles" to="/profile">
+                <Nav.Link as="span" className="ml-auto mx-3">My Profile</Nav.Link>
+              </Link>
+              <Link className="link-styles" to="/" onClick={onLogout}>
+                <ReusableButton size="sm" text="Logout" color="pink" />
+              </Link>
+            </>
+          ) : (
+            <Link to="/login">
+              <ReusableButton size="sm" text="Log in / Sign up" color="pink" />
+            </Link>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
@@ -44,4 +52,3 @@ function NavScrollExample() {
 }
 
 export default NavScrollExample;
-

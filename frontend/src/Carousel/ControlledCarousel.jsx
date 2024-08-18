@@ -7,11 +7,15 @@ import img3 from './images/3.png';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import { Link } from 'react-router-dom';
 
-function ControlledCarousel() {
+function ControlledCarousel({ isLoggedIn }) {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
+  };
+
+  const getButtonLink = () => {
+    return isLoggedIn ? "/dashboard" : "/login";
   };
 
   return (
