@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import PlaylistItem from '../../PlaylistItem/PlaylistItem'
 import ReusableButton from '../../ReusableButton/ReusableButton';
 import './suggestedsongs.css'; 
@@ -10,7 +10,8 @@ const SuggestedSongs = ({ songs }) => {
         //TODO: Push it to users spotify
     }
     return (
-        <Col md={5} className="playlist-generator-col mx-2">
+        <Row>
+        <Col xs={12} sm={12} md={12} lg={12} className="playlist-generator-col align-items-center mx-2">
             <p className="playlist-generator-suggested-header display-6">Suggested Songs</p>
             <div className="playlist-generator-suggested-list my-3">
                 {songs.map(song => (
@@ -18,15 +19,16 @@ const SuggestedSongs = ({ songs }) => {
                         key={song.id}
                         songName={song.songName}
                         album={song.album}
-                        artist={song.artist}
+                        artist={song.artists}
                         views={song.views}
                         runtime={song.runtime}
                         albumCover={song.albumCover}
                     />
                 ))}
             </div>
-            <ReusableButton text="Create Playlist" onClick={handleGeneratePlaylist} className="playlist-generator-button" />
+            <ReusableButton text="Create Playlist" color={'green'} onClick={handleGeneratePlaylist} className="playlist-generator-button" />
         </Col>
+        </Row>
     );
 };
 
