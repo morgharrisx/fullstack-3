@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
-//import axios from "axios"; // not using currently
-dotenv.config({path :"./api/.env"});
+import axios from "axios";
+dotenv.config({ path: "./api/.env" });
+
 
 import SpotifyWebApi from "spotify-web-api-node";
 
@@ -28,7 +29,6 @@ app.get("/login", (req, res) => {
     "user-top-read",
     "user-read-email",
     "user-read-private"
-
   ]
   res.redirect(spotifyApi.createAuthorizeURL(scopes));
 });
@@ -57,7 +57,7 @@ app.get("/callback", async (req, res) => {
 
       spotifyApi.setAccessToken(accessToken);
       spotifyApi.setRefreshToken(refreshToken);
-      
+
       //access token and refresh token showing in the terminal
       console.log(
         `Access Token:${accessToken}`,
@@ -77,16 +77,20 @@ app.get("/callback", async (req, res) => {
     });
 });
 
-app.get("/search", async (req, res)=>{
-    const {q} =  req.query
-    console.log(spotifyApi.accessToken)
-    spotifyApi.searchTracks(q).then((data)=>{
-      return res.json({data})
-    }).catch((error)=>{
-      console.error("Error:", error);
-      res.send("Err searching")
+app.get("/search", async (req, res) => {
+  const { q } = req.query;
+  console.log(spotifyApi.accessToken);
+  spotifyApi
+    .searchTracks(q)
+    .then((data) => {
+      return res.json({ data });
     })
-})
+    .catch((error) => {
+      console.error("Error:", error);
+      res.send("Err searching");
+    });
+});
+
 //top-tracks
 app.get("/top-tracks", async (req, res) => {
   const { term } = req.query;
@@ -121,6 +125,62 @@ app.get("/top-tracks", async (req, res) => {
 });
 
 
+// randomising function that can be re-used if needed
+function getRandomElements(arr, num) {
+  const shuffled = arr.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, num);
+}
+
+app.get("/recommendations", async (req, res) => {
+  try {
+    if (!spotifyApi.getAccessToken()) {
+      return res.status(401).send("No access token available");
+    }
+
+    const topTracksResponse = await spotifyApi.getMyTopTracks({ limit: 10 });
+    const topArtistsResponse = await spotifyApi.getMyTopArtists({ limit: 10 });
+
+    const seedTracks = topTracksResponse.body.items.map(track => track.id);
+    const seedArtists = topArtistsResponse.body.items.map(artist => artist.id);
+
+    console.log("Seed Tracks IDs:", seedTracks);
+    console.log("Seed Artists IDs:", seedArtists);
+
+    const randomSeedTracks = getRandomElements(seedTracks, 3);
+    const randomSeedArtists = getRandomElements(seedArtists, 2);
+
+    const recommendationsResponse = await spotifyApi.getRecommendations({
+      seed_tracks: randomSeedTracks, 
+      seed_artists: randomSeedArtists, 
+      limit: 20, 
+    });
+
+    console.log("Recommendations Response:", JSON.stringify(recommendationsResponse, null, 2));
+
+    
+    const recommendations = recommendationsResponse.body.tracks;
+
+    // logging info for each track
+    console.log("Recommended Tracks:");
+    recommendations.forEach((track, index) => {
+      console.log(`${index + 1}: ${track.name} by ${track.artists.map(artist => artist.name).join(", ")}`);
+    });
+
+    res.json(recommendations.map(track => ({
+      id: track.id,
+      name: track.name,
+      artists: track.artists.map(artist => artist.name),
+      album: track.album.name,
+      albumCover: track.album.images[0].url
+    })));
+
+  } catch (error) {
+    console.error("Error fetching recommendations:", error.message);
+    res.status(500).send("Failed to get recommendations");
+  }
+});
+
+
 //user profile endpoint
 app.get("/me", async (req, res) => {
      spotifyApi.getMe().then((data)=> {
@@ -134,5 +194,4 @@ app.get("/me", async (req, res) => {
     })
  
   
-  
-
+ 
