@@ -30,12 +30,7 @@ const DetailedStats = () => {
       artist: 'Dua Lipa'
     }
   ]);
-
-  const [topBPM, setTopBPM] = useState([
-    { name: 'Bpm A', size: 600 },
-    { name: 'Bpm B', size: 300 },
-    { name: 'Bpm C', size: 100 },
-  ]);
+ 
 
   const [topMusicalKeys, setTopMusicalKeys] = useState([
     { name: 'C Major', minutesListened: 120 },
@@ -72,7 +67,7 @@ const DetailedStats = () => {
           <Row className="mt-3">
             <Col  xs={12} sm={12} md={12} lg={4}>
               <div className="bento-stat-container">
-              <TopBpm data={topBPM} width={400} height={200} />
+              <TopBpm width={400} height={200} />
               </div>
             </Col>
             <Col className="mt-2" xs={12} sm={12} md={12} lg={8}>
