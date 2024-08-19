@@ -15,7 +15,7 @@ const SuggestedSongs = ({ songs }) => {
             <p className="playlist-generator-suggested-header display-6">Suggested Songs</p>
             <div className="playlist-generator-suggested-list my-3">
                 {songs.map(song => (
-                    <PlaylistItem 
+                    <PlaylistItem className="generator-playlist"
                         key={song.id}
                         songName={song.songName}
                         album={song.album}

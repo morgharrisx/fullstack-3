@@ -70,7 +70,7 @@ const convertToMMSS = (seconds) => {
               />
             ))}
             <br></br>
-            <ReusableButton className='my-3' text='Generate Playlist' color='green'></ReusableButton>
+            <ReusableButton className='generate-button' text='Generate Playlist' color='green'></ReusableButton>
           </Col>
         </Row>
       </Container>
