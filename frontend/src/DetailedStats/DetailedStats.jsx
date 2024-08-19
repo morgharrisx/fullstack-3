@@ -52,7 +52,7 @@ const DetailedStats = () => {
         </Col>
       </Row> 
       <Row className="mt-1 mb-3"> 
-        <Col className="mt-2" xs={12} sm={12} md={12} lg={3}>
+        <Col className="mt-2" xs={12} sm={12} md={12} lg={4}>
         <div className="bento-stat-container">
             <TopTracks/>
             <TopArtists/>
