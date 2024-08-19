@@ -197,14 +197,8 @@ app.get("/top-artists", async (req, res) => {
 // DJ HB 
 
 app.post ("/dj" , async (req, res) => {
-  const {
-    genre,
-    mood,
-    tempo,
-    popularity,
-    danceability,
-  } = req.body; 
-  //‼️TODO: CHECK ALL GENRES FROM API TO DOUBLE CHECK IF ITS EXACTLY WRITTEN SAME WAY  ‼️
+  const { genre, mood, tempo, popularity, danceability,} = req.body; 
+
   const minValence = mood ? parseFloat(mood) * 0.9  : undefined;
   const maxValence = mood ? parseFloat(mood) * 1.1  : undefined;
   const minTempo = tempo ? parseFloat(tempo) * 0.9 : undefined;
@@ -231,16 +225,36 @@ app.post ("/dj" , async (req, res) => {
     const DJHubSuggestedSongs = DJHubResponse.body.tracks;
     const DJHubSuggested20Songs = DJHubSuggestedSongs.slice(0, 20).map(track => ({
       id: track.id,
-      songName: track.name,
-      artists: track.artists.map(artist => artist.name).join(', '),
+      name:track.name,
+      album: track.album.name,
       popularity: track.popularity,
-      album_cover: track.album.images.length > 0 ? track.album.images[0].url : null,
+      artist:  track.artists.map(artist => artist.name),
       embedUri: `https://open.spotify.com/embed/track/${track.id}`
     }));
-    console.log(DJHubSuggested20Songs);
+    const DJHubSuggestedSongsIDs = DJHubSuggested20Songs.map(song=>song.id);
+    const DJHubSuggestedSongsFeatsResponse = await spotifyApi.getAudioFeaturesForTracks(DJHubSuggestedSongsIDs);
+    const DJHubSuggestedSongsFeats = DJHubSuggestedSongsFeatsResponse.body.audio_features;
+    DJHubSuggestedSongsFeats.map(song=>({
+      id: song.id,
+      valence: song.valence,
+      tempo: song.tempo,
+      danceability: song.danceability
+    }))
+
+    const combinedData = DJHubSuggested20Songs.map(song => {
+      const features = DJHubSuggestedSongsFeats.find(feat => feat.id === song.id);
+      return {
+        ...song,
+        valence: features.valence,
+        tempo: features.tempo,
+        danceability: features.danceability,
+        energy: features.energy,
+      };
+    });
+
     return res.json({
-      message: "yay",
-      data: DJHubSuggested20Songs,
+      message: "Success",
+      data: combinedData,
     });
 
   } catch (error) {
@@ -253,12 +267,6 @@ app.post ("/dj" , async (req, res) => {
     res.status(error.statusCode).send('An error occurred while fetching recommendations.');
   }
 });
-
-  
-//artist name tracks.artists.name
-//song name tracks.name
-//song preview tracks.preview_url
-//track.id to fetch other things
 
 
 
@@ -394,7 +402,7 @@ app.post('/create-playlist', async (req, res) => {
   }
 });
 
-// a song to try : 6D8y7Bck8h11byRY88Pt2z
+
 
 
 //CALCULATE MOOD
