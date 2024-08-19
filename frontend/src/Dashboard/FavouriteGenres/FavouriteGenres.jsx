@@ -1,33 +1,48 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
-// const data = [
-//   { name: "Red", value: 400 },
-//   { name: "Blue", value: 300 },
-//   { name: "Yellow", value: 300 },
-//   { name: "Green", value: 200 },
-//   { name: "Purple", value: 100 },
-//   { name: "Orange", value: 150 }
-// ];
 
-const COLORS = ["#06D001", "#FF0080", "#836FFF", "#4BC0C0", "#9966FF", "#FF9F40"];
+const COLORS = ["#d11141", "#00b159", "#00aedb", "#f37735", "#FF8C9E"];
+const FavouriteGenres = () => {
+  const [topGenres, setTopGenres] = useState([]);
+  useEffect(() => {
+    const fetchTopGenres = async () => {
+      try {
+        const response = await fetch("http://localhost:5001/top-genres");
+        const data = await response.json();
+        console.log("fetch data genreeeess", data); 
+        if (data.message === "Success") {
+          const formattedData = data.data.map((item) => ({
+            name: item.genre,
+            value: item.count,
+          }));
 
-const FavouriteGenres = ({ data, width, height, innerRadius, outerRadius }) => {
+          setTopGenres(formattedData);
+        }
+      } catch (error) {
+        console.error("Error fetching top tracks:", error);
+      }
+    };
+
+    fetchTopGenres(); 
+  }, []);
+
+
   return (
     <div>
       <h2>Favourite Genres</h2>
-      <PieChart width={width} height={height}>
+      <PieChart width={400} height={400}>
         <Pie
-          data={data}
-          cx={width / 2}
-          cy={height / 2}
-          innerRadius={innerRadius}
-          outerRadius={outerRadius}
+          data={topGenres}
+          cx={200}
+          cy={200}
+          innerRadius={60}
+          outerRadius={120}
           fill="#8884d8"
           paddingAngle={0}
           dataKey="value"
         >
-          {data.map((entry, index) => (
+          {topGenres.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
