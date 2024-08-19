@@ -51,15 +51,16 @@ const PlaylistGenerator = () => {
       if (response.data && response.data.data) {
         const formattedSongs = response.data.data.map((song) => ({
           id: song.id,
+          name:song.name,
+          album: song.album,
+          artist:  song.artist,
           popularity: song.popularity,
           valence: song.valence,
           popularity: song.popularity,
           tempo: song.tempo,
           danceability: song.danceability,
-          genre: song.genre,
           embedUri: `https://open.spotify.com/embed/track/${song.id}`
         }));
-
         setSongs(formattedSongs);
         setShowSongs(true);
        
@@ -256,7 +257,7 @@ const PlaylistGenerator = () => {
       </Row>
     )}
      {showSongs && !loading && (
-        <div ref={suggestedSongsRef}>
+        <div className="playlist-generator-row" ref={suggestedSongsRef}>
           <SuggestedSongs songs={songs} />
         </div>
       )}
