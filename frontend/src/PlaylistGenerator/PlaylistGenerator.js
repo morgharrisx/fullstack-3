@@ -47,12 +47,7 @@ const PlaylistGenerator = () => {
       if (selectedCriteria.mood) requestData.mood = mood;
       if (selectedCriteria.tempo) requestData.tempo = tempo;
       if (selectedCriteria.popularity) requestData.popularity = popularity;
-      if (selectedCriteria.instrumentalness)
-        requestData.instrumentalness = instrumentalness;
-      if (selectedCriteria.danceability)
-        requestData.danceability = danceability;
-      if (selectedCriteria.energy) requestData.energy = energy;
-      console.log(requestData);
+      if (selectedCriteria.danceability) requestData.danceability = danceability;
       const response = await axios.post(url, requestData);
 
       if (response.data && response.data.data) {
@@ -62,7 +57,6 @@ const PlaylistGenerator = () => {
           artists: track.artists,
           popularity: track.popularity,
           albumCover: track.album_cover,
-          songPreview: track.songPreview,
         }));
 
         setSongs(formattedSongs);
@@ -205,29 +199,6 @@ const PlaylistGenerator = () => {
               className="form-range"
             />
           </Form.Group>
-
-          <Form.Group
-            controlId="instrumentalnessRange"
-            className={`playlist-generator-form-group mb-3 ${
-              selectedCriteria.instrumentalness ? "selected" : ""
-            }`}
-          >
-            <Form.Check
-              type="checkbox"
-              label="Instrumentalness"
-              checked={selectedCriteria.instrumentalness}
-              onChange={() => toggleSelection("instrumentalness")}
-            />
-            <Form.Range
-              min={0}
-              max={1}
-              step={0.01}
-              value={instrumentalness}
-              onChange={(e) => setInstrumentalness(e.target.value)}
-              className="form-range"
-            />
-          </Form.Group>
-
           <Form.Group
             controlId="energyRange"
             className={`playlist-generator-form-group mb-3 ${

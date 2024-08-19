@@ -3,11 +3,26 @@ import { Col, Row } from 'react-bootstrap';
 import PlaylistItem from '../../PlaylistItem/PlaylistItem'
 import ReusableButton from '../../ReusableButton/ReusableButton';
 import './suggestedsongs.css'; 
+import axios from 'axios';
 
 
 const SuggestedSongs = ({ songs }) => {
-    function handleGeneratePlaylist () {
-        //TODO: Push it to users spotify
+    const handleGeneratePlaylist = async () => {
+        try {
+            const trackUris = songs.map(song => `spotify:track:${song.id}`);
+            console.log(trackUris);
+            const response = await axios.post('http://localhost:5001/create-playlist', {
+                trackUris: trackUris
+            });
+            if (response.status === 200) {
+                alert('Playlist created!');
+            } else {
+                alert('Failed to create playlist.');
+            }
+        } catch (error) {
+            console.error('Error creating playlist:', error);
+            alert('An error occurred while creating the playlist.');
+        }
     }
     return (
         <Row>
