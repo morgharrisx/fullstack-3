@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Col, Row } from 'react-bootstrap';
 import PlaylistItem from '../../PlaylistItem/PlaylistItem'
 import ReusableButton from '../../ReusableButton/ReusableButton';
 import './suggestedsongs.css'; 
 import axios from 'axios';
+import VerticalModal from '../Modal/Modal';
 
 
 const SuggestedSongs = ({ songs }) => {
+    const [modalShow, setModalShow] = useState(false);
+    const [modalContent, setModalContent] = useState({ title: '', body: '' });
     const handleGeneratePlaylist = async () => {
         try {
             const trackUris = songs.map(song => `spotify:track:${song.id}`);
@@ -15,14 +18,25 @@ const SuggestedSongs = ({ songs }) => {
                 trackUris: trackUris
             });
             if (response.status === 200) {
-                alert('Playlist created!');
+                setModalContent({
+                    title: 'Success',
+                    body: 'Playlist created successfully!'
+                  });
             } else {
-                alert('Failed to create playlist.');
+                setModalContent({
+                    title: 'Failure',
+                    body: 'Failed to create playlist.'
+                  });
             }
         } catch (error) {
             console.error('Error creating playlist:', error);
-            alert('An error occurred while creating the playlist.');
-        }
+            setModalContent({
+                title: 'Error',
+                body: 'An error occurred while creating the playlist.'
+              });
+        }finally {
+            setModalShow(true);
+          }
     }
     return (
         <Row>
@@ -43,6 +57,12 @@ const SuggestedSongs = ({ songs }) => {
             </div>
             <ReusableButton text="Create Playlist" color={'green'} onClick={handleGeneratePlaylist} className="playlist-generator-button" />
         </Col>
+        <VerticalModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        title={modalContent.title}
+        body={modalContent.body}
+        />
         </Row>
     );
 };
