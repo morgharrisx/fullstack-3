@@ -1,70 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Dashboard.css";
 import { Container, Row, Col } from "react-bootstrap";
 import FavouriteGenres from "./FavouriteGenres/FavouriteGenres";
-import NumberedList from "./NumberedList/NumberedList";
+import TopTracks from "./TopTracksAndArtists/TopTracks";
 import ReusableButton from "../ReusableButton/ReusableButton";
 import { Link } from "react-router-dom";
+import TopArtists from "./TopTracksAndArtists/TopArtists";
 
 const Dashboard = () => {
-  const [topTracks, setTopTracks] = useState([]); 
-  const [topArtists, setTopArtists] = useState([]);
-
-  useEffect(() => {
-    const fetchTopTracks = async () => {
-      try {
-        const response = await fetch("http://localhost:5001/top-tracks");
-        const data = await response.json();
-        console.log(data); 
-        setTopTracks(data.data.slice(0, 10));  
-      } catch (error) {
-        console.error("Error fetching top tracks:", error);
-      }
-    };
-
-    const fetchTopArtists = async () => {
-      try {
-        const response = await fetch("http://localhost:5001/top-artists");
-        const data = await response.json();
-        console.log("Top Artists:", data); 
-        setTopArtists(data.data.slice(0, 10)); 
-      } catch (error) {
-        console.error("Error fetching top artists:", error);
-      }
-    };
-
-    fetchTopTracks(); 
-    fetchTopArtists(); 
-  }, []);
-
-
-  useEffect(() => {
-    console.log("Top Tracks state updated:", topTracks); 
-  }, [topTracks]);
-
-  useEffect(() => {
-    console.log("Top Artists state updated:", topArtists); 
-  }, [topArtists]);
-
   return (
     <Container className="dashboard-container">
       <Row className="mt-3">
         <Col xs={12} sm={12} md={12} lg={12}>
           <Row className="first-row-stats">
             <Row>
-              <Col>
+              <Col xs={12} sm={12} md={4} lg={4}>
                 <FavouriteGenres></FavouriteGenres>
               </Col>
-              <Col>
-              <NumberedList
-                  items={topTracks.map((track) => track.name)} 
-                  listName={"Tracks"}
-                />
+              <Col xs={12} sm={12} md={4} lg={4}>
+              <TopTracks/>
               </Col>
-              <Col>
-                <NumberedList
-                  items={topArtists.map(artist => artist.name)}  listName={"Artists"}
-                ></NumberedList>
+              <Col xs={12} sm={12} md={4} lg={4}>
+              <TopArtists/>
               </Col>
             </Row>
             <Row>
