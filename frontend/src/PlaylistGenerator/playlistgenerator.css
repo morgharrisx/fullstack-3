@@ -40,6 +40,22 @@
     cursor: pointer;
 }
 
+.playlist-generator-container .form-check-input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 2px solid #1e1e1e; 
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+  }
+  
+  .playlist-generator-container .form-check-input[type="checkbox"]:checked {
+    background-color: #00951b; 
+  }
+
+
 .playlist-generator-form-group {
     cursor: pointer;
     transition: background-color 0.3s ease, border 0.3s ease;
