@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Container, Row, Col, Form, Image, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Form, Image, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
 import SuggestedSongs from "./SuggestedSongs/SuggestedSongs";
 import ReusableButton from "../ReusableButton/ReusableButton";
 import "./playlistgenerator.css";
@@ -100,6 +100,23 @@ const PlaylistGenerator = () => {
             <Col xs={12} sm={6} md={7} lg={8}>
                 <p className="playlist-generator-suggested-header display-6">Find your perfect match</p>
                 <p className="lead">Your playlist, your rules! Set your preferences and uncover songs that perfectly match your taste.</p>
+                <OverlayTrigger
+                  placement="top"
+                  delayShow={300}
+                  delayHide={150}
+                  overlay={
+                    <Tooltip>
+                    1. Select a genre (required).<br />
+                    2. Check the boxes for additional filters (optional).<br />
+                    3. Use the sliders to set your desired range.<br />
+                    4. Click "Search" to generate your playlist.
+                  </Tooltip>
+                  }
+                >
+                  <p className="lead" style={{ cursor: "pointer", color: "#1e6101" }}>
+                    Learn how use
+                  </p>
+                </OverlayTrigger>
             </Col>
         </Row>
         </Col>
