@@ -3,8 +3,11 @@ import './navbar.css';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import GreenLogo from './logo/green-logo.png';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../IsLoggedIn/AuthProvider'
 
 function NavScrollExample() {
+  const { isAuthenticated, logout } = useAuth();
+
   return (
     <Navbar expand="lg" className="custom-bg">
       <Container fluid>
@@ -34,9 +37,13 @@ function NavScrollExample() {
           <Link className="link-styles" to="/profile">
             <Nav.Link as="span" className="ml-auto mx-3">My profile</Nav.Link>
           </Link>
+          {isAuthenticated ? (
+            <ReusableButton size="sm" text="Logout" color="pink" onClick={logout}/>
+          ) : (
           <Link to="http://localhost:5001/login">
             <ReusableButton size="sm" text="Log in / Sign up" color="pink" />
           </Link>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
