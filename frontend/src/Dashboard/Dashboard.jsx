@@ -53,17 +53,7 @@ const Dashboard = () => {
           <Row className="first-row-stats">
             <Row>
               <Col>
-                <FavouriteGenres
-                  data={[
-                    { name: "Rock", value: 400 },
-                    { name: "Pop", value: 300 },
-                    { name: "Hiphop", value: 300 },
-                  ]}
-                  width={400}
-                  height={400}
-                  innerRadius={50}
-                  outerRadius={120}
-                ></FavouriteGenres>
+                <FavouriteGenres></FavouriteGenres>
               </Col>
               <Col>
               <NumberedList
