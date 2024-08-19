@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PlaylistItem from '../PlaylistItem/PlaylistItem';
-import { Container } from 'react-bootstrap';
-
-const CORS_PROXY = 'https://thingproxy.freeboard.io/fetch/';
+import ReusableButton from '../ReusableButton/ReusableButton';
+import { Container, Row, Col, Image, Placeholder } from 'react-bootstrap';
+import './RecommendedSongs.css'
 
 //Converts runtime to mm:ss format
 const convertToMMSS = (seconds) => {
@@ -11,15 +11,15 @@ const convertToMMSS = (seconds) => {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
-  const RecommendedSongs = () => {
+  const RecommendedSongs = ({playlistCover}) => { 
     const [songs, setSongs] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
       const fetchSongs = async () => {
         try {
-          const response = await fetch(`${CORS_PROXY}https://api.deezer.com/chart`);
+          const response = await fetch("http://localhost:5001/recommendations");
           const data = await response.json();
-          setSongs(data.tracks.data);
+          setSongs(data);
           setLoading(false);
         } catch (error) {
           console.error('Error fetching songs:', error);
@@ -29,21 +29,52 @@ const convertToMMSS = (seconds) => {
       fetchSongs();
     }, []);
     if (loading) return <div>Loading. Please wait...</div>;
+    const albumCovers = songs.slice(0,4).map((songs) => songs.albumCover);
     return (
-        <div className="recommended-songs">
-            <h2>Recommended Songs</h2>
-          {songs.map((song) => (
-            <PlaylistItem
-              key={song.id}
-              songName={song.title}
-              album={song.album.title}
-              artist={song.artist.name}
-              views={song.rank} //Do we need this?
-              runtime={convertToMMSS(song.duration)}
-              albumCover={song.album.cover_small}
+      <div className='playlist-page'>
+        <Container fluid>
+          <Row className='title-row'>
+            <Col xs={6} className='cover-col'>
+              {albumCovers.length === 4 ? (
+                <div className='playlist-cover-grid'>
+                    {albumCovers.map((cover,index) => (
+                      <Image key={index} src={cover} className='grid-cover-image'/>
+                    ))}
+                </div>
+              ) : (
+                <Placeholder as='div' animation='glow' className='playlist-cover-placeholder'>
+                  <Placeholder xs={12} className='placeholder-box'/>
+                </Placeholder>
+              )}
+          </Col>
+          <Col xs={5} className='title-col'>
+            <h2>Recommended For You</h2>
+          </Col>
+        </Row>
+        <br></br>
+        <Row>
+          <Col className='recommended-songs-container'>
+            <PlaylistItem className='header'
+              songName="Song"
+              album="Album"
+              artist="Artist"  
+              isHeader={true}
             />
-          ))}
-        </div>
-      );
-    };
-    export default RecommendedSongs;
+            {songs.map((song) => (
+              <PlaylistItem
+                key={song.id}
+                songName={song.name}
+                album={song.album}
+                artist={song.artists}
+                albumCover={song.albumCover}
+              />
+            ))}
+            <br></br>
+            <ReusableButton className='generate-button' text='Generate Playlist' color='green'></ReusableButton>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
+};
+export default RecommendedSongs;
