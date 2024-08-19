@@ -165,9 +165,7 @@ app.post ("/dj" , async (req, res) => {
     mood,
     tempo,
     popularity,
-    instrumentalness,
     danceability,
-    energy
   } = req.body; 
   //‼️TODO: CHECK ALL GENRES FROM API TO DOUBLE CHECK IF ITS EXACTLY WRITTEN SAME WAY  ‼️
   const minValence = mood ? parseFloat(mood) * 0.9  : undefined;
@@ -176,12 +174,8 @@ app.post ("/dj" , async (req, res) => {
   const maxTempo = tempo ? parseFloat(tempo) * 1.1 : undefined;
   const minPopularity = popularity ? parseFloat(popularity)-10 : undefined;
   const maxPopularity = popularity ? parseFloat(popularity)+10 : undefined;
-  const minInstrumentalness = instrumentalness ? Math.max(parseFloat(instrumentalness)) * 0.9 : undefined;
-  const maxInstrumentalness = instrumentalness ? Math.min(parseFloat(instrumentalness)) * 1.1 : undefined;
   const minDanceability  = danceability ? parseFloat(danceability) * 0.9  : undefined;
   const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : undefined;
-  const minEnergy = energy ? parseFloat(energy) * 0.9  : undefined;
-  const maxEnergy = energy ? parseFloat(energy) * 1.1  : undefined;
 
   const options = {
     seed_genres: genre || "pop",
@@ -191,12 +185,8 @@ app.post ("/dj" , async (req, res) => {
     max_tempo: maxTempo,
     min_popularity: minPopularity,
     max_popularity: maxPopularity,
-    min_instrumentalness:minInstrumentalness,
-    max_instrumentalness: maxInstrumentalness,
     min_danceability:minDanceability,
     max_danceability:maxDanceability,
-    min_energy:minEnergy,
-    max_energy:maxEnergy
   }
   try {
     const DJHubResponse = await spotifyApi.getRecommendations(options);
@@ -208,7 +198,7 @@ app.post ("/dj" , async (req, res) => {
       artists: track.artists.map(artist => artist.name).join(', '),
       popularity: track.popularity,
       album_cover: track.album.images.length > 0 ? track.album.images[0].url : null,
-      songPreview: track.preview_url//even though it exists keep coming null???? 😫🤯
+      embedUri: `https://open.spotify.com/embed/track/${track.id}`
     }));
     console.log(DJHubSuggested20Songs);
     return res.json({
