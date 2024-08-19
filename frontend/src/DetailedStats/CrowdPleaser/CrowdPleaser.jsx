@@ -1,34 +1,49 @@
-import React from 'react'
-import { Container, Row, Col, Placeholder, Image } from 'react-bootstrap'
-import './CrowdPleaser.css'
-import ReusableButton from '../../ReusableButton/ReusableButton'
+import React, {useState, useEffect} from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import './CrowdPleaser.css';
+import ReusableButton from '../../ReusableButton/ReusableButton';
+import {Link} from "react-router-dom";
 
+const CrowdPleaser = () => {
 
+    const [mostDanceableSong, setMostDanceableSong] = useState(""); 
+    const [mostDanceableSongUri, setMostDanceableSongUri] = useState(''); 
+    useEffect(() => {
+      const fetchMostDanceableSong = async () => {
+        try {
+          const response = await fetch("http://localhost:5001/danceability");
+          const data = await response.json();
+          console.log("most Danceable Song", data); 
+          setMostDanceableSong(data.name);  
+          setMostDanceableSongUri(data.embedUri);
+        } catch (error) {
+          console.error("Error getting danceability:", error);
+        }
+      };
 
-const CrowdPleaser = ({songName,albumCover,artist}) => {
+      fetchMostDanceableSong(); 
+    }, []); 
+
   return (
     <Container className='justify-content-center align-items-center' >
+      <Row>
+        <Col>
         <p className='lead'>Most danceable track: Your party must-have!</p>
-        <Row >
-            <Col>
-            {albumCover ? (
-          <Image src={albumCover} rounded />
-        ) : (
-          <Placeholder as="div" animation="glow">
-             <Image src="holder.js/171x180" roundedCircle />
-          </Placeholder>
-        )}
-            </Col>
-        </Row>
-        <Row>
-            <Col>{songName}</Col>
-        </Row>
-        <Row className="mb-3">
-           <Col>{artist}</Col>
-        </Row >
-       <ReusableButton color={'pink'} text={'Go to DJ Hub'}></ReusableButton> 
+        <iframe 
+        src={mostDanceableSongUri}
+        width="250px" 
+        height="250px" // to do: fix the size
+        frameBorder="0" 
+        allowtransparency="true" 
+        allow="encrypted-media"
+        title="Spotify Player"
+      ></iframe>
+        <Link to="/dj-hub"><ReusableButton color={'pink'} text={'Go to DJ Hub'}></ReusableButton></Link>  
+        </Col>
+      </Row>
+      
     </Container>
-  )
+  );
 }
 
-export default CrowdPleaser
+export default CrowdPleaser;

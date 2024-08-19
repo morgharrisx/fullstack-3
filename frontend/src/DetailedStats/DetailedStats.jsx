@@ -152,7 +152,7 @@ const DetailedStats = () => {
         </Col>
         <Col className="mt-2" xs={12} sm={12} md={12} lg={3}>
         <div className="bento-stat-container">
-       <CrowdPleaser songName={'Levitating'} artist={'Dua Lipa'}></CrowdPleaser>
+       <CrowdPleaser></CrowdPleaser>
             </div>
         </Col>
       </Row>

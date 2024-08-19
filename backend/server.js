@@ -156,7 +156,7 @@ app.get("/top-artists", async (req, res) => {
   }
 });  
   
-// // DJ HB 
+// // // DJ HB 
 app.use(express.json());
 
 app.post ("/dj" , async (req, res) => {
@@ -344,7 +344,7 @@ app.get("/danceability", async (req, res) => {
   } catch (error) {
     console.error("Error getting top tracks:", JSON.stringify(error, null, 4));
     return res.status(500).json({
-      message: "Error getting top tracks",
+      message: "Error getting danceable song",
       error: error.response ? error.response.data : error.message,
     });
   }
