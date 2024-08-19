@@ -14,7 +14,7 @@ const CrowdPleaser = () => {
           const response = await fetch("http://localhost:5001/danceability");
           const data = await response.json();
           console.log("most Danceable Song", data); 
-          setMostDanceableSong(data.name);  
+          setMostDanceableSong(`${data.name} by ${data.artist}`);  
           setMostDanceableSongUri(data.embedUri);
         } catch (error) {
           console.error("Error getting danceability:", error);
@@ -27,12 +27,13 @@ const CrowdPleaser = () => {
   return (
     <Container className='justify-content-center align-items-center' >
       <Row>
-        <Col>
+        <Col className="d-flex flex-column align-items-center">
         <p className='lead'>Most danceable track: Your party must-have!</p>
+        <p>{mostDanceableSong}</p>
         <iframe 
         src={mostDanceableSongUri}
         width="250px" 
-        height="250px" // to do: fix the size
+        height="250px"
         frameBorder="0" 
         allowtransparency="true" 
         allow="encrypted-media"
