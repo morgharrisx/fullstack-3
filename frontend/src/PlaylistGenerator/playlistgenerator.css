@@ -1,23 +1,58 @@
 .playlist-generator-container{
     padding: 50px;
     border-radius: 20px;
-    margin: 20px auto; 
     background-color: #fff; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
-    align-items: center;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
-    text-align: justify;
+    text-align: start;
+  
 }
 
-/* CHANGE COLOR OF THE SLIDER RANGE FROM BLUE TO PINK */
+.playlist-generator-row{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 60%;
+}
+
+.playlist-generator-col {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    text-align: start;
+  
+
+}
+.playlist-generator-form-group {
+    width: 100%;
+   
+}
+
+
+.selected {
+    border: 2px solid #ff00ee; 
+    background-color: #fae3f6;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.playlist-generator-form-group {
+    cursor: pointer;
+    transition: background-color 0.3s ease, border 0.3s ease;
+   
+}
+
+
 .form-range {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 8px;
-    background: #ddd;
+    height: 1.5rem !important;
+    background: #ffffff !important;
     border-radius: 5px;
     outline: none;
     opacity: 0.9;
@@ -64,3 +99,4 @@
 .form-range::-ms-thumb:hover {
     background-color: #8c004d !important;
 }
+

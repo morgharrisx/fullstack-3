@@ -5,7 +5,7 @@ import './playlistitem.css';
 const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isHeader }) => {
   const formattedViews = views?.toLocaleString();
   return (
-    <Container>
+    <Container fluid>
       <Row>
         <Col xs={12}>
           <Row className={`playlist-item align-items-center ${isHeader ? 'playlist-header' : ''}`}>
@@ -20,13 +20,13 @@ const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isH
                 </Placeholder>
               )}
             </Col>
-            <Col xs={3}>
+            <Col xs={3} className='overlap-col'>
               <span className="song-name">{songName}</span>
             </Col>
-            <Col xs={3}>
+            <Col xs={3} className='overlap-col'>
               <span className="album-name">{album}</span>
             </Col>
-            <Col xs={2}>
+            <Col xs={2} className='overlap-col'>
               <span className="artist-name">{artist}</span>
             </Col>
             <Col xs={2} className='centered-col'>
@@ -43,3 +43,5 @@ const PlaylistItem = ({ songName, album, artist, views, runtime, albumCover, isH
 };
 
 export default PlaylistItem;
+
+
