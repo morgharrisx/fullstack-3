@@ -155,27 +155,47 @@ app.get("/top-tracks", async (req, res) => {
 
 // Step 1: Get the user's top tracks
 // //get current user top bpm (tempo)
-app.get("detailed-stats", async (req, res) => {
-  spotifyApi
-    .getMyTopTracks({ limit: 10 }) // Adjust the limit as needed
-    .then(function (topTracksData) {
-      const topTracks = topTracksData.body.items;
+app.get("/detailed-stats", async (req, res) => {
+  try {
+    // Step 1: Get the user's top tracks
+    const topTracksData = await spotifyApi.getMyTopTracks({ limit: 3 });
+    const topTracks = topTracksData.body.items;
 
-      // Extract track IDs
-      const trackIds = topTracks.map((track) => track.id);
-      return spotifyApi.getAudioFeaturesForTracks(trackIds);
-    })
-    .then(function (audioFeaturesData) {
-      const audioFeatures = audioFeaturesData.body.audio_features;
+    // Extract track IDs
+    const trackIds = topTracks.map((track) => track.id);
 
-      // Extract and print the tempo for each track
-      audioFeatures.forEach((feature, index) => {
-        console.log(`Track ${index + 1}: Tempo = ${feature.tempo} BPM`);
-        return res.json(audioFeaturesData.body)
-      });
-    })
-    .catch(function (err) {
-      console.log("Something went wrong!", err);
-      return res.status(500).json({ error: 'Failed to fetch audio features' });
-    });
+    // Step 2: Get audio features for these tracks
+    const audioFeaturesData = await spotifyApi.getAudioFeaturesForTracks(
+      trackIds
+    );
+    const audioFeatures = audioFeaturesData.body.audio_features;
+
+    // Step 3: Extract and format the required data (tempo and key)
+    const detailedStats = audioFeatures.map((feature, index) => ({
+      trackName: topTracks[index].name,
+      artistName: topTracks[index].artists[0].name,
+      tempo: feature.tempo,
+      key: feature.key,
+      trackId: topTracks[index].id,
+    }));
+
+    // Step 4: Send the formatted data as JSON response
+    return res.json(detailedStats);
+  } catch (err) {
+    console.error("Something went wrong!", err);
+    return res.status(500).json({ error: "Failed to fetch audio features" });
+  }
 });
+
+// app.get("detailed-stats", async(req,res) => {
+
+//   const topTracks = await spotifyApi.getMyTopTracks({ limit: 5 }).vody.item
+
+//   spotifyApi.getAudioFeaturesForTracks([trackIds])
+//   .then(function(audioFeaturesData) {
+//     console.log(audioFeaturesData.body);
+//   }, function(err) {
+//     done(err);
+//   });
+
+// })
