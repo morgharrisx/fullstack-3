@@ -188,6 +188,10 @@ app.post ("/dj" , async (req, res) => {
     const DJHubSuggestedSongs = DJHubResponse.body.tracks;
     const DJHubSuggested20Songs = DJHubSuggestedSongs.slice(0, 20).map(track => ({
       id: track.id,
+      name:track.name,
+      album: track.album.name,
+      popularity: track.popularity,
+      artist:  track.artists.map(artist => artist.name),
       embedUri: `https://open.spotify.com/embed/track/${track.id}`
     }));
     const DJHubSuggestedSongsIDs = DJHubSuggested20Songs.map(song=>song.id);
@@ -196,10 +200,8 @@ app.post ("/dj" , async (req, res) => {
     DJHubSuggestedSongsFeats.map(song=>({
       id: song.id,
       valence: song.valence,
-      popularity: song.popularity,
       tempo: song.tempo,
-      danceability: song.danceability,
-      genre: song.genre,
+      danceability: song.danceability
     }))
 
     const combinedData = DJHubSuggested20Songs.map(song => {
@@ -363,7 +365,7 @@ app.post('/create-playlist', async (req, res) => {
   }
 });
 
-// a song to try : 6D8y7Bck8h11byRY88Pt2z
+
 
 
 //CALCULATE MOOD
