@@ -42,6 +42,7 @@ const SuggestedSongs = ({ songs }) => {
         <Row>
         <Col xs={12} sm={12} md={12} lg={12} className="playlist-generator-col align-items-center mx-2">
             <p className="playlist-generator-suggested-header display-6">Suggested Songs</p>
+            {songs.length > 0 ? (
             <div className="playlist-generator-suggested-list my-3">
                 {songs.map(song => (
                     <PlaylistItem className="generator-playlist"
@@ -55,7 +56,11 @@ const SuggestedSongs = ({ songs }) => {
                     />
                 ))}
             </div>
+             ) : (<p className='lead'>There are no matching songs with selected criteria</p> 
+        )}
+            {songs.length > 0 && (
             <ReusableButton text="Create Playlist" color={'green'} onClick={handleGeneratePlaylist} className="playlist-generator-button" />
+        )}
         </Col>
         <VerticalModal
         show={modalShow}
