@@ -2,12 +2,12 @@ import React, {useState, useEffect} from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import "./DetailedStats.css";
 import TopList from "./TopList/TopList";
-import FavouriteGenres from "./FavouriteGenres/FavouriteGenres";
 import TopBpm from "./TopBpm/TopBpm";
 import CompatibleSongs from "./CompatibleSongs/CompatibleSongs";
 import TopMusicalKeys from "./TopMusicalKeys/TopMusicalKeys";
 import Mood from "./Mood/Mood";
 import CrowdPleaser from "./CrowdPleaser/CrowdPleaser";
+import FavouriteGenres from "../Dashboard/FavouriteGenres/FavouriteGenres"
 
 
 const DetailedStats = () => {
@@ -100,19 +100,10 @@ const DetailedStats = () => {
           <Row>
             <Col>
               <div className="bento-stat-container">
-                <FavouriteGenres
-                  data={[
-                    { name: "Rock", value: 400 },
-                    { name: "Pop", value: 300 },
-                    { name: "Hiphop", value: 300 },
-                  ]}
-                  width={400}
-                  height={400}
-                  innerRadius={50}
-                  outerRadius={120}
-                />
-                <p className="lead">
-                  Get a visual spin on your music tastes! Here are the top 3 genres that have captured your attention recently.
+                
+                <FavouriteGenres/>
+                <p className="lead my-2">
+                  Get a visual spin on your music tastes! Here are the top 5 genres that have captured your attention recently.
                 </p>
               </div>
             </Col>
