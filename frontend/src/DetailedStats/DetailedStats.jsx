@@ -7,6 +7,7 @@ import TopMusicalKeys from "./TopMusicalKeys/TopMusicalKeys";
 import Mood from "./Mood/Mood";
 import CrowdPleaser from "./CrowdPleaser/CrowdPleaser";
 import FavouriteGenres from "../Dashboard/FavouriteGenres/FavouriteGenres"
+import BackButton from "../BackButton/BackButton";
 import TopTracks from "../Dashboard/TopTracksAndArtists/TopTracks";
 import TopArtists from "../Dashboard/TopTracksAndArtists/TopArtists";
 
@@ -45,7 +46,12 @@ const DetailedStats = () => {
 
   return (
     <Container>
-      <Row className="mt-5 mb-3"> 
+      <Row>
+        <Col className="mt-3">
+        <BackButton></BackButton>
+        </Col>
+      </Row> 
+      <Row className="mt-1 mb-3"> 
         <Col className="mt-2" xs={12} sm={12} md={12} lg={4}>
         <div className="bento-stat-container">
             <TopTracks/>
