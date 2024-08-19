@@ -124,34 +124,6 @@ app.get("/top-tracks", async (req, res) => {
   }
 });
 
-// //get current user top bpm (tempo)
-// app.get("detailed-stats", async (req, res) => {
-//   // get the user's top tracks
-//   spotifyApi
-//     .getMyTopTracks({ limit: 2 }) // Adjust the limit as needed
-//     .then(function (topTracksData) {
-//       const topTracks = topTracksData.body.items;
-
-//       // Extract track IDs
-//       const seedTracks = topTracks.map((track) => track.id);
-
-//       // Step 2: Get recommendations based on these top tracks
-//       return spotifyApi.getRecommendations({
-//         min_energy: 0.4,
-//         min_popularity: 50,
-//         min_tempo: 100,
-//         max_tempo: 150,
-//         seed_tracks: seedTracks,
-//       });
-//     })
-//     .then(function (recommendationsData) {
-//       let recommendations = recommendationsData.body;
-//       console.log(recommendations);
-//     })
-//     .catch(function (err) {
-//       console.log("Something went wrong!", err);
-//     });
-// });
 
 // Step 1: Get the user's top tracks
 // //get current user top bpm (tempo)
@@ -187,15 +159,3 @@ app.get("/detailed-stats", async (req, res) => {
   }
 });
 
-// app.get("detailed-stats", async(req,res) => {
-
-//   const topTracks = await spotifyApi.getMyTopTracks({ limit: 5 }).vody.item
-
-//   spotifyApi.getAudioFeaturesForTracks([trackIds])
-//   .then(function(audioFeaturesData) {
-//     console.log(audioFeaturesData.body);
-//   }, function(err) {
-//     done(err);
-//   });
-
-// })
