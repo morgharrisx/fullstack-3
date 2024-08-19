@@ -156,7 +156,7 @@ app.get("/top-artists", async (req, res) => {
   }
 });  
   
-// DJ HB 
+// // DJ HB 
 app.use(express.json());
 
 app.post ("/dj" , async (req, res) => {
@@ -235,11 +235,11 @@ app.post ("/dj" , async (req, res) => {
 
 
 
-// randomising function that can be re-used if needed
-function getRandomElements(arr, num) {
-  const shuffled = arr.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, num);
-}
+// // randomising function that can be re-used if needed
+// function getRandomElements(arr, num) {
+//   const shuffled = arr.sort(() => 0.5 - Math.random());
+//   return shuffled.slice(0, num);
+// }
 
 app.get("/recommendations", async (req, res) => {
   try {
@@ -304,3 +304,48 @@ app.get("/me", async (req, res) => {
     })
  
 
+// MOST DANCEABLE SONG
+// get top tracks top 20
+//look at their features 
+//sort them 
+
+//// Sort the Array
+//points.sort(function(a, b){return b-a}); descending order
+
+
+app.get("/danceability", async (req, res) => {
+  try {
+    const topTracksResponse = await spotifyApi.getMyTopTracks();
+    const topTracks = topTracksResponse.body.items;
+    const top20TracksID = topTracks.slice(0, 20).map(track => (track.id));
+    console.log("top20ID", top20TracksID);
+    const audioFeatResponse = await spotifyApi.getAudioFeaturesForTracks(top20TracksID);
+    console.log(audioFeatResponse.body.audio_features);
+    const allAudioFeats = audioFeatResponse.body.audio_features;
+    const sortedFeats = allAudioFeats.sort((a,b)=> b.danceability -a.danceability);
+    console.log(sortedFeats);
+    const mostDanceableSong= sortedFeats[0];
+    console.log(mostDanceableSong);
+    //find the matching id from toptracks 
+    //const found = array1.find((element) => element > 10);
+    const foundSong = topTracks.find(song => song.id === mostDanceableSong.id);
+    console.log('found it', foundSong);
+
+    // Response
+    //id , songname artist and album
+    
+    return res.json({
+      message: "Success",
+      name: foundSong.name,
+      album: foundSong.album.name,
+      artist: foundSong.artists.map(artist => artist.name).join(', '),
+      embedUri: `https://open.spotify.com/embed/track/${foundSong.id}`
+    });
+  } catch (error) {
+    console.error("Error getting top tracks:", JSON.stringify(error, null, 4));
+    return res.status(500).json({
+      message: "Error getting top tracks",
+      error: error.response ? error.response.data : error.message,
+    });
+  }
+})
