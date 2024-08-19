@@ -291,6 +291,47 @@ app.get("/recommendations", async (req, res) => {
 });
 
 
+//top-genres
+app.get("/top-genres", async (req, res) => {
+  const { term } = req.query;
+  const validTerms = ["short_term", "medium_term", "long_term"];
+  const timeRange = validTerms.includes(term) ? term : "medium_term";
+
+  try {
+    const topArtistsResponse = await spotifyApi.getMyTopArtists({ time_range: timeRange });
+    const topArtists = topArtistsResponse.body.items;
+
+    //Genres from the top artists
+    const genreCount = {};
+    topArtists.forEach(artist => {
+      artist.genres.forEach(genre => {
+        genreCount[genre] = (genreCount[genre] || 0) + 1;
+      });
+    });
+
+    // Sort by count
+    const sortedGenres = Object.entries(genreCount).sort((a, b) => b[1] - a[1]);
+    const topGenres = sortedGenres.slice(0, 5).map(([genre, count]) => ({
+      genre,
+      count
+    }));
+
+    // response
+    return res.json({
+      message: "Success",
+      total_genres: topGenres.length,
+      data: topGenres,
+    });
+  } catch (error) {
+    console.error("Error getting top genres:", JSON.stringify(error, null, 4));
+    return res.status(500).json({
+      message: "Error getting top genres",
+      error: error.response ? error.response.data : error.message,
+    });
+  }
+});
+
+
 //user profile endpoint
 app.get("/me", async (req, res) => {
      spotifyApi.getMe().then((data)=> {
@@ -302,6 +343,7 @@ app.get("/me", async (req, res) => {
       return res.status(500).json({ error: 'Failed to fetch user profile' });
     });
     })
+
     
 
 
@@ -326,3 +368,34 @@ app.post('/create-playlist', async (req, res) => {
 });
 
 // a song to try : 6D8y7Bck8h11byRY88Pt2z
+
+
+//CALCULATE MOOD
+app.get('/mood', async (req, res) => {
+  try {
+      const data = await spotifyApi.getMyTopTracks({ limit: 20 });
+      const topTracks = data.body.items;
+      const trackIds = topTracks.map(track => track.id);
+      const audioFeaturesData = await spotifyApi.getAudioFeaturesForTracks(trackIds);
+      const audioFeatures = audioFeaturesData.body.audio_features;
+      console.log('Audio Features:', audioFeatures);
+      let totalValence = 0;
+      let trackCount = 0;
+      for (let index = 0; index < audioFeatures.length; index++) {
+        const feature = audioFeatures[index];
+        if (feature && feature.valence !== undefined) {
+            totalValence += feature.valence;
+            trackCount++;
+        }
+      }
+      const averageValence = trackCount > 0 ? totalValence / trackCount : 0;
+      console.log('Average Valence:', averageValence);
+      res.json({ average_valence: averageValence });
+  } catch (error) {
+      console.error('Error fetching top tracks or audio features:', error);
+      res.status(500).send('Error fetching top tracks or audio features');
+  }
+});
+
+
+ 
