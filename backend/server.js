@@ -273,10 +273,10 @@ app.post ("/dj" , async (req, res) => {
 
 
 // // randomising function that can be re-used if needed
-// function getRandomElements(arr, num) {
-//   const shuffled = arr.sort(() => 0.5 - Math.random());
-//   return shuffled.slice(0, num);
-// }
+function getRandomElements(arr, num) {
+  const shuffled = arr.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, num);
+}
 
 app.get("/recommendations", async (req, res) => {
   try {
