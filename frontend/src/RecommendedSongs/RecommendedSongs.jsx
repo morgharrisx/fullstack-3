@@ -6,12 +6,6 @@ import './RecommendedSongs.css'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 
-//Converts runtime to mm:ss format
-const convertToMMSS = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-  };
 
   const RecommendedSongs = ({playlistCover}) => { 
     useEffect(() => {
@@ -62,22 +56,24 @@ const convertToMMSS = (seconds) => {
         </Row>
         <br></br>
         <Row>
-          <Col className='recommended-songs-container'>
-            <PlaylistItem className='header'
-              songName="Song"
-              album="Album"
-              artist="Artist"  
-              isHeader={true}
-            />
-            {songs.map((song) => (
-              <PlaylistItem
-                key={song.id}
-                songName={song.name}
-                album={song.album}
-                artist={song.artists}
-                albumCover={song.albumCover}
-              />
-            ))}
+          <Col xs={12} sm={12} md={9} lg={9}className='recommended-songs-container mx-auto my-4'>
+          {songs.length > 0 ? (
+        songs.map((song, index) => (
+          <div className="song-container" key={song.id}>
+            <p>{song.name} by {song.artists}</p>
+            <iframe
+                  src={`https://open.spotify.com/embed/track/${song.id}`}
+                  width="700"
+                  height="80"
+                  frameBorder="0"
+                  allowTransparency="true"
+                  allow="encrypted-media"
+                ></iframe>
+          </div>
+        ))
+      ) : (
+        <p>No recommendations available.</p>
+      )}
             <br></br>
             <ReusableButton className='generate-button' text='Generate Playlist' color='green'></ReusableButton>
           </Col>
