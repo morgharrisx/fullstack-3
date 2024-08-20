@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PlaylistItem from '../PlaylistItem/PlaylistItem';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import { Container, Row, Col, Image, Placeholder } from 'react-bootstrap';
 import './RecommendedSongs.css'
@@ -52,6 +51,8 @@ import 'aos/dist/aos.css';
           </Col>
           <Col xs={5} className='title-col'>
             <h2>Recommended For You</h2>
+            <p className='lead my-2'>Welcome to your personalized playlist of recommended songs! We've curated a selection of tracks just for you, based on your recent listening habits and favorite genres.</p>
+            <p className='lead'>Don't forget to hit the "Generate Playlist" button to save these tracks to your Spotify account ready to accompany you wherever you go. <br></br><br></br>🎶 Happy listening!</p>
           </Col>
         </Row>
         <br></br>
