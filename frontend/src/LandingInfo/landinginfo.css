@@ -29,3 +29,19 @@
     transform: scale(1.05);
   }
   
+ 
+  @media (max-width: 767px) {
+    .landing-info-container h2 {
+      font-size: 1.2rem;
+    }
+  
+    .landing-info-container p {
+      font-size: 0.9rem;
+    }
+    .reverse-mobile {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+        
+  }
+  
