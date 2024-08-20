@@ -1,9 +1,8 @@
 import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
-import axios from "axios";
+import axios from "axios"; // not using currently
 dotenv.config({ path: "./api/.env" });
-
 
 import SpotifyWebApi from "spotify-web-api-node";
 
@@ -63,7 +62,9 @@ app.get("/callback", async (req, res) => {
         `Access Token:${accessToken}`,
         `Refresh Token:${refreshToken}`
       );
-      res.redirect(`http://localhost:3000/dashboard?access_token=${accessToken}`);
+      res.redirect(
+        `http://localhost:3000/dashboard?access_token=${accessToken}`
+      );
 
       setInterval(async () => {
         const data = await spotifyApi.refreshAccessToken();
@@ -98,15 +99,17 @@ app.get("/top-tracks", async (req, res) => {
   const timeRange = validTerms.includes(term) ? term : "medium_term";
 
   try {
-    const topTracksResponse = await spotifyApi.getMyTopTracks({ time_range: timeRange });
+    const topTracksResponse = await spotifyApi.getMyTopTracks({
+      time_range: timeRange,
+    });
     const topTracks = topTracksResponse.body.items;
-    const top10Tracks = topTracks.slice(0, 10).map(track => ({
+    const top10Tracks = topTracks.slice(0, 10).map((track) => ({
       name: track.name,
       album: track.album.name,
-      artists: track.artists.map(artist => artist.name),
+      artists: track.artists.map((artist) => artist.name),
       popularity: track.popularity,
       externalUrl: track.external_urls.spotify,
-      images: track.album.images
+      images: track.album.images,
     }));
 
     // Response
@@ -124,6 +127,41 @@ app.get("/top-tracks", async (req, res) => {
   }
 });
 
+app.get("/detailed-stats", async (req, res) => {
+  try {
+    // Step 1: Get the user's top 20 tracks
+    const term = req.query.term || 'medium_term';  // Allow the user to specify the term
+    const topTracksData = await spotifyApi.getMyTopTracks({ limit: 20, time_range: term });
+    const topTracks = topTracksData.body.items;
+
+    // Extract track IDs
+    const trackIds = topTracks.map((track) => track.id);
+
+    // Step 2: Get audio features for these tracks
+    const audioFeaturesData = await spotifyApi.getAudioFeaturesForTracks(trackIds);
+    const audioFeatures = audioFeaturesData.body.audio_features;
+
+    // Step 3: Extract and format the required data (tempo and key)
+    const detailedStats = audioFeatures.map((feature, index) => ({
+      trackName: topTracks[index].name,
+      artistName: topTracks[index].artists[0].name,
+      tempo: feature.tempo,
+      key: feature.key,
+      trackId: topTracks[index].id,
+    }));
+
+    // Step 4: Sort by BPM (tempo) in descending order and select the top 3
+    const top3BPMTracks = detailedStats
+      .sort((a, b) => b.tempo - a.tempo)
+      .slice(0, 3);
+
+    // Step 5: Send the top 3 tracks as a JSON response
+    return res.json(top3BPMTracks);
+  } catch (err) {
+    console.error("Something went wrong!", err);
+    return res.status(500).json({ error: "Failed to fetch audio features" });
+  }
+});
 //top artists
 app.get("/top-artists", async (req, res) => {
   const { term } = req.query;
@@ -156,32 +194,21 @@ app.get("/top-artists", async (req, res) => {
   }
 });  
   
-// // // DJ HB 
 app.use(express.json());
+// DJ HB 
+
 
 app.post ("/dj" , async (req, res) => {
-  const {
-    genre,
-    mood,
-    tempo,
-    popularity,
-    instrumentalness,
-    danceability,
-    energy
-  } = req.body; 
-  //‼️TODO: CHECK ALL GENRES FROM API TO DOUBLE CHECK IF ITS EXACTLY WRITTEN SAME WAY  ‼️
+  const { genre, mood, tempo, popularity, danceability,} = req.body; 
+
   const minValence = mood ? parseFloat(mood) * 0.9  : undefined;
   const maxValence = mood ? parseFloat(mood) * 1.1  : undefined;
   const minTempo = tempo ? parseFloat(tempo) * 0.9 : undefined;
   const maxTempo = tempo ? parseFloat(tempo) * 1.1 : undefined;
   const minPopularity = popularity ? parseFloat(popularity)-10 : undefined;
   const maxPopularity = popularity ? parseFloat(popularity)+10 : undefined;
-  const minInstrumentalness = instrumentalness ? Math.max(parseFloat(instrumentalness)) * 0.9 : undefined;
-  const maxInstrumentalness = instrumentalness ? Math.min(parseFloat(instrumentalness)) * 1.1 : undefined;
   const minDanceability  = danceability ? parseFloat(danceability) * 0.9  : undefined;
   const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : undefined;
-  const minEnergy = energy ? parseFloat(energy) * 0.9  : undefined;
-  const maxEnergy = energy ? parseFloat(energy) * 1.1  : undefined;
 
   const options = {
     seed_genres: genre || "pop",
@@ -191,12 +218,8 @@ app.post ("/dj" , async (req, res) => {
     max_tempo: maxTempo,
     min_popularity: minPopularity,
     max_popularity: maxPopularity,
-    min_instrumentalness:minInstrumentalness,
-    max_instrumentalness: maxInstrumentalness,
     min_danceability:minDanceability,
     max_danceability:maxDanceability,
-    min_energy:minEnergy,
-    max_energy:maxEnergy
   }
   try {
     const DJHubResponse = await spotifyApi.getRecommendations(options);
@@ -204,16 +227,36 @@ app.post ("/dj" , async (req, res) => {
     const DJHubSuggestedSongs = DJHubResponse.body.tracks;
     const DJHubSuggested20Songs = DJHubSuggestedSongs.slice(0, 20).map(track => ({
       id: track.id,
-      songName: track.name,
-      artists: track.artists.map(artist => artist.name).join(', '),
+      name:track.name,
+      album: track.album.name,
       popularity: track.popularity,
-      album_cover: track.album.images.length > 0 ? track.album.images[0].url : null,
-      songPreview: track.preview_url//even though it exists keep coming null???? 😫🤯
+      artist:  track.artists.map(artist => artist.name),
+      embedUri: `https://open.spotify.com/embed/track/${track.id}`
     }));
-    console.log(DJHubSuggested20Songs);
+    const DJHubSuggestedSongsIDs = DJHubSuggested20Songs.map(song=>song.id);
+    const DJHubSuggestedSongsFeatsResponse = await spotifyApi.getAudioFeaturesForTracks(DJHubSuggestedSongsIDs);
+    const DJHubSuggestedSongsFeats = DJHubSuggestedSongsFeatsResponse.body.audio_features;
+    DJHubSuggestedSongsFeats.map(song=>({
+      id: song.id,
+      valence: song.valence,
+      tempo: song.tempo,
+      danceability: song.danceability
+    }))
+
+    const combinedData = DJHubSuggested20Songs.map(song => {
+      const features = DJHubSuggestedSongsFeats.find(feat => feat.id === song.id);
+      return {
+        ...song,
+        valence: features.valence,
+        tempo: features.tempo,
+        danceability: features.danceability,
+        energy: features.energy,
+      };
+    });
+
     return res.json({
-      message: "yay",
-      data: DJHubSuggested20Songs,
+      message: "Success",
+      data: combinedData,
     });
 
   } catch (error) {
@@ -226,12 +269,6 @@ app.post ("/dj" , async (req, res) => {
     res.status(error.statusCode).send('An error occurred while fetching recommendations.');
   }
 });
-
-  
-//artist name tracks.artists.name
-//song name tracks.name
-//song preview tracks.preview_url
-//track.id to fetch other things
 
 
 
@@ -291,6 +328,47 @@ app.get("/recommendations", async (req, res) => {
 });
 
 
+//top-genres
+app.get("/top-genres", async (req, res) => {
+  const { term } = req.query;
+  const validTerms = ["short_term", "medium_term", "long_term"];
+  const timeRange = validTerms.includes(term) ? term : "medium_term";
+
+  try {
+    const topArtistsResponse = await spotifyApi.getMyTopArtists({ time_range: timeRange });
+    const topArtists = topArtistsResponse.body.items;
+
+    //Genres from the top artists
+    const genreCount = {};
+    topArtists.forEach(artist => {
+      artist.genres.forEach(genre => {
+        genreCount[genre] = (genreCount[genre] || 0) + 1;
+      });
+    });
+
+    // Sort by count
+    const sortedGenres = Object.entries(genreCount).sort((a, b) => b[1] - a[1]);
+    const topGenres = sortedGenres.slice(0, 5).map(([genre, count]) => ({
+      genre,
+      count
+    }));
+
+    // response
+    return res.json({
+      message: "Success",
+      total_genres: topGenres.length,
+      data: topGenres,
+    });
+  } catch (error) {
+    console.error("Error getting top genres:", JSON.stringify(error, null, 4));
+    return res.status(500).json({
+      message: "Error getting top genres",
+      error: error.response ? error.response.data : error.message,
+    });
+  }
+});
+
+
 //user profile endpoint
 app.get("/me", async (req, res) => {
      spotifyApi.getMe().then((data)=> {
@@ -302,38 +380,22 @@ app.get("/me", async (req, res) => {
       return res.status(500).json({ error: 'Failed to fetch user profile' });
     });
     })
- 
 
-// MOST DANCEABLE SONG
-// get top tracks top 20
-//look at their features 
-//sort them 
 
-//// Sort the Array
-//points.sort(function(a, b){return b-a}); descending order
 
+////DANCEABILITY
 
 app.get("/danceability", async (req, res) => {
   try {
     const topTracksResponse = await spotifyApi.getMyTopTracks();
     const topTracks = topTracksResponse.body.items;
     const top20TracksID = topTracks.slice(0, 20).map(track => (track.id));
-    console.log("top20ID", top20TracksID);
     const audioFeatResponse = await spotifyApi.getAudioFeaturesForTracks(top20TracksID);
-    console.log(audioFeatResponse.body.audio_features);
     const allAudioFeats = audioFeatResponse.body.audio_features;
     const sortedFeats = allAudioFeats.sort((a,b)=> b.danceability -a.danceability);
-    console.log(sortedFeats);
     const mostDanceableSong= sortedFeats[0];
-    console.log(mostDanceableSong);
-    //find the matching id from toptracks 
-    //const found = array1.find((element) => element > 10);
     const foundSong = topTracks.find(song => song.id === mostDanceableSong.id);
-    console.log('found it', foundSong);
 
-    // Response
-    //id , songname artist and album
-    
     return res.json({
       message: "Success",
       name: foundSong.name,
@@ -349,3 +411,59 @@ app.get("/danceability", async (req, res) => {
     });
   }
 })
+
+    
+
+
+// Endpoint to create a playlist named 'VibeFusion'
+app.post('/create-playlist', async (req, res) => {
+  try {
+    const playlistName = 'VibeFusion';
+    const options = { public: false, description: "Generated by VibeFusion" };
+    const playlistResponse = await spotifyApi.createPlaylist (playlistName, options);
+    const playlistId = playlistResponse.body.id; 
+    const { trackUris } = req.body;
+    if (trackUris.length === 0) {
+      return res.status(400).json({ error: 'Please provide an array of track URIs.' });
+    }
+
+    const addTracksResponse = await spotifyApi.addTracksToPlaylist(playlistId, trackUris);
+
+    res.status(200).json({message: 'yaay playlist created'}); 
+  } catch (error) {
+    res.status(500).json({ error: `Failed to create playlist ${error.message}`});
+  }
+});
+
+
+
+
+//CALCULATE MOOD
+app.get('/mood', async (req, res) => {
+  try {
+      const data = await spotifyApi.getMyTopTracks({ limit: 20 });
+      const topTracks = data.body.items;
+      const trackIds = topTracks.map(track => track.id);
+      const audioFeaturesData = await spotifyApi.getAudioFeaturesForTracks(trackIds);
+      const audioFeatures = audioFeaturesData.body.audio_features;
+      console.log('Audio Features:', audioFeatures);
+      let totalValence = 0;
+      let trackCount = 0;
+      for (let index = 0; index < audioFeatures.length; index++) {
+        const feature = audioFeatures[index];
+        if (feature && feature.valence !== undefined) {
+            totalValence += feature.valence;
+            trackCount++;
+        }
+      }
+      const averageValence = trackCount > 0 ? totalValence / trackCount : 0;
+      console.log('Average Valence:', averageValence);
+      res.json({ average_valence: averageValence });
+  } catch (error) {
+      console.error('Error fetching top tracks or audio features:', error);
+      res.status(500).send('Error fetching top tracks or audio features');
+  }
+});
+
+
+

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Container, Row, Col, Form, Image, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Form, Image, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
 import SuggestedSongs from "./SuggestedSongs/SuggestedSongs";
 import ReusableButton from "../ReusableButton/ReusableButton";
 import "./playlistgenerator.css";
@@ -13,9 +13,7 @@ const PlaylistGenerator = () => {
   const [mood, setMood] = useState(0.5);
   const [tempo, setTempo] = useState(100);
   const [popularity, setPopularity] = useState(50);
-  const [instrumentalness, setInstrumentalness] = useState(0.5);
   const [danceability, setDanceability] = useState(0.5);
-  const [energy, setEnergy] = useState(0.5);
   const [loading, setLoading] = useState(false);
 
   const [selectedCriteria, setSelectedCriteria] = useState({
@@ -47,28 +45,26 @@ const PlaylistGenerator = () => {
       if (selectedCriteria.mood) requestData.mood = mood;
       if (selectedCriteria.tempo) requestData.tempo = tempo;
       if (selectedCriteria.popularity) requestData.popularity = popularity;
-      if (selectedCriteria.instrumentalness)
-        requestData.instrumentalness = instrumentalness;
-      if (selectedCriteria.danceability)
-        requestData.danceability = danceability;
-      if (selectedCriteria.energy) requestData.energy = energy;
-      console.log(requestData);
+      if (selectedCriteria.danceability) requestData.danceability = danceability;
       const response = await axios.post(url, requestData);
 
       if (response.data && response.data.data) {
-        const formattedSongs = response.data.data.map((track) => ({
-          id: track.id,
-          songName: track.songName,
-          artists: track.artists,
-          popularity: track.popularity,
-          albumCover: track.album_cover,
-          songPreview: track.songPreview,
+        const formattedSongs = response.data.data.map((song) => ({
+          id: song.id,
+          name:song.name,
+          album: song.album,
+          artist:  song.artist,
+          popularity: song.popularity,
+          valence: song.valence,
+          popularity: song.popularity,
+          tempo: song.tempo,
+          danceability: song.danceability,
+          embedUri: `https://open.spotify.com/embed/track/${song.id}`
         }));
-
         setSongs(formattedSongs);
         setShowSongs(true);
-        console.log(formattedSongs);
-        console.log(requestData);
+       
+      
       } else {
         console.log("No tracks found.");
       }
@@ -78,16 +74,12 @@ const PlaylistGenerator = () => {
       setLoading(false);
     }
   };
-  const handleDelete = (id) => {
-    setSongs(songs.filter((song) => song.id !== id));
-  };
 
   useEffect(() => {
     if (showSongs && suggestedSongsRef.current) {
         suggestedSongsRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [showSongs]);
-
 
   return (
     <Container className="playlist-generator-container mt-5 ">
@@ -106,6 +98,23 @@ const PlaylistGenerator = () => {
             <Col xs={12} sm={6} md={7} lg={8}>
                 <p className="playlist-generator-suggested-header display-6">Find your perfect match</p>
                 <p className="lead">Your playlist, your rules! Set your preferences and uncover songs that perfectly match your taste.</p>
+                <OverlayTrigger
+                  placement="top"
+                  delayShow={300}
+                  delayHide={150}
+                  overlay={
+                    <Tooltip>
+                    1. Select a genre (required).<br />
+                    2. Check the boxes for additional filters (optional).<br />
+                    3. Use the sliders to set your desired range.<br />
+                    4. Click "Search" to generate your playlist.
+                  </Tooltip>
+                  }
+                >
+                  <p className="lead" style={{ cursor: "pointer", color: "#1e6101" }}>
+                    Learn how use
+                  </p>
+                </OverlayTrigger>
             </Col>
         </Row>
         </Col>
@@ -124,7 +133,6 @@ const PlaylistGenerator = () => {
               onChange={(e) => setGenre(e.target.value)}
               className="form-control"
             >
-              <option value="">Choose a genre</option>
               <option value="pop">Pop</option>
               <option value="rock">Rock</option>
               <option value="jazz">Jazz</option>
@@ -160,10 +168,10 @@ const PlaylistGenerator = () => {
               onChange={(e) => setMood(e.target.value)}
               className="form-range"
             />
+             <Form.Text>Mood: {Math.floor(mood * 100)}</Form.Text>
           </Form.Group>
 
-          <Form.Group
-            controlId="tempoRange"
+          <Form.Group controlId="tempoRange"
             className={`playlist-generator-form-group mb-3 ${
               selectedCriteria.tempo ? "selected" : ""
             }`}
@@ -204,32 +212,10 @@ const PlaylistGenerator = () => {
               onChange={(e) => setPopularity(e.target.value)}
               className="form-range"
             />
+             <Form.Text>Popularity: {popularity}</Form.Text>
           </Form.Group>
-
           <Form.Group
-            controlId="instrumentalnessRange"
-            className={`playlist-generator-form-group mb-3 ${
-              selectedCriteria.instrumentalness ? "selected" : ""
-            }`}
-          >
-            <Form.Check
-              type="checkbox"
-              label="Instrumentalness"
-              checked={selectedCriteria.instrumentalness}
-              onChange={() => toggleSelection("instrumentalness")}
-            />
-            <Form.Range
-              min={0}
-              max={1}
-              step={0.01}
-              value={instrumentalness}
-              onChange={(e) => setInstrumentalness(e.target.value)}
-              className="form-range"
-            />
-          </Form.Group>
-
-          <Form.Group
-            controlId="energyRange"
+            controlId="danceabilityRange"
             className={`playlist-generator-form-group mb-3 ${
               selectedCriteria.danceability ? "selected" : ""
             }`}
@@ -244,10 +230,11 @@ const PlaylistGenerator = () => {
               min={0}
               max={1}
               step={0.01}
-              value={energy}
-              onChange={(e) => setEnergy(e.target.value)}
+              value={danceability}
+              onChange={(e) => setDanceability(e.target.value)}
               className="form-range"
             />
+            <Form.Text>Danceability: {Math.floor(danceability * 100)}</Form.Text>
           </Form.Group>
 
           <ReusableButton
@@ -270,7 +257,7 @@ const PlaylistGenerator = () => {
       </Row>
     )}
      {showSongs && !loading && (
-        <div ref={suggestedSongsRef}>
+        <div className="playlist-generator-row" ref={suggestedSongsRef}>
           <SuggestedSongs songs={songs} />
         </div>
       )}
