@@ -9,8 +9,19 @@ import VerticalModal from '../PlaylistGenerator/Modal/Modal';
 
 
   const RecommendedSongs = () => { 
+    useEffect(() => { //animation
+      AOS.init({ 
+        duration: 1000,  
+        offset: 120,     
+        once: true, 
+       });
+    }, []);
     const [modalShow, setModalShow] = useState(false);
     const [modalContent, setModalContent] = useState({ title: "", body: "" });
+    const [songs, setSongs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [rateLimitMessage, setRateLimitMessage] = useState(null);
+
     const handleGeneratePlaylist = async () => {
       try {
         const trackUris = songs.map((song) => `spotify:track:${song.id}`);
@@ -41,24 +52,22 @@ import VerticalModal from '../PlaylistGenerator/Modal/Modal';
         setModalShow(true);
       }
     };
-    useEffect(() => {
-      AOS.init({ 
-        duration: 1000,  
-        offset: 120,     
-        once: true, 
-       });
-    }, []);
-    const [songs, setSongs] = useState([]);
-    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
       const fetchSongs = async () => {
         try {
           const response = await fetch("http://localhost:5001/recommendations");
-          const data = await response.json();
-          setSongs(data);
-          setLoading(false);
+          if (response.status === 429) {
+            setRateLimitMessage(`Rate limit exceeded. Try again later`);
+          } else if (response.ok) {
+            const data = await response.json();
+            setSongs(data);
+          } else {
+            console.error("Error fetching tracks:", response.statusText);
+          }
         } catch (error) {
-          console.error('Error fetching songs:', error);
+          console.error("Network error:", error);
+        } finally {
           setLoading(false);
         }
       };
@@ -109,6 +118,15 @@ import VerticalModal from '../PlaylistGenerator/Modal/Modal';
       ) : (
         <p>No recommendations available.</p>
       )}
+          {rateLimitMessage && (
+            <Row>
+              <Col>
+                <div className="text-center">
+                  <span className="text-danger">{rateLimitMessage}</span>
+                </div>
+              </Col>
+            </Row>
+          )}
             <br></br>
             <ReusableButton  onClick={handleGeneratePlaylist} className='generate-button' text='Build My Spotify Playlist' color='green'></ReusableButton>
           </Col>
