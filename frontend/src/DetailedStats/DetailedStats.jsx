@@ -41,14 +41,6 @@ const DetailedStats = () => {
       artist: 'Dua Lipa'
     }
   ]);
- 
-
-  // const [topMusicalKeys, setTopMusicalKeys] = useState([
-  //   { name: 'C Major', minutesListened: 120 },
-  //   { name: 'G Major', minutesListened: 90 },
-  //   { name: 'A Minor', minutesListened: 75 },
-  // ]);
-
 
   return (
     <Container data-aos="fade-up">
