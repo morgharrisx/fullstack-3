@@ -4,9 +4,43 @@ import { Container, Row, Col, Image, Placeholder } from 'react-bootstrap';
 import './RecommendedSongs.css'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
+import axios from 'axios'
+import VerticalModal from '../PlaylistGenerator/Modal/Modal';
 
 
-  const RecommendedSongs = ({playlistCover}) => { 
+  const RecommendedSongs = () => { 
+    const [modalShow, setModalShow] = useState(false);
+    const [modalContent, setModalContent] = useState({ title: "", body: "" });
+    const handleGeneratePlaylist = async () => {
+      try {
+        const trackUris = songs.map((song) => `spotify:track:${song.id}`);
+        const response = await axios.post(
+          "http://localhost:5001/create-playlist",
+          {
+            trackUris: trackUris,
+          }
+        );
+        if (response.status === 200) {
+          setModalContent({
+            title: " 🥳 Playlist created!",
+            body: "You'll find it on your Spotify account under the playlist name VibeFusion.",
+          });
+        } else {
+          setModalContent({
+            title: "Failure",
+            body: "Failed to create playlist.",
+          });
+        }
+      } catch (error) {
+        console.error("Error creating playlist:", error);
+        setModalContent({
+          title: "Error",
+          body: "An error occurred while creating the playlist.",
+        });
+      } finally {
+        setModalShow(true);
+      }
+    };
     useEffect(() => {
       AOS.init({ 
         duration: 1000,  
@@ -36,7 +70,7 @@ import 'aos/dist/aos.css';
       <div className='playlist-page'>
         <Container data-aos="fade-up"  fluid>
           <Row className='title-row'>
-            <Col xs={6} className='cover-col'>
+            <Col xs={4} className='cover-col'>
               {albumCovers.length === 4 ? (
                 <div className='playlist-cover-grid'>
                     {albumCovers.map((cover,index) => (
@@ -49,7 +83,7 @@ import 'aos/dist/aos.css';
                 </Placeholder>
               )}
           </Col>
-          <Col xs={5} className='title-col'>
+          <Col xs={4} className='title-col'>
             <h2>Recommended For You</h2>
             <p className='lead my-2'>Welcome to your personalized playlist of recommended songs! We've curated a selection of tracks just for you, based on your recent listening habits and favorite genres.</p>
             <p className='lead'>Don't forget to hit the "Generate Playlist" button to save these tracks to your Spotify account ready to accompany you wherever you go. <br></br><br></br>🎶 Happy listening!</p>
@@ -76,9 +110,15 @@ import 'aos/dist/aos.css';
         <p>No recommendations available.</p>
       )}
             <br></br>
-            <ReusableButton className='generate-button' text='Generate Playlist' color='green'></ReusableButton>
+            <ReusableButton  onClick={handleGeneratePlaylist} className='generate-button' text='Build My Spotify Playlist' color='green'></ReusableButton>
           </Col>
         </Row>
+        <VerticalModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        title={modalContent.title}
+        body={modalContent.body}
+      />
       </Container>
     </div>
   );
