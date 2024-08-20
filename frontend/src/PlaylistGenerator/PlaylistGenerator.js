@@ -5,8 +5,18 @@ import SuggestedSongs from "./SuggestedSongs/SuggestedSongs";
 import ReusableButton from "../ReusableButton/ReusableButton";
 import "./playlistgenerator.css";
 import perfectMatch from "./perfectmatch.png";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+
 
 const PlaylistGenerator = () => {
+  useEffect(() => {
+    AOS.init({ 
+      duration: 1000,  
+      offset: 120,     
+      once: true, 
+     });
+  }, []);
   const [showSongs, setShowSongs] = useState(false);
   const [songs, setSongs] = useState([]);
   const [genre, setGenre] = useState("pop");
@@ -86,7 +96,7 @@ const PlaylistGenerator = () => {
   }, [showSongs]);
 
   return (
-    <Container className="playlist-generator-container mt-5 ">
+    <Container  data-aos="fade-up" className="playlist-generator-container mt-5 ">
       <Row className="playlist-generator-row">
         <Col
           xs={12}

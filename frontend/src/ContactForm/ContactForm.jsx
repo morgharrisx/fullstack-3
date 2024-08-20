@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,8 +6,17 @@ import emailjs from 'emailjs-com';
 import './ContactForm.css';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import { Container } from 'react-bootstrap';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 const ContactForm = () => {
+  useEffect(() => {
+    AOS.init({ 
+      duration: 1000,  
+      offset: 120,     
+      once: true, 
+     });
+  }, []);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -68,8 +77,8 @@ const ContactForm = () => {
 
   return (
     <>
-      <h2 className="contact-form-title">Contact Us</h2>
-      <Container className="contact-form-container">
+      <h2 data-aos="fade-up" className="contact-form-title">Contact Us</h2>
+      <Container data-aos="fade-up" className="contact-form-container">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="name">

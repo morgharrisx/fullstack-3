@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Dashboard.css";
 import { Container, Row, Col } from "react-bootstrap";
 import FavouriteGenres from "./FavouriteGenres/FavouriteGenres";
@@ -6,10 +6,19 @@ import TopTracks from "./TopTracksAndArtists/TopTracks";
 import ReusableButton from "../ReusableButton/ReusableButton";
 import { Link } from "react-router-dom";
 import TopArtists from "./TopTracksAndArtists/TopArtists";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 const Dashboard = () => {
+  useEffect(() => {
+    AOS.init({ 
+      duration: 1000,  
+      offset: 120,     
+      once: true, 
+     });
+  }, []);
   return (
-    <Container className="dashboard-container">
+    <Container data-aos="fade-up" className="dashboard-container">
       <Row className="mt-3">
         <Col xs={12} sm={12} md={12} lg={12}>
           <Row className="first-row-stats">

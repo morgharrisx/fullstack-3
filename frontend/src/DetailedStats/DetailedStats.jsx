@@ -10,10 +10,20 @@ import FavouriteGenres from "../Dashboard/FavouriteGenres/FavouriteGenres"
 import BackButton from "../BackButton/BackButton";
 import TopTracks from "../Dashboard/TopTracksAndArtists/TopTracks";
 import TopArtists from "../Dashboard/TopTracksAndArtists/TopArtists";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 
 
 const DetailedStats = () => {
+  useEffect(() => {
+    AOS.init({ 
+      duration: 1000,  
+      offset: 120,     
+      once: true, 
+     });
+  }, []);
+
   const [SmartRecommendationArray, setSmartRecommendationArray] = useState([
     {
       songName: 'Shape of You',
@@ -41,7 +51,7 @@ const DetailedStats = () => {
 
 
   return (
-    <Container>
+    <Container data-aos="fade-up">
       <Row>
         <Col className="mt-3">
         <BackButton></BackButton>
