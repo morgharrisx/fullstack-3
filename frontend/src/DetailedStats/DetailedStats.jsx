@@ -43,11 +43,11 @@ const DetailedStats = () => {
   ]);
  
 
-  const [topMusicalKeys, setTopMusicalKeys] = useState([
-    { name: 'C Major', minutesListened: 120 },
-    { name: 'G Major', minutesListened: 90 },
-    { name: 'A Minor', minutesListened: 75 },
-  ]);
+  // const [topMusicalKeys, setTopMusicalKeys] = useState([
+  //   { name: 'C Major', minutesListened: 120 },
+  //   { name: 'G Major', minutesListened: 90 },
+  //   { name: 'A Minor', minutesListened: 75 },
+  // ]);
 
 
   return (
@@ -84,7 +84,7 @@ const DetailedStats = () => {
             <Col className="mt-2" xs={12} sm={12} md={12} lg={8}>
               <div className="bento-stat-container">
               <TopMusicalKeys 
-                  data={topMusicalKeys} 
+                  
                   xAxisKey="name" 
                   yAxisKey="minutesListened" 
                   barColor="#8884d8"
