@@ -12,8 +12,8 @@ import 'aos/dist/aos.css';
 const LandingPage = () => {
   useEffect(() => {
     AOS.init({ 
-      duration: 2000,  // Duration of the animation
-      offset: 120,     // Offset from the original trigger point in pixels
+      duration: 2000,  
+      offset: 120,     
       once: true, 
      });
   }, []);
@@ -51,10 +51,10 @@ const LandingPage = () => {
      >
           {section.imageFirst ? (
             <>
-              <Col md={6} className="text-center p-4">
+              <Col xs={12} sm={12} md={6} lg={6} className="text-center p-4">
                 <Image src={section.image} alt="VibeFusion preview" fluid />
               </Col>
-              <Col md={6} className="text-center text-md-left px-5">
+              <Col xs={12} sm={12} md={6} lg={6} className="text-center text-md-left px-5">
                 <h2>{section.title}</h2>
                 <p>{section.text}</p>
                 {section.button}
