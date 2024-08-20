@@ -322,8 +322,13 @@ app.get("/recommendations", async (req, res) => {
     })));
 
   } catch (error) {
-    console.error("Error fetching recommendations:", error.message);
-    res.status(500).send("Failed to get recommendations");
+    if (error.statusCode === 429) {
+      const retryAfter = error.headers['retry-after'] || 60;
+      console.error(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+      return res.status(429).send(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+    }
+    console.error("Error fetching recommendations:",JSON.stringify(error, null, 2));
+    res.status(error.statusCode).send('An error occurred while fetching recommendations.');
   }
 });
 
