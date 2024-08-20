@@ -24,31 +24,6 @@ const DetailedStats = () => {
      });
   }, []);
 
-  const [SmartRecommendationArray, setSmartRecommendationArray] = useState([
-    {
-      songName: 'Shape of You',
-      album: '÷ (Divide)',
-      artist: 'Ed Sheeran'
-    },
-    {
-      songName: 'Blinding Lights',
-      album: 'After Hours',
-      artist: 'The Weeknd'
-    },
-    {
-      songName: 'Levitating',
-      album: 'Future Nostalgia',
-      artist: 'Dua Lipa'
-    }
-  ]);
- 
-
-  // const [topMusicalKeys, setTopMusicalKeys] = useState([
-  //   { name: 'C Major', minutesListened: 120 },
-  //   { name: 'G Major', minutesListened: 90 },
-  //   { name: 'A Minor', minutesListened: 75 },
-  // ]);
-
 
   return (
     <Container data-aos="fade-up">
@@ -99,7 +74,7 @@ const DetailedStats = () => {
       <Row className="mb-5">
         <Col xs={12} sm={12} md={12} lg={5}>
           
-            <SmartRecommendation SmartRecommendationArray={SmartRecommendationArray} />
+            <SmartRecommendation/>
            
         </Col>
         <Col className="mt-2" xs={12} sm={12} md={12} lg={4}>
