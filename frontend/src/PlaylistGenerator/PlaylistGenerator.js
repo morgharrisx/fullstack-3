@@ -15,7 +15,7 @@ const PlaylistGenerator = () => {
   const [popularity, setPopularity] = useState(50);
   const [danceability, setDanceability] = useState(0.5);
   const [loading, setLoading] = useState(false);
-
+  const [rateLimitMessage, setRateLimitMessage] = useState(null);
   const [selectedCriteria, setSelectedCriteria] = useState({
     genre: false,
     mood: false,
@@ -56,7 +56,6 @@ const PlaylistGenerator = () => {
           artist:  song.artist,
           popularity: song.popularity,
           valence: song.valence,
-          popularity: song.popularity,
           tempo: song.tempo,
           danceability: song.danceability,
           embedUri: `https://open.spotify.com/embed/track/${song.id}`
@@ -69,7 +68,12 @@ const PlaylistGenerator = () => {
         console.log("No tracks found.");
       }
     } catch (error) {
-      console.error("Error fetching tracks:", error);
+      if (error.response && error.response.status === 429) {
+        const retryAfter = error.response.data.retryAfter;
+        setRateLimitMessage(`Rate limit exceeded. Try again in ${retryAfter} minutes.`);
+      } else {
+        console.error("Error fetching tracks:", error);
+      }
     } finally {
       setLoading(false);
     }
@@ -256,6 +260,15 @@ const PlaylistGenerator = () => {
         </Col>
       </Row>
     )}
+      {rateLimitMessage && (
+        <Row>
+          <Col>
+            <div className="text-center">
+              <span className="text-danger">{rateLimitMessage}</span>
+            </div>
+          </Col>
+        </Row>
+      )}
      {showSongs && !loading && (
         <div className="playlist-generator-row" ref={suggestedSongsRef}>
           <SuggestedSongs songs={songs} />
