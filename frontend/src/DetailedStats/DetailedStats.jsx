@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import "./DetailedStats.css";
 import TopBpm from "./TopBpm/TopBpm";
-import CompatibleSongs from "./CompatibleSongs/CompatibleSongs";
+import SmartRecommendation from "./SmartRecommendation/SmartRecommendation";
 import TopMusicalKeys from "./TopMusicalKeys/TopMusicalKeys";
 import Mood from "./Mood/Mood";
 import CrowdPleaser from "./CrowdPleaser/CrowdPleaser";
@@ -10,10 +10,21 @@ import FavouriteGenres from "../Dashboard/FavouriteGenres/FavouriteGenres"
 import BackButton from "../BackButton/BackButton";
 import TopTracks from "../Dashboard/TopTracksAndArtists/TopTracks";
 import TopArtists from "../Dashboard/TopTracksAndArtists/TopArtists";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+
 
 
 const DetailedStats = () => {
-  const [compatibleSongsArray, setCompatibleSongsArray] = useState([
+  useEffect(() => {
+    AOS.init({ 
+      duration: 1000,  
+      offset: 120,     
+      once: true, 
+     });
+  }, []);
+
+  const [SmartRecommendationArray, setSmartRecommendationArray] = useState([
     {
       songName: 'Shape of You',
       album: '÷ (Divide)',
@@ -40,7 +51,7 @@ const DetailedStats = () => {
 
 
   return (
-    <Container>
+    <Container data-aos="fade-up">
       <Row>
         <Col className="mt-3">
         <BackButton></BackButton>
@@ -88,7 +99,7 @@ const DetailedStats = () => {
       <Row className="mb-5">
         <Col xs={12} sm={12} md={12} lg={5}>
           
-            <CompatibleSongs compatibleSongsArray={compatibleSongsArray} />
+            <SmartRecommendation SmartRecommendationArray={SmartRecommendationArray} />
            
         </Col>
         <Col className="mt-2" xs={12} sm={12} md={12} lg={4}>
@@ -99,7 +110,7 @@ const DetailedStats = () => {
         </Col>
         <Col className="mt-2" xs={12} sm={12} md={12} lg={3}>
         <div className="bento-stat-container">
-       <CrowdPleaser songName={'Levitating'} artist={'Dua Lipa'}></CrowdPleaser>
+       <CrowdPleaser></CrowdPleaser>
             </div>
         </Col>
       </Row>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import './carousel.css'; 
 import Carousel from 'react-bootstrap/Carousel';
 import img1 from './images/1.png';
@@ -6,8 +6,17 @@ import img2 from './images/2.png';
 import img3 from './images/3.png';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function ControlledCarousel() {
+  useEffect(() => {
+    AOS.init({ 
+      duration: 1000,  
+      offset: 120,     
+      once: true, 
+     });
+  }, []);
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
@@ -16,9 +25,9 @@ function ControlledCarousel() {
 
   return (
     <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item className='  carousel-item'>
+      <Carousel.Item  className='carousel-item'>
       <img src={img1} alt="" className="d-block carousel-image" />
-        <Carousel.Caption className="carousel-caption">
+        <Carousel.Caption data-aos="fade-up" className="carousel-caption">
           <h3>Discover Your Music Stats</h3>
           <p>Dive into your Spotify listening history with VibeFusion! Get detailed insights into your most-played tracks, favorite genres, and top artists.</p>
           <a href="/login"><ReusableButton size="sm" variant="success" text='Learn more'></ReusableButton></a>

@@ -10,13 +10,14 @@ import Dashboard from './Dashboard/Dashboard';
 import RecommendedPlaylist from './RecommendedPlaylist'; 
 import Profile from './Profile/Profile';
 import ContactForm from './ContactForm/ContactForm';
+import LandingInfo from  './LandingInfo/LandingInfo'
 
 function App() { 
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<> <NavScrollExample/><ControlledCarousel/><Footer/> </>} />
+          <Route path="/" element={<> <NavScrollExample/><ControlledCarousel/><LandingInfo/><Footer/> </>} />
           <Route path="/profile" element={<> <NavScrollExample/><Profile/><Footer/> </>} />
           <Route path="/dashboard" element={<> <NavScrollExample/><Dashboard/><Footer/> </>} />
           <Route path="/detailed-stats" element={<> <NavScrollExample/><DetailedStats/><Footer/> </>} />

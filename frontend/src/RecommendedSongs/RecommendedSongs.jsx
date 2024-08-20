@@ -3,6 +3,8 @@ import PlaylistItem from '../PlaylistItem/PlaylistItem';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import { Container, Row, Col, Image, Placeholder } from 'react-bootstrap';
 import './RecommendedSongs.css'
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 //Converts runtime to mm:ss format
 const convertToMMSS = (seconds) => {
@@ -12,6 +14,13 @@ const convertToMMSS = (seconds) => {
   };
 
   const RecommendedSongs = ({playlistCover}) => { 
+    useEffect(() => {
+      AOS.init({ 
+        duration: 1000,  
+        offset: 120,     
+        once: true, 
+       });
+    }, []);
     const [songs, setSongs] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -32,7 +41,7 @@ const convertToMMSS = (seconds) => {
     const albumCovers = songs.slice(0,4).map((songs) => songs.albumCover);
     return (
       <div className='playlist-page'>
-        <Container fluid>
+        <Container data-aos="fade-up"  fluid>
           <Row className='title-row'>
             <Col xs={6} className='cover-col'>
               {albumCovers.length === 4 ? (
