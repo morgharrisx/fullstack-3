@@ -147,6 +147,7 @@ app.get("/detailed-stats", async (req, res) => {
       artistName: topTracks[index].artists[0].name,
       tempo: feature.tempo,
       key: feature.key,
+      duration_ms: feature.duration_ms,
       trackId: topTracks[index].id,
     }));
 
