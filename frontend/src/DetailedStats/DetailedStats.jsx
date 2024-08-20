@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import "./DetailedStats.css";
 import TopBpm from "./TopBpm/TopBpm";
