@@ -29,26 +29,16 @@ const CrowdPleaser = () => {
       <Row>
         <Col className="d-flex flex-column align-items-center">
         <p className='lead'>Most danceable track: Your party must-have!</p>
-<<<<<<< Updated upstream
         <p>{mostDanceableSong}</p>
-        <iframe 
+        <iframe className='most-danceable-iframe'
         src={mostDanceableSongUri}
         width="250px" 
         height="250px"
         frameBorder="0" 
-=======
-        <div>
-        <iframe 
-        src={mostDanceableSongUri}
-        align="right"
-        width="270px" 
-        height="200px" 
->>>>>>> Stashed changes
         allowtransparency="true" 
         allow="encrypted-media"
         title="Spotify Player"
       ></iframe>
-      </div>
         <Link to="/dj-hub"><ReusableButton color={'pink'} text={'Go to DJ Hub'}></ReusableButton></Link>  
         </Col>
       </Row>

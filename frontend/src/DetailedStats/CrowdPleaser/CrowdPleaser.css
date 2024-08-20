@@ -1,40 +1,4 @@
-<<<<<<< Updated upstream
-=======
-/* .crowd-pleaser-container{
-    background-image: url('./pp.png');
-    background-size: contain;
-   background-repeat: no-repeat;
-   background-position: center;
-   min-height: 500px;
-   height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+.most-danceable-iframe{
+    width: 250px !important;
+    height: 250px !important;
 }
-
-.crowd-pleaser-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-} */
-
-.crowd-pleaser-container {
-    /* background-image: url('./pp.png'); */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    min-height: 500px;
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-}
-
-.crowd-pleaser-container, iframe {
-    border: none;
-    margin: 0 auto;
-    display:block;
-}
->>>>>>> Stashed changes
