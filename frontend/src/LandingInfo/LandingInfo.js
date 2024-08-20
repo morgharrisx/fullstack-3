@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import LandingImage1 from './1.png';
 import LandingImage2 from './2.png';
 import LandingImage3 from './3.png';
 import ReusableButton from '../ReusableButton/ReusableButton';
+import { Link } from 'react-router-dom';
 import "./landinginfo.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 const LandingPage = () => {
+  useEffect(() => {
+    AOS.init({ 
+      duration: 2000,  // Duration of the animation
+      offset: 120,     // Offset from the original trigger point in pixels
+      once: true, 
+     });
+  }, []);
+
   const sections = [
     {
       title: 'Discover Your Music DNA',
@@ -26,7 +37,7 @@ const LandingPage = () => {
       text: 'Step into the DJ Hub, where you have the power to create the perfect mix. Input your preferences – from genre to BPM, mood, and more – and VibeFusion will match you with tracks that fit your vibe. Whether you\'re setting the mood for a party or curating your next road trip playlist, the DJ Hub has you covered.',
       image: LandingImage3,
       imageFirst: false,
-      button: <ReusableButton color="green" text="Get Started with VibeFusion" />,
+      button: <Link to="http://localhost:5001/login"><ReusableButton color="green" text="Get Started with VibeFusion" /></Link>,
     },
   ];
 
@@ -36,6 +47,7 @@ const LandingPage = () => {
        <Row
        key={index}
        className={`align-items-center my-5 ${section.reverseOnMobile ? 'reverse-mobile' : ''}`}
+       data-aos="fade-up"
      >
           {section.imageFirst ? (
             <>
