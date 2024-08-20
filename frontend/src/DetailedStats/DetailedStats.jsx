@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import "./DetailedStats.css";
 import TopBpm from "./TopBpm/TopBpm";
-import CompatibleSongs from "./CompatibleSongs/CompatibleSongs";
+import SmartRecommendation from "./SmartRecommendation/SmartRecommendation";
 import TopMusicalKeys from "./TopMusicalKeys/TopMusicalKeys";
 import Mood from "./Mood/Mood";
 import CrowdPleaser from "./CrowdPleaser/CrowdPleaser";
@@ -12,8 +12,9 @@ import TopTracks from "../Dashboard/TopTracksAndArtists/TopTracks";
 import TopArtists from "../Dashboard/TopTracksAndArtists/TopArtists";
 
 
+
 const DetailedStats = () => {
-  const [compatibleSongsArray, setCompatibleSongsArray] = useState([
+  const [SmartRecommendationArray, setSmartRecommendationArray] = useState([
     {
       songName: 'Shape of You',
       album: '÷ (Divide)',
@@ -88,7 +89,7 @@ const DetailedStats = () => {
       <Row className="mb-5">
         <Col xs={12} sm={12} md={12} lg={5}>
           
-            <CompatibleSongs compatibleSongsArray={compatibleSongsArray} />
+            <SmartRecommendation SmartRecommendationArray={SmartRecommendationArray} />
            
         </Col>
         <Col className="mt-2" xs={12} sm={12} md={12} lg={4}>
