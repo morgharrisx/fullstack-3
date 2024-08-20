@@ -5,8 +5,18 @@ import defaultAvatar from './1.png';
 import './profile.css'; 
 import ReusableButton from '../ReusableButton/ReusableButton';
 import { Link } from 'react-router-dom'
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 const UserProfile = () => {
+  useEffect(() => {
+    AOS.init({ 
+      duration: 1000,  
+      offset: 120,     
+      once: true, 
+     });
+  }, []);
+
   const [userProfile, setUserProfile] = useState({
     display_name: '',
     email: '',
@@ -53,7 +63,7 @@ const UserProfile = () => {
     userProfile.images && userProfile.images.length > 0 ? userProfile.images[0].url : defaultAvatar;
 
   return (
-    <Container className="profile-container">
+    <Container data-aos="fade-up" className="profile-container">
       <h1 className="profile-title">Your Profile</h1>
       <Card className="profile-card">
         <Card.Body className="profile-card-body">
