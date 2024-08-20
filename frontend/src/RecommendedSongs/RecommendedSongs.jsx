@@ -70,7 +70,7 @@ import VerticalModal from '../PlaylistGenerator/Modal/Modal';
       <div className='playlist-page'>
         <Container data-aos="fade-up"  fluid>
           <Row className='title-row'>
-            <Col xs={4} className='cover-col'>
+            <Col xs={12} sm={12} md={12} lg={4} className='cover-col'>
               {albumCovers.length === 4 ? (
                 <div className='playlist-cover-grid'>
                     {albumCovers.map((cover,index) => (
@@ -79,11 +79,11 @@ import VerticalModal from '../PlaylistGenerator/Modal/Modal';
                 </div>
               ) : (
                 <Placeholder as='div' animation='glow' className='playlist-cover-placeholder'>
-                  <Placeholder xs={12} className='placeholder-box'/>
+                  <Placeholder xs={12} sm={12} md={12} lg={4} className='placeholder-box'/>
                 </Placeholder>
               )}
           </Col>
-          <Col xs={4} className='title-col'>
+          <Col xs={12} sm={12} md={12} lg={4} className='title-col'>
             <h2>Recommended For You</h2>
             <p className='lead my-2'>Welcome to your personalized playlist of recommended songs! We've curated a selection of tracks just for you, based on your recent listening habits and favorite genres.</p>
             <p className='lead'>Don't forget to hit the "Generate Playlist" button to save these tracks to your Spotify account ready to accompany you wherever you go. <br></br><br></br>🎶 Happy listening!</p>
