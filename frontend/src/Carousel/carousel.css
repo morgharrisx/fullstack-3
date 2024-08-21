@@ -1,6 +1,7 @@
 .carousel-container{
   box-shadow: 0 4px 12px 0 rgba(0,0,0,.2);
   margin-bottom: 50px;
+  background-color: #2b2538;
 }
 
 .carousel-image {
