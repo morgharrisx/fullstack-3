@@ -19,15 +19,20 @@
   padding: 1rem 2rem; 
   display: flex;
   align-items: center; 
+  justify-content: center;
   gap: 1rem; 
 }
 
 .title-col h2 {
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: bold;
   color: rgb(255, 255, 255);
   margin: 0; 
   text-align: left; 
+}
+.title-col p {
+  color: rgb(255, 255, 255);
+  margin: 0; 
 }
 
 .recommended-songs-container {
@@ -36,11 +41,11 @@
   flex-direction: column;
   width: 100%;
   align-items: center;
+  justify-content: center;
   padding: 20px 50px;
   background-color: #fff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   border-radius: 20px;
-  margin: 0 40px;
 }
 
 .header {
@@ -92,4 +97,41 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px; 
+}
+
+
+@media (max-width: 576px) {
+  .title-col h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .title-col p {
+    display: none;
+  }
+  .title-row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   
+  }
+  .playlist-cover-grid {
+    width: 10rem;
+    height: 10rem;
+  }
+  
+  .playlist-page {
+    padding: 1rem;
+  }
+  
+  .recommended-songs-container {
+    padding: 15px;
+  }
+  
+  .playlist-cover-placeholder {
+    width: 10rem; 
+    height: 10rem;
+  }
 }

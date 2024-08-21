@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import "./DetailedStats.css";
 import TopBpm from "./TopBpm/TopBpm";
@@ -23,24 +23,6 @@ const DetailedStats = () => {
       once: true, 
      });
   }, []);
-
-  const [SmartRecommendationArray, setSmartRecommendationArray] = useState([
-    {
-      songName: 'Shape of You',
-      album: '÷ (Divide)',
-      artist: 'Ed Sheeran'
-    },
-    {
-      songName: 'Blinding Lights',
-      album: 'After Hours',
-      artist: 'The Weeknd'
-    },
-    {
-      songName: 'Levitating',
-      album: 'Future Nostalgia',
-      artist: 'Dua Lipa'
-    }
-  ]);
 
   return (
     <Container data-aos="fade-up">
@@ -91,7 +73,7 @@ const DetailedStats = () => {
       <Row className="mb-5">
         <Col xs={12} sm={12} md={12} lg={5}>
           
-            <SmartRecommendation SmartRecommendationArray={SmartRecommendationArray} />
+            <SmartRecommendation/>
            
         </Col>
         <Col className="mt-2" xs={12} sm={12} md={12} lg={4}>

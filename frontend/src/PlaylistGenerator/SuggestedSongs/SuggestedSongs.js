@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import PlaylistItem from "../../PlaylistItem/PlaylistItem";
 import ReusableButton from "../../ReusableButton/ReusableButton";
 import "./suggestedsongs.css";
 import axios from "axios";
@@ -20,8 +19,8 @@ const SuggestedSongs = ({ songs }) => {
       );
       if (response.status === 200) {
         setModalContent({
-          title: "Success",
-          body: "Playlist created successfully!",
+          title: " 🥳 Playlist created!",
+          body: "You'll find it on your Spotify account under the playlist name VibeFusion.",
         });
       } else {
         setModalContent({
