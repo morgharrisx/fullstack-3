@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "./login.css"
+import ReusableButton from '../ReusableButton/ReusableButton';
 
 const Authentication = () => {
   const [accessToken, setAccessToken] = useState(null);
@@ -32,9 +34,9 @@ const Authentication = () => {
   }, []);
 
   return (
-    <div>
+    <div className="logincontainer">
       {!accessToken ? (
-        <button onClick={authenticateUser}>Login with Spotify</button>
+        <ReusableButton text="Login with Spotify" color="pink" onClick={authenticateUser}></ReusableButton>
       ) : (
         <p>Logged in! You can now make API requests.</p>
       )}

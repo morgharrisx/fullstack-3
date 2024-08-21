@@ -15,6 +15,7 @@ import Login from './login/login';
 
 function App() { 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   
     useEffect(() => {
       const token = localStorage.getItem('spotify_access_token');
