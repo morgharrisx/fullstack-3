@@ -24,7 +24,6 @@ const DetailedStats = () => {
      });
   }, []);
 
-
   return (
     <Container data-aos="fade-up">
       <Row>

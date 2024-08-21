@@ -1,19 +1,5 @@
 import React, { PureComponent, useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  ResponsiveContainer,
-} from "recharts";
-
-// export default class TopMusicalKeys extends PureComponent {
-//   static demoUrl = 'https://codesandbox.io/p/sandbox/tiny-bar-chart-xzyy8g';
-
-//   render() {
-//     const { data, xAxisKey, yAxisKey, barColor, width, height } = this.props;
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 
 const keyToChord = [
   { major: "C Major", minor: "C Minor" },
@@ -30,13 +16,9 @@ const keyToChord = [
   { major: "B Major", minor: "B Minor" },
 ];
 
-const TopMusicalKeys = ({
-  xAxisKey = "name",
-  yAxisKey = "MinutesListened",
-  barColor = "#8884d8",
+const TopMusicalKeys = ({xAxisKey = "name", yAxisKey = "minutesListened", barColor = "#8884d8",
   width = 600,
-  height = 300,
-}) => {
+  height = 300}) => {
 
   const [topMusicalKeys, setTopMusicalKeys] = useState([]);
 
@@ -48,9 +30,6 @@ const TopMusicalKeys = ({
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-
-        console.log("Fetched Data:", data);
-
         const formattedData = data.map((track) => {
           const keyIndex = track.key;
           const chordType = track.mode === 1 ? "major" : "minor";
@@ -59,9 +38,7 @@ const TopMusicalKeys = ({
             ? keyToChord[keyIndex][chordType]
             : "Unknown Key";
 
-          console.log(
-            `Processing track: Key = ${keyIndex}, Mode = ${track.mode}, Chord = ${chordName}`
-          );
+          console.log(`Processing track: Key = ${keyIndex}, Mode = ${track.mode}, Chord = ${chordName}`);
 
           return {
             name: chordName,

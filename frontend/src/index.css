@@ -1,0 +1,31 @@
+
+body {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400;
+    font-style: normal;
+    
+  }
+
+ 
+  .Montserrat {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.15rem !important;
+    
+  }
+
+
+  .quantico-regular {
+    font-family: "Quantico", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .quantico-bold {
+    font-family: "Quantico", sans-serif !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    font-size: 2rem !important;
+  }
+  
