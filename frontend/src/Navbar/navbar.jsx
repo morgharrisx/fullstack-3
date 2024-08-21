@@ -25,14 +25,14 @@ function NavScrollExample() {
             navbarScroll
           >
             <Link className="link-styles" to="/">
-              <Nav.Link as="span" className="fw-bold">VibeFusion</Nav.Link>
+              <Nav.Link as="span" className="fw-bold quantico-bold">VibeFusion</Nav.Link>
             </Link>
           </Nav>
           <Link className="link-styles" to="/contact">
-            <Nav.Link as="span" className="ml-auto mx-3">Contact Us</Nav.Link>
+            <Nav.Link as="span" className="ml-auto mx-3 Montserrat">Contact Us</Nav.Link>
           </Link>
           <Link className="link-styles" to="/profile">
-            <Nav.Link as="span" className="ml-auto mx-3">My profile</Nav.Link>
+            <Nav.Link as="span" className="ml-auto mx-3 Montserrat">My profile</Nav.Link>
           </Link>
           <Link to="http://localhost:5001/login">
             <ReusableButton size="sm" text="Log in / Sign up" color="pink" />
