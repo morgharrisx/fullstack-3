@@ -2,6 +2,8 @@
 
 🎶 VibeFusion is a React-based music analytics and recommendation platform that connects to the Spotify API to provide users with detailed insights into their listening habits, smart music recommendations, and personalized DJ tools. 
 
+![Untitled design (3)](https://github.com/user-attachments/assets/d5d2edc0-1587-462f-a0b9-12ae0a909019)
+
 ## Features
 
 - **Discover Your Music DNA**: Analyze your top tracks, favorite artists, preferred genres, and even the musical keys and moods that dominate your playlists.
