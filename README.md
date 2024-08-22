@@ -150,7 +150,10 @@ The backend server provides several API endpoints for interacting with Spotify's
 1. **Nodemon** (`nodemon`)
 
 ### Images
-## TODO: We can add screenshots here but the Navbar is not merged yet so we can do it later
+![screencapture-localhost-3000-detailed-stats-2024-08-22-15_37_59](https://github.com/user-attachments/assets/33fd2eed-9ae6-4383-8dda-ddba6e509241)
+![screencapture-localhost-3000-dj-hub-2024-08-22-15_38_22](https://github.com/user-attachments/assets/04c92c70-ef54-4b98-9e62-9988f1e47725)
+![screencapture-localhost-3000-smart-recommendations-2024-08-22-15_38_44](https://github.com/user-attachments/assets/b85f47a1-4750-4cfd-8fc0-33e1ec3c3342)
+
 
 
 ## Contributing
