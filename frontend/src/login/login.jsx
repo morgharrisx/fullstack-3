@@ -31,7 +31,14 @@ const Authentication = () => {
       // Optionally, store the token in local storage/session storage
      
     }
-  }, []);
+
+    return () => {
+      setAccessToken(null);
+      localStorage.removeItem('spotify_access_token');
+      sessionStorage.removeItem('spotify_access_token');
+    };
+  }, [navigate]);
+
 
   return (
     <div className="logincontainer">
