@@ -24,7 +24,7 @@
   align-items: center;
   text-align: justify;
   margin-top: 5vh;
-  margin-bottom: 20vh;
+  margin-bottom: 13vh;
 }
 
 /*Optimised for smaller screens*/
@@ -32,6 +32,10 @@
 and (max-width : 1224px) {
   .contact-form-container {
     width: 100%;
+  }
+  .contact-form-description {
+    margin-left: 10%;
+    margin-right: 10%;
   }
 }
 
