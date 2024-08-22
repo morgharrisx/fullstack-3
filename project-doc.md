@@ -163,6 +163,7 @@ Once the project document was added to the main branch, it protected it through 
 - **react-router-dom**
 - **react-scripts**
 - **recharts**
+- **AOS (Animate On Scroll)**
 
 ## Backend
 - **Node.js**: To execute JavaScript on the server side.
