@@ -1,16 +1,18 @@
 # Introduction
 
-<code style="color : hotpink">*VibeFusion*</code> is a personalised web application designed to track and create an appealing visual representation of a users’ Spotify listening habits over time. Inspired by SpotifyWrapped which is an annual feature that provides users with a personalized summary of their most listened-to songs, artists, and genres over the past year. The aim of VibeFusion is to provide a continuous and detailed insight into the users’ musical preferences, extending beyond the summary offered by Spotify Wrapped. 
+<code style="color : hotpink">***VibeFusion***</code> is a personalised web application designed to track and create an appealing visual representation of a users’ Spotify listening habits over time. Inspired by SpotifyWrapped which is an annual feature that provides users with a personalized summary of their musical data over the past year. The aim of VibeFusion is to provide a continuous and detailed insight into the users’ musical preferences, extending beyond the summary offered by Spotify Wrapped, data that is available to the user year round.
 
-![image of Spotify Wrapped example](./images-md/spotifyw.png)
-By utilising the Spotify API, the webapp delivers personalised statistics on top artists, albums, songs and genres for various different time frames. Unlike standard music tracking apps, VibeFusion's DJ feature offers detailed insights into musical elements like tempo (BPM), musical key, users' mood and danceability. This level of detail is particularly valuable for users interested in the nuances of music mixing and curation. This feature uses data from the 'Summary Stats'/’DJ Page’ section on the homepage to influence the playlist. By integrating with the Spotify API, our app provides personalised insights into users' favourite artists, top  genres, most listened to BPM, musical key, crowd pleasers, among other metrics.
+![image of VibeFusion landing page](./images-md/VibeFusionLanding.png)
+By utilising the Spotify API, <code style="color : Greenyellow">***VibeFusion***</code> delivers personalised statistics on top artists, albums, songs and genres, audio features and musical analysis. Unlike standard music tracking apps, VibeFusion's DJ feature offers detailed insights into musical elements like tempo (BPM), musical key, users' mood and danceability. This level of detail is particularly valuable for users interested in the nuances of music mixing and curation. This feature uses data from the 'Summary Stats'/’DJ Page’ section to influence the playlist users are able to generate and that will appear in directly on the linked spotify account seamlessly. By integrating  Spotify's public API, our app provides personalised insights into users' favourite artists, top  genres, most listened to BPM, musical key, offers crowd pleaser playlists, among other metrics.
 
 
-By creating a roadmap for the project, it enables the group to work efficiently by creating expectations and deadlines for the group to adhere to. To keep the project flowing at a pace to produce the desired results and to ensure that the roadmap is evolving with our advancements.
 
 ## Project Roadmap:
 
-![image of Spotify Wrapped example](./images-md/road-map.png)
+By creating a roadmap for the project enables the group to work efficiently by creating expectations and deadlines for the group members to adhere to. To keep the project flowing at a pace to produce the desired results and to ensure that the roadmap is evolving with our advancements.
+
+
+![image of project roadmap ](./images-md/road-map.png)
 
 #### Week 1: Planning (July 22nd - July 28th)
 
