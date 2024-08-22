@@ -7,6 +7,10 @@
   color: #017617;
 }
 
+.contact-form-description {
+  text-align: center;
+}
+
 .contact-form-container{
   padding: 30px;
   border-radius: 10px;
