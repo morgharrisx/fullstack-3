@@ -79,7 +79,7 @@ const ContactForm = () => {
     <>
       <h2 data-aos="fade-up" className="contact-form-title">Contact Us</h2>
       <p className="contact-form-description">
-          <h3>Need help? Have a great idea for a new feature? We'd love to hear from you! 😊</h3>
+          <h3 data-aos="fade-up">Need help? Have a great idea for a new feature? We'd love to hear from you! 😊</h3>
         </p>
       <Container data-aos="fade-up" className="contact-form-container">
         <Form onSubmit={handleSubmit}>
