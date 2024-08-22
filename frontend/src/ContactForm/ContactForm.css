@@ -23,6 +23,14 @@
   margin-bottom: 20vh;
 }
 
+/*Optimised for smaller screens*/
+@media only screen
+and (max-width : 1224px) {
+  .contact-form-container {
+    width: 100%;
+  }
+}
+
 .mb-3 {
     font-size: 1.1rem;
     color: #555;
