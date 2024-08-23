@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+//import Button from 'react-bootstrap/Button'; Not currently in use
 import 'bootstrap/dist/css/bootstrap.min.css';
 import emailjs from 'emailjs-com';
 import './ContactForm.css';
@@ -62,7 +62,7 @@ const ContactForm = () => {
     emailjs.send('default_service', 'default_template', templateParams, 'u2RZvEUkBk56QD6I9') //service, template and key details from EmailJs
       .then((response) => {
         console.log('SUCCESS!', response.status, response.text);
-        setSuccess('Your message was sent successfully!');
+        setSuccess('🚀 Your message was sent successfully! A member of the team will get back to you within 48 hours.');
         // Clear form fields
         setName('');
         setEmail('');
@@ -71,13 +71,16 @@ const ContactForm = () => {
       })
       .catch((error) => {
         console.log('FAILED...', error);
-        setGeneralError('Failed to send your message. Please try again later.');
+        setGeneralError('❌ Failed to send your message. Please try again later.');
       });
   };
 
   return (
     <>
       <h2 data-aos="fade-up" className="contact-form-title">Contact Us</h2>
+      <p className="contact-form-description">
+          <h3 data-aos="fade-up">Need help? Have a great idea for a new feature? We'd love to hear from you! 😊</h3>
+        </p>
       <Container data-aos="fade-up" className="contact-form-container">
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
