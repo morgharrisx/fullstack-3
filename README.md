@@ -1,4 +1,5 @@
 # 🎵 VibeFusion: Music Analytics & Recommendations Platform 🎧
+👉[Click here to go to VibeFusion Website](https://vibefusion-fe.onrender.com/) ✨
 
 🎶 VibeFusion is a React-based music analytics and recommendation platform that connects to the Spotify API to provide users with detailed insights into their listening habits, smart music recommendations, and personalized DJ tools. 
 
