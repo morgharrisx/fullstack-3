@@ -147,6 +147,8 @@ app.get("/detailed-stats", async (req, res) => {
       artistName: topTracks[index].artists[0].name,
       tempo: feature.tempo,
       key: feature.key,
+      duration_ms: feature.duration_ms,
+      mode: feature.mode,
       trackId: topTracks[index].id,
     }));
 
@@ -194,17 +196,13 @@ app.get("/top-artists", async (req, res) => {
   }
 });  
   
+app.use(express.json());
 // DJ HB 
 
+
 app.post ("/dj" , async (req, res) => {
-  const {
-    genre,
-    mood,
-    tempo,
-    popularity,
-    danceability,
-  } = req.body; 
-  //‼️TODO: CHECK ALL GENRES FROM API TO DOUBLE CHECK IF ITS EXACTLY WRITTEN SAME WAY  ‼️
+  const { genre, mood, tempo, popularity, danceability,} = req.body; 
+
   const minValence = mood ? parseFloat(mood) * 0.9  : undefined;
   const maxValence = mood ? parseFloat(mood) * 1.1  : undefined;
   const minTempo = tempo ? parseFloat(tempo) * 0.9 : undefined;
@@ -231,38 +229,52 @@ app.post ("/dj" , async (req, res) => {
     const DJHubSuggestedSongs = DJHubResponse.body.tracks;
     const DJHubSuggested20Songs = DJHubSuggestedSongs.slice(0, 20).map(track => ({
       id: track.id,
-      songName: track.name,
-      artists: track.artists.map(artist => artist.name).join(', '),
+      name:track.name,
+      album: track.album.name,
       popularity: track.popularity,
-      album_cover: track.album.images.length > 0 ? track.album.images[0].url : null,
+      artist:  track.artists.map(artist => artist.name),
       embedUri: `https://open.spotify.com/embed/track/${track.id}`
     }));
-    console.log(DJHubSuggested20Songs);
+    const DJHubSuggestedSongsIDs = DJHubSuggested20Songs.map(song=>song.id);
+    const DJHubSuggestedSongsFeatsResponse = await spotifyApi.getAudioFeaturesForTracks(DJHubSuggestedSongsIDs);
+    const DJHubSuggestedSongsFeats = DJHubSuggestedSongsFeatsResponse.body.audio_features;
+    DJHubSuggestedSongsFeats.map(song=>({
+      id: song.id,
+      valence: song.valence,
+      tempo: song.tempo,
+      danceability: song.danceability
+    }))
+
+    const combinedData = DJHubSuggested20Songs.map(song => {
+      const features = DJHubSuggestedSongsFeats.find(feat => feat.id === song.id);
+      return {
+        ...song,
+        valence: features.valence,
+        tempo: features.tempo,
+        danceability: features.danceability,
+        energy: features.energy,
+      };
+    });
+
     return res.json({
-      message: "yay",
-      data: DJHubSuggested20Songs,
+      message: "Success",
+      data: combinedData,
     });
 
   } catch (error) {
     if (error.statusCode === 429) {
       const retryAfter = error.headers['retry-after'] || 60;
       console.error(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
-      return res.status(429).send(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+      return res.status(429).json({ retryAfter: Math.ceil(retryAfter / 60) });  // Send retryAfter in minutes
     }
     console.error("Error fetching recommendations:", error);
     res.status(error.statusCode).send('An error occurred while fetching recommendations.');
   }
 });
 
-  
-//artist name tracks.artists.name
-//song name tracks.name
-//song preview tracks.preview_url
-//track.id to fetch other things
 
 
-
-// randomising function that can be re-used if needed
+// // randomising function that can be re-used if needed
 function getRandomElements(arr, num) {
   const shuffled = arr.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, num);
@@ -312,8 +324,13 @@ app.get("/recommendations", async (req, res) => {
     })));
 
   } catch (error) {
-    console.error("Error fetching recommendations:", error.message);
-    res.status(500).send("Failed to get recommendations");
+    if (error.statusCode === 429) {
+      const retryAfter = error.headers['retry-after'] || 60;
+      console.error(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
+      return res.status(429).json({ retryAfter: Math.ceil(retryAfter / 60) });  // Send retryAfter in minutes
+    }
+    console.error("Error fetching recommendations:",JSON.stringify(error, null, 2));
+    res.status(error.statusCode).send('An error occurred while fetching recommendations.');
   }
 });
 
@@ -371,6 +388,37 @@ app.get("/me", async (req, res) => {
     });
     })
 
+
+
+////DANCEABILITY
+
+app.get("/danceability", async (req, res) => {
+  try {
+    const topTracksResponse = await spotifyApi.getMyTopTracks();
+    const topTracks = topTracksResponse.body.items;
+    const top20TracksID = topTracks.slice(0, 20).map(track => (track.id));
+    const audioFeatResponse = await spotifyApi.getAudioFeaturesForTracks(top20TracksID);
+    const allAudioFeats = audioFeatResponse.body.audio_features;
+    const sortedFeats = allAudioFeats.sort((a,b)=> b.danceability -a.danceability);
+    const mostDanceableSong= sortedFeats[0];
+    const foundSong = topTracks.find(song => song.id === mostDanceableSong.id);
+
+    return res.json({
+      message: "Success",
+      name: foundSong.name,
+      album: foundSong.album.name,
+      artist: foundSong.artists.map(artist => artist.name).join(', '),
+      embedUri: `https://open.spotify.com/embed/track/${foundSong.id}`
+    });
+  } catch (error) {
+    console.error("Error getting top tracks:", JSON.stringify(error, null, 4));
+    return res.status(500).json({
+      message: "Error getting danceable song",
+      error: error.response ? error.response.data : error.message,
+    });
+  }
+})
+
     
 
 
@@ -394,7 +442,7 @@ app.post('/create-playlist', async (req, res) => {
   }
 });
 
-// a song to try : 6D8y7Bck8h11byRY88Pt2z
+
 
 
 //CALCULATE MOOD
@@ -424,5 +472,47 @@ app.get('/mood', async (req, res) => {
   }
 });
 
+app.get("/detailed-stats", async (req, res) => {
+  try {
+    // Step 1: Get the user's top 20 tracks
+    const term = req.query.term || "medium_term"; // Allow the user to specify the term
+    const topTracksData = await spotifyApi.getMyTopTracks({
+      limit: 20,
+      time_range: term,
+    });
+    const topTracks = topTracksData.body.items;
 
- 
+    // Extract track IDs
+    const trackIds = topTracks.map((track) => track.id);
+
+    // Step 2: Get audio features for these tracks
+    const audioFeaturesData = await spotifyApi.getAudioFeaturesForTracks(
+      trackIds
+    );
+    const audioFeatures = audioFeaturesData.body.audio_features;
+
+    // Step 3: Extract and format the required data (tempo and key)
+    const detailedStats = audioFeatures.map((feature, index) => ({
+      trackName: topTracks[index].name,
+      artistName: topTracks[index].artists[0].name,
+      tempo: feature.tempo,
+      key: feature.key,
+      duration_ms: feature.duration_ms,
+      mode: feature.mode,
+      trackId: topTracks[index].id,
+    }));
+
+    // Step 4: Sort by BPM (tempo) in descending order and select the top 3
+    const top3BPMTracks = detailedStats
+      .sort((a, b) => b.tempo - a.tempo)
+      .slice(0, 3);
+
+    // Step 5: Send the top 3 tracks as a JSON response
+    return res.json(top3BPMTracks);
+  } catch (err) {
+    console.error("Something went wrong!", err);
+    return res.status(500).json({ error: "Failed to fetch audio features" });
+  }
+});
+
+

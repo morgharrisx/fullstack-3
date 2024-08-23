@@ -2,9 +2,17 @@ import { Container, Navbar, Nav } from 'react-bootstrap';
 import './navbar.css';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import GreenLogo from './logo/green-logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function NavScrollExample() {
+
+function NavScrollExample({isLoggedIn, setIsLoggedIn}) {
+  const navigate = useNavigate();
+  function handleLogOut() {
+    localStorage.removeItem('spotify_access_token');
+    setIsLoggedIn(false);
+    navigate("/")
+  };
+  
   return (
     <Navbar expand="lg" className="custom-bg">
       <Container fluid>
@@ -25,18 +33,24 @@ function NavScrollExample() {
             navbarScroll
           >
             <Link className="link-styles" to="/">
-              <Nav.Link as="span" className="fw-bold">VibeFusion</Nav.Link>
+              <Nav.Link as="span" className="fw-bold quantico-bold">VibeFusion</Nav.Link>
             </Link>
           </Nav>
           <Link className="link-styles" to="/contact">
-            <Nav.Link as="span" className="ml-auto mx-3">Contact Us</Nav.Link>
+            <Nav.Link as="span" className="ml-auto mx-3 Montserrat">Contact Us</Nav.Link>
           </Link>
-          <Link className="link-styles" to="/profile">
-            <Nav.Link as="span" className="ml-auto mx-3">My profile</Nav.Link>
-          </Link>
-          <Link to="http://localhost:5001/login">
+          { isLoggedIn && (
+              <Link className="link-styles" to="/profile">
+              <Nav.Link as="span" className="ml-auto mx-3 Montserrat">My profile</Nav.Link>
+              </Link>
+          )}
+          {isLoggedIn ? (
+            <ReusableButton onClick={handleLogOut} size="sm" text="Log out" color="pink"/>
+          ):(
+            <Link to="http://localhost:5001/login">
             <ReusableButton size="sm" text="Log in / Sign up" color="pink" />
-          </Link>
+            </Link>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

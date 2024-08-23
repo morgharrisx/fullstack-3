@@ -6,16 +6,16 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
     text-align: start;
   
 }
 
 .playlist-generator-row{
-    justify-content: center;
+    justify-content: center; 
     align-items: center;
     text-align: center;
-    width: 60%;
+    width: 70%;
 }
 
 .playlist-generator-col {
@@ -23,7 +23,7 @@
     justify-content: center;
     align-items: stretch;
     text-align: start;
-  
+    width: 100%;
 
 }
 .playlist-generator-form-group {
@@ -39,6 +39,22 @@
     border-radius: 0.5rem;
     cursor: pointer;
 }
+
+.playlist-generator-container .form-check-input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 2px solid #1e1e1e; 
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+  }
+  
+  .playlist-generator-container .form-check-input[type="checkbox"]:checked {
+    background-color: #00951b; 
+  }
+
 
 .playlist-generator-form-group {
     cursor: pointer;
@@ -100,3 +116,25 @@
     background-color: #8c004d !important;
 }
 
+
+@media (max-width: 767px) {
+    .playlist-generator-container .align-items-center {
+      flex-direction: column;
+      text-align: center; 
+    }
+  
+    .playlist-generator-container .align-items-center img {
+      width: 150px; 
+      margin-bottom: 15px; 
+    }
+  
+    .playlist-generator-container .playlist-generator-suggested-header {
+      font-size: 1.2rem; 
+      text-align: center; 
+    }
+  
+    .playlist-generator-container .lead {
+      text-align: justify; 
+      font-size: 1rem; 
+    }
+  }

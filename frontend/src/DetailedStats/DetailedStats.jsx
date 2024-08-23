@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import "./DetailedStats.css";
 import TopBpm from "./TopBpm/TopBpm";
-import CompatibleSongs from "./CompatibleSongs/CompatibleSongs";
+import SmartRecommendation from "./SmartRecommendation/SmartRecommendation";
 import TopMusicalKeys from "./TopMusicalKeys/TopMusicalKeys";
 import Mood from "./Mood/Mood";
 import CrowdPleaser from "./CrowdPleaser/CrowdPleaser";
@@ -10,37 +10,22 @@ import FavouriteGenres from "../Dashboard/FavouriteGenres/FavouriteGenres"
 import BackButton from "../BackButton/BackButton";
 import TopTracks from "../Dashboard/TopTracksAndArtists/TopTracks";
 import TopArtists from "../Dashboard/TopTracksAndArtists/TopArtists";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+
 
 
 const DetailedStats = () => {
-  const [compatibleSongsArray, setCompatibleSongsArray] = useState([
-    {
-      songName: 'Shape of You',
-      album: '÷ (Divide)',
-      artist: 'Ed Sheeran'
-    },
-    {
-      songName: 'Blinding Lights',
-      album: 'After Hours',
-      artist: 'The Weeknd'
-    },
-    {
-      songName: 'Levitating',
-      album: 'Future Nostalgia',
-      artist: 'Dua Lipa'
-    }
-  ]);
- 
-
-  const [topMusicalKeys, setTopMusicalKeys] = useState([
-    { name: 'C Major', minutesListened: 120 },
-    { name: 'G Major', minutesListened: 90 },
-    { name: 'A Minor', minutesListened: 75 },
-  ]);
-
+  useEffect(() => {
+    AOS.init({ 
+      duration: 1000,  
+      offset: 120,     
+      once: true, 
+     });
+  }, []);
 
   return (
-    <Container>
+    <Container data-aos="fade-up">
       <Row>
         <Col className="mt-3">
         <BackButton></BackButton>
@@ -73,7 +58,7 @@ const DetailedStats = () => {
             <Col className="mt-2" xs={12} sm={12} md={12} lg={8}>
               <div className="bento-stat-container">
               <TopMusicalKeys 
-                  data={topMusicalKeys} 
+                  
                   xAxisKey="name" 
                   yAxisKey="minutesListened" 
                   barColor="#8884d8"
@@ -88,7 +73,7 @@ const DetailedStats = () => {
       <Row className="mb-5">
         <Col xs={12} sm={12} md={12} lg={5}>
           
-            <CompatibleSongs compatibleSongsArray={compatibleSongsArray} />
+            <SmartRecommendation/>
            
         </Col>
         <Col className="mt-2" xs={12} sm={12} md={12} lg={4}>
@@ -99,7 +84,7 @@ const DetailedStats = () => {
         </Col>
         <Col className="mt-2" xs={12} sm={12} md={12} lg={3}>
         <div className="bento-stat-container">
-       <CrowdPleaser songName={'Levitating'} artist={'Dua Lipa'}></CrowdPleaser>
+       <CrowdPleaser></CrowdPleaser>
             </div>
         </Col>
       </Row>

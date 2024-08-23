@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import ReusableButton from '../ReusableButton/ReusableButton';
 
@@ -7,7 +7,7 @@ const BackButton = () => {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate(-1);
+    navigate("/dashboard");
   };
 
   return ( 
