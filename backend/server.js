@@ -26,6 +26,7 @@ import topArtistsRoute from './routes/topArtists.js';
 import djRoute from './routes/dj.js';
 import recommendationsRoute from './routes/recommendations.js';
 import topGenresRoute from './routes/topGenres.js';
+import profileRoute from './routes/profile.js';
 
 // Use the routes
 app.use(detailedStatsRoute(spotifyApi));
@@ -34,6 +35,7 @@ app.use(topArtistsRoute(spotifyApi));
 app.use(djRoute(spotifyApi));
 app.use(recommendationsRoute(spotifyApi));
 app.use(topGenresRoute(spotifyApi));
+app.use(profileRoute(spotifyApi));
 
 
 // route for login authentication
@@ -113,17 +115,6 @@ app.get("/search", async (req, res) => {
 
 
 
-//user profile endpoint
-app.get("/me", async (req, res) => {
-     spotifyApi.getMe().then((data)=> {
-      console.log('Some information about the authenticated user', data.body);
-    
-      return res.json(data.body)
-     }) .catch((err) => {
-      console.error('Error getting user profile:', err);
-      return res.status(500).json({ error: 'Failed to fetch user profile' });
-    });
-    })
 
 
 
