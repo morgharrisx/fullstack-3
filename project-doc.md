@@ -19,27 +19,27 @@ Creating a roadmap for the project enables the group to work efficiently by crea
 - Create a Figma board to brainstorm potential project ideas
 - Finalise project idea
 - Identify key features of the app
-- Created a group on Slack for easy communication within the grou
+- Create a group on Slack for easy communication within the group
 
   Outcome(s): Clearly defined project goals and features ready to be documented.
 
 #### Week 2: Design (July 29th - August 4th)
 
-- Created a Trello board & shared Google Drive to store key project documents and tasks
+- Create a Trello board & shared Google Drive to store key project documents and tasks
 - Create a GitHub repo - establish rules on branches/reviewers/pull requests
 - Finalise the project roadmap
 - Create individual Spotify accounts (if not already using) in order to test the app functionalities
 - Create wireframes & UI mockups for the app using Figma
 - Establish necessary libraries/packages
   Confirm name of the application with the group
-- Create an outline of the project, detailing its scope, features, tech stack, and user requirements.
+- Create an outline of the project, detailing its scope, features, tech stack, and user requirements
   
   
   Outcome(s): Assignment completed and submitted for feedback. Final design ready for the development phase
 
 #### Week 3 & 4: Core Development (August 5th - August 18th)
 
-- Logo to be created
+- Create Logo
 - Build components for user authentication and basic data display (initial information fetched from Spotify)
 - Start implementing the Spotify API integration to retrieve user data and statistics.
 - Complete additional features (most streamed songs, albums, artists)
@@ -60,7 +60,7 @@ Outcome(s): Bugs identified and fixed. Feedback collected to amend the app. Fina
 
 #### Week 6: Project Presentations (August 30th)
 
-- Create presentation materials - Google Slides, a demo of the app, bullet pointed speeches (each individual has a 50-second speaking slot).
+- Create presentation materials - Google Slides/Canva, a demo of the app, bullet pointed speeches (each individual has a 50-second speaking slot).
 - Present the completed app live
   
   
@@ -234,7 +234,7 @@ for a few features we would like to implement in the future:
 
 - Ability to share statistics between users 
 - Toggle option for user to switch between light and dark mode
-Toggle options for use to switch between data from 1 month/6 months/1 year
+- Toggle options for user to switch between data from 1 month/6 months/1 year
 - Linking social media
 - A bio which the user can edit
 
