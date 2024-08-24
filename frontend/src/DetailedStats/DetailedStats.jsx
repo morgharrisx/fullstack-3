@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import { Row, Container, Col } from "react-bootstrap";
 import "./DetailedStats.css";
 import TopBpm from "./TopBpm/TopBpm";
-import SmartRecommendation from "./SmartRecommendation/SmartRecommendation";
+import SmartRecommendation from "./3RecommendedSongs/3RecommendedSongs";
 import TopMusicalKeys from "./TopMusicalKeys/TopMusicalKeys";
 import Mood from "./Mood/Mood";
-import CrowdPleaser from "./CrowdPleaser/CrowdPleaser";
+import CrowdPleaser from "./MostDanceableSong/MostDanceableSong";
 import FavouriteGenres from "../Dashboard/FavouriteGenres/FavouriteGenres"
 import BackButton from "../BackButton/BackButton";
 import TopTracks from "../Dashboard/TopTracksAndArtists/TopTracks";
