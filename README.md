@@ -158,7 +158,7 @@ The backend server provides several API endpoints for interacting with Spotify's
 ![screencapture-localhost-3000-smart-recommendations-2024-08-22-15_38_44](https://github.com/user-attachments/assets/b85f47a1-4750-4cfd-8fc0-33e1ec3c3342)
 
 ## Running tests
-You can run the unit tests executing ```npm test 
+You can run the unit tests executing ```npm test```
 
 ## Contributing
 
