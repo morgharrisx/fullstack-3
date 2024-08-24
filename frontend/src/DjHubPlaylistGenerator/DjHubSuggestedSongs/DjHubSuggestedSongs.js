@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import ReusableButton from "../../ReusableButton/ReusableButton";
-import "./suggestedsongs.css";
+import "./DjHubSuggestedSongs.css";
 import axios from "axios";
 import VerticalModal from "../Modal/Modal";
 
@@ -13,9 +13,7 @@ const SuggestedSongs = ({ songs }) => {
       const trackUris = songs.map((song) => `spotify:track:${song.id}`);
       const response = await axios.post(
         "http://localhost:5001/create-playlist",
-        {
-          trackUris: trackUris,
-        }
+        {trackUris: trackUris,}
       );
       if (response.status === 200) {
         setModalContent({
@@ -40,11 +38,7 @@ const SuggestedSongs = ({ songs }) => {
   };
   return (
     <Row>
-      <Col
-        xs={12}
-        sm={12}
-        md={12}
-        lg={12}
+      <Col xs={12} sm={12} md={12} lg={12}
         className="playlist-generator-col align-items-center mx-2"
       >
         <p className="playlist-generator-suggested-header display-6">
@@ -53,7 +47,11 @@ const SuggestedSongs = ({ songs }) => {
         {songs.length > 0 ? (
           <>
             {songs.map((song) => (
-              <div className="song-container" key={song.id} style={{ marginBottom: "5px" }}>
+              <div
+                className="song-container"
+                key={song.id}
+                style={{ marginBottom: "5px" }}
+              >
                 <p className="lead">{song.name}</p>
                 <iframe
                   src={`https://open.spotify.com/embed/track/${song.id}`}

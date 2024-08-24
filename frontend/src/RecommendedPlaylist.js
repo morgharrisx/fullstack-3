@@ -1,6 +1,6 @@
 import React from 'react';
 // import NavScrollExample from './NavScrollExample';
-import RecommendedSongs from './RecommendedSongs/RecommendedSongs';
+import RecommendedSongs from './SmartRecommendations/SmartRecommendations';
 
 function RecommendedPlaylist() {
   return (

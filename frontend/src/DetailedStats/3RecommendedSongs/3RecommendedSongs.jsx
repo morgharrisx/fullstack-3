@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Container } from 'react-bootstrap';
-import './smartRecommendation.css'
+import './3RecommendedSongs.css'
 import ReusableButton from '../../ReusableButton/ReusableButton'
 import { Link } from 'react-router-dom';
 

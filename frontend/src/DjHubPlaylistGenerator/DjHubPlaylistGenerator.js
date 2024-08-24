@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Container, Row, Col, Form, Image, Spinner, OverlayTrigger, Tooltip } from "react-bootstrap";
-import SuggestedSongs from "./SuggestedSongs/SuggestedSongs";
+import SuggestedSongs from "./DjHubSuggestedSongs/DjHubSuggestedSongs";
 import ReusableButton from "../ReusableButton/ReusableButton";
-import "./playlistgenerator.css";
+import "./DjHubPlaylistGenerator.css";
 import perfectMatch from "./perfectmatch.png";
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
@@ -96,7 +96,7 @@ const PlaylistGenerator = () => {
   }, [showSongs]);
 
   return (
-    <Container  data-aos="fade-up" className="playlist-generator-container mt-5 ">
+    <Container  data-aos="fade-up" className="playlist-generator-container my-5 ">
       <Row className="playlist-generator-row">
         <Col
           xs={12}
