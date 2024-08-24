@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
-import axios from "axios"; // not using currently
 dotenv.config({ path: "./api/.env" });
 
 import SpotifyWebApi from "spotify-web-api-node";
@@ -19,11 +18,12 @@ const spotifyApi = new SpotifyWebApi({
 });
 
 // Import routes
-//const detailedStatsRoute = require('./routes/detailedStats')(spotifyApi);
+import detailedStatsRoute from './routes/detailedStats.js';
+import topTracksRoute from './routes/topTracks.js';
 import topTracksRoute from './routes/topTracks.js';
 
 // Use the routes
-//app.use(detailedStatsRoute);
+app.use(detailedStatsRoute(spotifyApi));
 app.use(topTracksRoute(spotifyApi));
 
 // route for login authentication
@@ -100,78 +100,6 @@ app.get("/search", async (req, res) => {
     });
 });
 
-// //top-tracks
-// app.get("/top-tracks", async (req, res) => {
-//   const { term } = req.query;
-//   const validTerms = ["short_term", "medium_term", "long_term"];
-//   const timeRange = validTerms.includes(term) ? term : "medium_term";
-
-//   try {
-//     const topTracksResponse = await spotifyApi.getMyTopTracks({
-//       time_range: timeRange,
-//     });
-//     const topTracks = topTracksResponse.body.items;
-//     const top10Tracks = topTracks.slice(0, 10).map((track) => ({
-//       name: track.name,
-//       album: track.album.name,
-//       artists: track.artists.map((artist) => artist.name),
-//       popularity: track.popularity,
-//       externalUrl: track.external_urls.spotify,
-//       images: track.album.images,
-//     }));
-
-//     // Response
-//     return res.json({
-//       message: "Success",
-//       total_tracks: top10Tracks.length,
-//       data: top10Tracks,
-//     });
-//   } catch (error) {
-//     console.error("Error getting top tracks:", JSON.stringify(error, null, 4));
-//     return res.status(500).json({
-//       message: "Error getting top tracks",
-//       error: error.response ? error.response.data : error.message,
-//     });
-//   }
-// });
-
-app.get("/detailed-stats", async (req, res) => {
-  try {
-    // Step 1: Get the user's top 20 tracks
-    const term = req.query.term || 'medium_term';  // Allow the user to specify the term
-    const topTracksData = await spotifyApi.getMyTopTracks({ limit: 20, time_range: term });
-    const topTracks = topTracksData.body.items;
-
-    // Extract track IDs
-    const trackIds = topTracks.map((track) => track.id);
-
-    // Step 2: Get audio features for these tracks
-    const audioFeaturesData = await spotifyApi.getAudioFeaturesForTracks(trackIds);
-    const audioFeatures = audioFeaturesData.body.audio_features;
-
-    // Step 3: Extract and format the required data (tempo and key)
-    const detailedStats = audioFeatures.map((feature, index) => ({
-      trackName: topTracks[index].name,
-      artistName: topTracks[index].artists[0].name,
-      tempo: feature.tempo,
-      key: feature.key,
-      duration_ms: feature.duration_ms,
-      mode: feature.mode,
-      trackId: topTracks[index].id,
-    }));
-
-    // Step 4: Sort by BPM (tempo) in descending order and select the top 3
-    const top3BPMTracks = detailedStats
-      .sort((a, b) => b.tempo - a.tempo)
-      .slice(0, 3);
-
-    // Step 5: Send the top 3 tracks as a JSON response
-    return res.json(top3BPMTracks);
-  } catch (err) {
-    console.error("Something went wrong!", err);
-    return res.status(500).json({ error: "Failed to fetch audio features" });
-  }
-});
 //top artists
 app.get("/top-artists", async (req, res) => {
   const { term } = req.query;
