@@ -29,6 +29,7 @@ import topGenresRoute from './routes/topGenres.js';
 import profileRoute from './routes/profile.js';
 import danceabilityRoute from './routes/danceability.js';
 import createPlaylistRoute from './routes/createPlaylist.js';
+import moodRoute from './routes/mood.js';
 
 // Use the routes
 app.use(detailedStatsRoute(spotifyApi));
@@ -40,6 +41,7 @@ app.use(topGenresRoute(spotifyApi));
 app.use(profileRoute(spotifyApi));
 app.use(danceabilityRoute(spotifyApi));
 app.use(createPlaylistRoute(spotifyApi));
+app.use(moodRoute(spotifyApi));
 
 // route for login authentication
 app.get("/login", (req, res) => {
@@ -120,32 +122,6 @@ app.get("/search", async (req, res) => {
 
 
 
-//CALCULATE MOOD
-app.get('/mood', async (req, res) => {
-  try {
-      const data = await spotifyApi.getMyTopTracks({ limit: 20 });
-      const topTracks = data.body.items;
-      const trackIds = topTracks.map(track => track.id);
-      const audioFeaturesData = await spotifyApi.getAudioFeaturesForTracks(trackIds);
-      const audioFeatures = audioFeaturesData.body.audio_features;
-      console.log('Audio Features:', audioFeatures);
-      let totalValence = 0;
-      let trackCount = 0;
-      for (let index = 0; index < audioFeatures.length; index++) {
-        const feature = audioFeatures[index];
-        if (feature && feature.valence !== undefined) {
-            totalValence += feature.valence;
-            trackCount++;
-        }
-      }
-      const averageValence = trackCount > 0 ? totalValence / trackCount : 0;
-      console.log('Average Valence:', averageValence);
-      res.json({ average_valence: averageValence });
-  } catch (error) {
-      console.error('Error fetching top tracks or audio features:', error);
-      res.status(500).send('Error fetching top tracks or audio features');
-  }
-});
 
 app.get("/detailed-stats", async (req, res) => {
   try {
