@@ -27,6 +27,7 @@ import djRoute from './routes/dj.js';
 import recommendationsRoute from './routes/recommendations.js';
 import topGenresRoute from './routes/topGenres.js';
 import profileRoute from './routes/profile.js';
+import danceabilityRoute from './routes/danceability.js';
 
 // Use the routes
 app.use(detailedStatsRoute(spotifyApi));
@@ -36,7 +37,7 @@ app.use(djRoute(spotifyApi));
 app.use(recommendationsRoute(spotifyApi));
 app.use(topGenresRoute(spotifyApi));
 app.use(profileRoute(spotifyApi));
-
+app.use(danceabilityRoute(spotifyApi));
 
 // route for login authentication
 app.get("/login", (req, res) => {
@@ -112,42 +113,6 @@ app.get("/search", async (req, res) => {
     });
 });
 
-
-
-
-
-
-
-////DANCEABILITY
-
-app.get("/danceability", async (req, res) => {
-  try {
-    const topTracksResponse = await spotifyApi.getMyTopTracks();
-    const topTracks = topTracksResponse.body.items;
-    const top20TracksID = topTracks.slice(0, 20).map(track => (track.id));
-    const audioFeatResponse = await spotifyApi.getAudioFeaturesForTracks(top20TracksID);
-    const allAudioFeats = audioFeatResponse.body.audio_features;
-    const sortedFeats = allAudioFeats.sort((a,b)=> b.danceability -a.danceability);
-    const mostDanceableSong= sortedFeats[0];
-    const foundSong = topTracks.find(song => song.id === mostDanceableSong.id);
-
-    return res.json({
-      message: "Success",
-      name: foundSong.name,
-      album: foundSong.album.name,
-      artist: foundSong.artists.map(artist => artist.name).join(', '),
-      embedUri: `https://open.spotify.com/embed/track/${foundSong.id}`
-    });
-  } catch (error) {
-    console.error("Error getting top tracks:", JSON.stringify(error, null, 4));
-    return res.status(500).json({
-      message: "Error getting danceable song",
-      error: error.response ? error.response.data : error.message,
-    });
-  }
-})
-
-    
 
 
 // Endpoint to create a playlist named 'VibeFusion'
