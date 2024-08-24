@@ -23,12 +23,15 @@ app.use(express.json());
 import detailedStatsRoute from './routes/detailedStats.js';
 import topTracksRoute from './routes/topTracks.js';
 import topArtistsRoute from './routes/topArtists.js';
-
+import djRoute from './routes/dj.js';
+import recommendationsRoute from './routes/recommendations.js';
 
 // Use the routes
 app.use(detailedStatsRoute(spotifyApi));
 app.use(topTracksRoute(spotifyApi));
 app.use(topArtistsRoute(spotifyApi));
+app.use(djRoute(spotifyApi));
+app.use(recommendationsRoute(spotifyApi));
 
 
 // route for login authentication
@@ -105,142 +108,6 @@ app.get("/search", async (req, res) => {
     });
 });
 
-// DJ HB 
-
-
-app.post ("/dj" , async (req, res) => {
-  const { genre, mood, tempo, popularity, danceability,} = req.body; 
-
-  const minValence = mood ? parseFloat(mood) * 0.9  : undefined;
-  const maxValence = mood ? parseFloat(mood) * 1.1  : undefined;
-  const minTempo = tempo ? parseFloat(tempo) * 0.9 : undefined;
-  const maxTempo = tempo ? parseFloat(tempo) * 1.1 : undefined;
-  const minPopularity = popularity ? parseFloat(popularity)-10 : undefined;
-  const maxPopularity = popularity ? parseFloat(popularity)+10 : undefined;
-  const minDanceability  = danceability ? parseFloat(danceability) * 0.9  : undefined;
-  const maxDanceability = danceability ? parseFloat(danceability) * 1.1 : undefined;
-
-  const options = {
-    seed_genres: genre || "pop",
-    min_valence: minValence,
-    max_valence: maxValence,
-    min_tempo: minTempo,
-    max_tempo: maxTempo,
-    min_popularity: minPopularity,
-    max_popularity: maxPopularity,
-    min_danceability:minDanceability,
-    max_danceability:maxDanceability,
-  }
-  try {
-    const DJHubResponse = await spotifyApi.getRecommendations(options);
-    console.log(options);
-    const DJHubSuggestedSongs = DJHubResponse.body.tracks;
-    const DJHubSuggested20Songs = DJHubSuggestedSongs.slice(0, 20).map(track => ({
-      id: track.id,
-      name:track.name,
-      album: track.album.name,
-      popularity: track.popularity,
-      artist:  track.artists.map(artist => artist.name),
-      embedUri: `https://open.spotify.com/embed/track/${track.id}`
-    }));
-    const DJHubSuggestedSongsIDs = DJHubSuggested20Songs.map(song=>song.id);
-    const DJHubSuggestedSongsFeatsResponse = await spotifyApi.getAudioFeaturesForTracks(DJHubSuggestedSongsIDs);
-    const DJHubSuggestedSongsFeats = DJHubSuggestedSongsFeatsResponse.body.audio_features;
-    DJHubSuggestedSongsFeats.map(song=>({
-      id: song.id,
-      valence: song.valence,
-      tempo: song.tempo,
-      danceability: song.danceability
-    }))
-
-    const combinedData = DJHubSuggested20Songs.map(song => {
-      const features = DJHubSuggestedSongsFeats.find(feat => feat.id === song.id);
-      return {
-        ...song,
-        valence: features.valence,
-        tempo: features.tempo,
-        danceability: features.danceability,
-        energy: features.energy,
-      };
-    });
-
-    return res.json({
-      message: "Success",
-      data: combinedData,
-    });
-
-  } catch (error) {
-    if (error.statusCode === 429) {
-      const retryAfter = error.headers['retry-after'] || 60;
-      console.error(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
-      return res.status(429).json({ retryAfter: Math.ceil(retryAfter / 60) });  // Send retryAfter in minutes
-    }
-    console.error("Error fetching recommendations:", error);
-    res.status(error.statusCode).send('An error occurred while fetching recommendations.');
-  }
-});
-
-
-
-// // randomising function that can be re-used if needed
-function getRandomElements(arr, num) {
-  const shuffled = arr.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, num);
-}
-
-app.get("/recommendations", async (req, res) => {
-  try {
-    if (!spotifyApi.getAccessToken()) {
-      return res.status(401).send("No access token available");
-    }
-
-    const topTracksResponse = await spotifyApi.getMyTopTracks({ limit: 10 });
-    const topArtistsResponse = await spotifyApi.getMyTopArtists({ limit: 10 });
-
-    const seedTracks = topTracksResponse.body.items.map(track => track.id);
-    const seedArtists = topArtistsResponse.body.items.map(artist => artist.id);
-
-    console.log("Seed Tracks IDs:", seedTracks);
-    console.log("Seed Artists IDs:", seedArtists);
-
-    const randomSeedTracks = getRandomElements(seedTracks, 3);
-    const randomSeedArtists = getRandomElements(seedArtists, 2);
-
-    const recommendationsResponse = await spotifyApi.getRecommendations({
-      seed_tracks: randomSeedTracks, 
-      seed_artists: randomSeedArtists, 
-      limit: 20, 
-    });
-
-    console.log("Recommendations Response:", JSON.stringify(recommendationsResponse, null, 2));
-
-    
-    const recommendations = recommendationsResponse.body.tracks;
-
-    // logging info for each track
-    console.log("Recommended Tracks:");
-    recommendations.forEach((track, index) => {
-      console.log(`${index + 1}: ${track.name} by ${track.artists.map(artist => artist.name).join(", ")}`);
-    });
-
-    res.json(recommendations.map(track => ({
-      id: track.id,
-      name: track.name,
-      artists: track.artists.map(artist => artist.name),
-      album: track.album.name,
-      albumCover: track.album.images[0].url
-    })));
-
-  } catch (error) {
-    if (error.statusCode === 429) {
-      const retryAfter = error.headers['retry-after'] || 60;
-      console.error(`Rate limit exceeded. Retry after ${retryAfter} seconds.`);
-      return res.status(429).json({ retryAfter: Math.ceil(retryAfter / 60) });  // Send retryAfter in minutes
-    }
-    console.error("Error fetching recommendations:",JSON.stringify(error, null, 2));
-    res.status(error.statusCode).send('An error occurred while fetching recommendations.');
-  }
-});
 
 
 //top-genres
