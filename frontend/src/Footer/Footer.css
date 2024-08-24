@@ -41,3 +41,7 @@
   height: 24px;
   margin-left: 10px;
 }
+
+.footer p {
+  margin: 0.5rem 0;  /* Adjust margin as needed */
+}
