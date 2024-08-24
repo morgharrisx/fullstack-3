@@ -28,7 +28,6 @@ export default (spotifyApi) => {
     }
     try {
       const DJHubResponse = await spotifyApi.getRecommendations(options);
-      console.log(options);
       const DJHubSuggestedSongs = DJHubResponse.body.tracks;
       if (!DJHubSuggestedSongs || DJHubSuggestedSongs.length === 0) {
         return res.status(404).json({ message: "No songs found based on the provided criteria." });
