@@ -17,14 +17,19 @@ const spotifyApi = new SpotifyWebApi({
   redirectUri: process.env.REDIRECT_URI,
 });
 
+app.use(express.json());
+
 // Import routes
 import detailedStatsRoute from './routes/detailedStats.js';
 import topTracksRoute from './routes/topTracks.js';
-import topTracksRoute from './routes/topTracks.js';
+import topArtistsRoute from './routes/topArtists.js';
+
 
 // Use the routes
 app.use(detailedStatsRoute(spotifyApi));
 app.use(topTracksRoute(spotifyApi));
+app.use(topArtistsRoute(spotifyApi));
+
 
 // route for login authentication
 app.get("/login", (req, res) => {
@@ -100,39 +105,6 @@ app.get("/search", async (req, res) => {
     });
 });
 
-//top artists
-app.get("/top-artists", async (req, res) => {
-  const { term } = req.query;
-  const validTerms = ["short_term", "medium_term", "long_term"];
-  const timeRange = validTerms.includes(term) ? term : "medium_term";
-
-  try {
-    const topArtistsResponse = await spotifyApi.getMyTopArtists({ time_range: timeRange });
-    const topArtists = topArtistsResponse.body.items;
-    const top10Artists = topArtists.slice(0, 10).map(artist => ({
-      name: artist.name,
-      popularity: artist.popularity,
-      genres: artist.genres,
-      images: artist.images,
-      externalUrl: artist.external_urls.spotify
-    }));
-
-    // Send the response
-    return res.json({
-      message: "Success",
-      total_artists: top10Artists.length,
-      data: top10Artists,
-    });
-  } catch (error) {
-    console.error("Error getting top artists:", JSON.stringify(error, null, 4));
-    return res.status(500).json({
-      message: "Error getting top artists",
-      error: error.response ? error.response.data : error.message,
-    });
-  }
-});  
-  
-app.use(express.json());
 // DJ HB 
 
 
