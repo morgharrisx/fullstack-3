@@ -57,6 +57,7 @@ const SuggestedSongs = ({ songs }) => {
                   src={`https://open.spotify.com/embed/track/${song.id}`}
                   width="700"
                   height="80"
+                  title={song.id}
                   frameBorder="0"
                   allowTransparency="true"
                   allow="encrypted-media"

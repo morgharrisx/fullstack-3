@@ -108,6 +108,7 @@ import VerticalModal from '../DjHubPlaylistGenerator/Modal/Modal';
             <iframe
                   src={`https://open.spotify.com/embed/track/${song.id}`}
                   width="700"
+                  title={song.id}
                   height="80"
                   frameBorder="0"
                   allowTransparency="true"
