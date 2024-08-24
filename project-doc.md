@@ -120,6 +120,8 @@ Overall, our goal is to create a fun and engaging platform where users can delve
 
 ### Team Structure and roles
 
+As a team, we all worked collaboratively on both the frontend and backend, ensuring that everyone gained exposure to all aspects of the project. Each team member contributed to the development of a specific endpoint and component, and we often utilized pair programming to enhance our coding practices and problem-solving skills.
+
 #### Frontend Developers
 
 - Build the user interface using HTML, CSS, and JavaScript and React Bootstrap
