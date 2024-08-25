@@ -1,0 +1,47 @@
+.button {
+  font-size: 1.1rem !important;
+  padding: 0.5rem 1.5rem !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  font-weight: 700 !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin: 0.5rem;
+}
+  
+.green {
+  background: linear-gradient(45deg, #0C6600, #228B22) !important; 
+  color: white !important;
+}
+
+.green:hover {
+  background: linear-gradient(45deg, #013301, #046306) !important; 
+  color: rgb(255, 255, 255) !important;
+  border: none !important;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.green:active {
+  background: linear-gradient(45deg, #013301, #0C6600) !important; 
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1), 0 15px 40px rgba(0, 0, 0, 0.05);
+  transform: translateY(2px); 
+}
+
+.pink {
+  background: linear-gradient(45deg, #d91491, #ff69b4) !important; 
+  color: #ffffff !important;
+}
+
+.pink:hover {
+  background: linear-gradient(45deg, #bc137e, #e75480) !important; 
+  color: rgb(255, 255, 255) !important;
+  border: none !important;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pink:active {
+  background: linear-gradient(45deg, #650040, #8b004a) !important; 
+  color: rgb(255, 255, 255) !important;
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1), 0 15px 40px rgba(0, 0, 0, 0.05);
+  transform: translateY(2px); 
+}

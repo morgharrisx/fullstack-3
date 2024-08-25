@@ -1,0 +1,20 @@
+.carousel-container{
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,.2);
+  margin-bottom: 50px;
+  background-color: #2b2538;
+}
+
+.carousel-image {
+    width: 100%; 
+    /* max-height: 50vh;  */
+    object-fit: cover;
+    margin: 0 auto;
+  }
+
+
+@media (max-width: 768px) {
+  .carousel-container .carousel-indicators {
+    display: none;
+  }
+}
+

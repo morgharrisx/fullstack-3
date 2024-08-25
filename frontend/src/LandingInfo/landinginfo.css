@@ -1,0 +1,48 @@
+.landing-info-container {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #fff; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+  }
+  
+.landing-info-container h2 {
+    font-weight: 700;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .landing-info-container p {
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #555;
+    text-align: justify;
+  }
+  
+  .text-center img {
+    border-radius: 10px;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.15));
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .text-center img:hover {
+    transform: scale(1.2);
+  }
+  
+ 
+  @media (max-width: 767px) {
+    .landing-info-container h2 {
+      font-size: 1.2rem;
+      width: 100%;
+    }
+  
+    .landing-info-container p {
+      font-size: 0.9rem;
+    }
+    .reverse-mobile {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+        
+  }
+  
