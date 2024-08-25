@@ -49,3 +49,5 @@ app.use(danceabilityRoute(spotifyApi));
 app.use(createPlaylistRoute(spotifyApi));
 app.use(moodRoute(spotifyApi));
 
+export default app;
+
