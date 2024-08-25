@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Container, Card, Image, Spinner } from 'react-bootstrap';
 import defaultAvatar from './1.png';
