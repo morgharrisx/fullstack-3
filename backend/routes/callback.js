@@ -7,10 +7,7 @@ export default (spotifyApi) => {
         const code = req.query.code;
         const error = req.query.error;
         const state = req.query.state;
-    
-        console.log("Authorization Code:", code);
-        console.log("Error Query Parameter:", error); //showing undefined
-    
+
         if (error) {
         console.error("Error during authentication", error);
         res.send(`Error during authentication:, ${error}`);
@@ -27,11 +24,6 @@ export default (spotifyApi) => {
             spotifyApi.setAccessToken(accessToken);
             spotifyApi.setRefreshToken(refreshToken);
     
-            //access token and refresh token showing in the terminal
-            console.log(
-            `Access Token:${accessToken}`,
-            `Refresh Token:${refreshToken}`
-            );
             res.redirect(
             `http://localhost:3000/dashboard?access_token=${accessToken}`
             );

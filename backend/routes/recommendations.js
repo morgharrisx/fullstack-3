@@ -21,10 +21,7 @@ export default (spotifyApi) => {
     
         const seedTracks = topTracksResponse.body.items.map(track => track.id);
         const seedArtists = topArtistsResponse.body.items.map(artist => artist.id);
-    
-        // console.log("Seed Tracks IDs:", seedTracks);
-        // console.log("Seed Artists IDs:", seedArtists);
-    
+
         const randomSeedTracks = getRandomElements(seedTracks, 3);
         const randomSeedArtists = getRandomElements(seedArtists, 2);
     
@@ -34,16 +31,7 @@ export default (spotifyApi) => {
             limit: 20, 
         });
     
-        console.log("Recommendations Response:", JSON.stringify(recommendationsResponse, null, 2));
-    
-        
         const recommendations = recommendationsResponse.body.tracks;
-    
-        // logging info for each track
-        console.log("Recommended Tracks:");
-        recommendations.forEach((track, index) => {
-            console.log(`${index + 1}: ${track.name} by ${track.artists.map(artist => artist.name).join(", ")}`);
-        });
     
         res.json(recommendations.map(track => ({
             id: track.id,

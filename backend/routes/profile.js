@@ -5,7 +5,6 @@ const router = express.Router();
 export default (spotifyApi) => {
   router.get("/me", async (req, res) => {
         spotifyApi.getMe().then((data)=> {
-        console.log('Some information about the authenticated user', data.body);
     
         return res.json(data.body)
         }) .catch((err) => {
