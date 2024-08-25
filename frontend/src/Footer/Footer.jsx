@@ -8,20 +8,27 @@ const Footer = () => (
   <footer className='footer'>
     <Container>
       <Row>
-        <p>
-          &copy; {new Date().getFullYear()} Vibe Fusion. All rights reserved.
-        </p>
+        <Col>
+          <p>
+            <strong>&copy; {new Date().getFullYear()} VibeFusion. All rights reserved.</strong>
+          </p>
+        </Col>
       </Row>
       <Row>
-
+        <Col>
+          <p className='tagline'>Your home for fusing the perfect musical vibes!</p>
+        </Col>
+      </Row>
+      <Row>
         <Col>
           <span>Powered by</span>
           <img src={spotifyLogo} alt="Spotify Logo" className="spotify-logo" />
         </Col>
-
       </Row>
       <Row>
-        <a href="/contact">Contact Us</a>
+        <Col>
+          <a href="/contact">Contact Us</a>
+        </Col>
       </Row>
     </Container>
   </footer>

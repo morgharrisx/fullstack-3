@@ -1,10 +1,10 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import NavScrollExample from './Navbar/navbar';
 import ControlledCarousel from './Carousel/ControlledCarousel';
 import DetailedStats from './DetailedStats/DetailedStats';
-import PlaylistGenerator from './PlaylistGenerator/PlaylistGenerator';
+import PlaylistGenerator from './DjHubPlaylistGenerator/DjHubPlaylistGenerator';
 import Footer from './Footer/Footer';
 import Dashboard from './Dashboard/Dashboard';
 import RecommendedPlaylist from './RecommendedPlaylist'; 

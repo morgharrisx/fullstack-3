@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ReusableButton from '../ReusableButton/ReusableButton';
 import { Container, Row, Col, Image, Placeholder } from 'react-bootstrap';
-import './RecommendedSongs.css'
+import './SmartRecommendations.css'
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
 import axios from 'axios'
-import VerticalModal from '../PlaylistGenerator/Modal/Modal';
+import VerticalModal from '../DjHubPlaylistGenerator/Modal/Modal';
 
 
   const RecommendedSongs = () => { 
@@ -108,6 +108,7 @@ import VerticalModal from '../PlaylistGenerator/Modal/Modal';
             <iframe
                   src={`https://open.spotify.com/embed/track/${song.id}`}
                   width="700"
+                  title={song.id}
                   height="80"
                   frameBorder="0"
                   allowTransparency="true"

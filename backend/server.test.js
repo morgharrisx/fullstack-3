@@ -24,7 +24,6 @@ describe('Spotify API Routes', () => {
     const response = await request(app).get(`/callback?code=${mockCode}`);
     expect(response.status).toBe(200);
   });
-
 });
 
 import SpotifyWebApi from 'spotify-web-api-node';

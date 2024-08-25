@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Container } from 'react-bootstrap';
-import './smartRecommendation.css'
+import './3RecommendedSongs.css'
 import ReusableButton from '../../ReusableButton/ReusableButton'
 import { Link } from 'react-router-dom';
 
@@ -41,6 +41,7 @@ const SmartRecommendation = ({SmartRecommendationArray}) => {
                   src={`https://open.spotify.com/embed/track/${song.id}`}
                   width="700"
                   height="80"
+                  title={song.id}
                   frameBorder="0"
                   allowTransparency="true"
                   allow="encrypted-media"

@@ -1,6 +1,8 @@
-# 🎵 VibeFusion: Music Analytics & Recommendations Platform 🎧
+#  VibeFusion: Music Analytics & Recommendations Platform 🎧🎵
+👉[Click here to go to VibeFusion Website](https://vibefusion-fe.onrender.com/) ✨ 
+(To access the app while it's in development mode, please provide us with your Spotify account email. We'll manually add you to the system, as the app is currently not publicly accessible.)
 
-🎶 VibeFusion is a React-based music analytics and recommendation platform that connects to the Spotify API to provide users with detailed insights into their listening habits, smart music recommendations, and personalized DJ tools. 
+🎶 VibeFusion is a React-based music analytics and recommendation platform that connects to the Spotify API to provide users with detailed insights into their listening habits, smart music recommendations, and personalized DJ tools. The aim of VibeFusion is to provide a continuous insight into the users’ musical preferences, extending beyond the summary offered by Spotify Wrapped, data that is available to the user year round.
 
 ![Untitled design (3)](https://github.com/user-attachments/assets/d5d2edc0-1587-462f-a0b9-12ae0a909019)
 
@@ -59,7 +61,7 @@ Once both the frontend and backend are set up, you can run the application with 
      ```
    - The frontend should be accessible in your browser at `http://localhost:3000`.
 
-2. ### Starting the Backend
+2. **Starting the Backend**
 
    - Navigate to the `/backend` directory where the backend code resides.
    - The backend uses `nodemon` for automatic server restarts whenever file changes are detected. The `start` script in the `package.json` is configured to use `nodemon`. To start the server, simply run:
@@ -145,7 +147,6 @@ The backend server provides several API endpoints for interacting with Spotify's
   
 4. **CORS** (`cors`)
 
-5. **Axios** (`axios`)
    
 ### Development and Build Tools
 
@@ -156,7 +157,8 @@ The backend server provides several API endpoints for interacting with Spotify's
 ![screencapture-localhost-3000-dj-hub-2024-08-22-15_38_22](https://github.com/user-attachments/assets/04c92c70-ef54-4b98-9e62-9988f1e47725)
 ![screencapture-localhost-3000-smart-recommendations-2024-08-22-15_38_44](https://github.com/user-attachments/assets/b85f47a1-4750-4cfd-8fc0-33e1ec3c3342)
 
-
+## Running tests
+You can run the unit tests executing ```npm test```
 
 ## Contributing
 
