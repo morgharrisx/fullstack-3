@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
-import axios from "axios"; // not using currently
 dotenv.config({ path: "./api/.env" });
 
 import SpotifyWebApi from "spotify-web-api-node";
@@ -514,5 +513,6 @@ app.get("/detailed-stats", async (req, res) => {
     return res.status(500).json({ error: "Failed to fetch audio features" });
   }
 });
+export default app;
 
 
